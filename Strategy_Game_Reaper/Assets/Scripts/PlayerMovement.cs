@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Rigidbody _rb;
     [SerializeField] float _speed, _originalSpeed;
     float _y_Input, _x_Input;
+    public bool PickItem;
     private void Awake()
     {
         _originalSpeed=_speed;
@@ -66,11 +67,13 @@ public class PlayerMovement : MonoBehaviour
         if (callback.performed)
         {
             Gamepad.current.SetMotorSpeeds(0.25f, 0.75f);
+            PickItem = true;
             _speed /= 2;
         }
         else if (callback.canceled)
         {
             Gamepad.current.SetMotorSpeeds(0, 0);
+            PickItem = false;
             _speed = _originalSpeed;
         }
     }
