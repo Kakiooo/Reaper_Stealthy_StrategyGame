@@ -9,11 +9,15 @@ public class Item_TriggerArea : MonoBehaviour
 
     private void Update()
     {
-        GetPickedUp();
+        DropItem();
     }
     private void OnTriggerEnter(Collider other)
     {
        if(other.tag=="Player") GetPickedUp();
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player") GetPickedUp();
     }
     void GetPickedUp()
     {
@@ -23,11 +27,14 @@ public class Item_TriggerArea : MonoBehaviour
             {
                 transform.SetParent(_ref_P.transform);
             }
-            else
-            {
-                transform.SetParent(_itemList.transform);
-            }
         }
 
+    }
+    void DropItem()
+    {
+        if (!_ref_P.PickItem&&transform.parent!=null)
+        {
+            transform.SetParent(_itemList.transform);
+        }
     }
 }

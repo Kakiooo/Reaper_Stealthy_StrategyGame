@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField]NavMeshAgent _enemyAgent;
-    [SerializeField] List<Transform> _step=new List<Transform>();
+    public List<Transform> Step=new List<Transform>();
     [SerializeField] int _stepIndex = 0;
     [SerializeField] float _timer,_maxWait_time;
     void Start()
@@ -21,14 +21,14 @@ public class EnemyMovement : MonoBehaviour
 
     void FollowSteps()
     {
-        _enemyAgent.destination = _step[_stepIndex].transform.position;
+        _enemyAgent.destination = Step[_stepIndex].transform.position;
         if (_enemyAgent.remainingDistance <=0)
         {
             _timer-=Time.deltaTime;
             if (_timer < 0)
             {
                 _stepIndex++;
-                if (_stepIndex > _step.Count - 1)
+                if (_stepIndex > Step.Count - 1)
                 {
                     _stepIndex = 0;
                 }
