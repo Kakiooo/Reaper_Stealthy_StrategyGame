@@ -10,7 +10,7 @@ public class State_Walk : Basic_State_Enemy
     public override void Start_setup(Enemy_State_Manager E_State)
     {
         _enemyAgent=E_State.transform.GetComponent<NavMeshAgent>();
-        _stepIndex = 0;
+        _stepIndex = _stepIndex+1;
     }
     public override void Update_State(Enemy_State_Manager E_State)
     {
