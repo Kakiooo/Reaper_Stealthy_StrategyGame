@@ -38,15 +38,12 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    void GetAttacked()
-    {
-
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Tools")
         {
-            print("Died");
+            print("Die");
+            _enemyAgent.isStopped = true;
         }
     }
 }

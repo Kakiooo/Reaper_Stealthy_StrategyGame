@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     void HorizontalMovement()
     {
         _rb.velocity = new Vector3(_speed * _x_Input, 0, _y_Input * _speed);
-        print(_rb.velocity);
     }
 
     public void HorizontalMovementInput(InputAction.CallbackContext callback)

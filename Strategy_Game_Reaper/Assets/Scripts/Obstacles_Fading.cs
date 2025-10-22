@@ -40,6 +40,5 @@ public class Obstacles_Fading : MonoBehaviour
             StartFade = false;
         }
          _material.color = new Color(_material.color.r, _material.color.g, _material.color.b, _trasparency);
-        print("testing");
     }///testingssssdasd
 }
