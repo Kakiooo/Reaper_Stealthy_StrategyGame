@@ -8,8 +8,6 @@ public class CM_ObjectFadeLogic : MonoBehaviour
     [SerializeField] GameObject _p_Object;
     float _rayLength;
     RaycastHit _hit;
-    [SerializeField]
-    LayerMask _wallLayer;
     public bool CMStartFade;
     public string HitObject;
     Obstacles_Fading _wallBlocking;

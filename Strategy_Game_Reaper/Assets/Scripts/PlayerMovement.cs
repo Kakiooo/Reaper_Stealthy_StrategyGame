@@ -35,13 +35,11 @@ public class PlayerMovement : MonoBehaviour
         {
             _x_Input = callback.ReadValue<Vector2>().x;
             _y_Input = callback.ReadValue<Vector2>().y;
-            print("is On");
         }
         if (callback.canceled)
         {
             _x_Input = 0;
             _y_Input = 0;
-            print("is On");
         }
     }
 
@@ -51,13 +49,11 @@ public class PlayerMovement : MonoBehaviour
         {
             _x_Input = callback.ReadValue<Vector2>().x;
             _y_Input = callback.ReadValue<Vector2>().y;
-            print("is On");
         }
         if (callback.canceled)
         {
             _x_Input = 0;
             _y_Input = 0;
-            print("is On");
         }
     }
 

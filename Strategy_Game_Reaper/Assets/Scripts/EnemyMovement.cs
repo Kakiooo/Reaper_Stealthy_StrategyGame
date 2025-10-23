@@ -58,9 +58,6 @@ public class EnemyMovement : MonoBehaviour
                 _getPushed = false;
                 _delayTime = 1;
             }
-
         }
-
-
     }
 }
