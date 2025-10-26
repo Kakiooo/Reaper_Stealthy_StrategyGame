@@ -1383,9 +1383,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _p_Object: {fileID: 2052090718}
-  _wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
   CMStartFade: 0
   HitObject: 
   CurrentHitObject_Name: 
