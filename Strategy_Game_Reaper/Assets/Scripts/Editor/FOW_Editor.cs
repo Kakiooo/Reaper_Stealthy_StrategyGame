@@ -14,19 +14,15 @@ public class FOW_Editor : Editor
     {
         FOW_Enemy fow = (FOW_Enemy)target;
         Handles.color = Color.white;
-        Handles.DrawWireArc(fow.transform.position, Vector3.up, Vector3.forward, 360, fow.ViewRadius);
+        Handles.DrawWireArc(fow.transform.position, Vector3.up, Vector3.forward, 360, fow.ViewRadius);//show the how far the target can observe
 
         Vector3 firstDir=fow.AngleDir(fow.ViewAngle/2,false);
         Vector3 secondDir = fow.AngleDir(-fow.ViewAngle / 2, false);
 
         Handles.DrawLine(fow.transform.position, fow.transform.position + firstDir * fow.ViewRadius);
-        Handles.DrawLine(fow.transform.position, fow.transform.position+secondDir*fow.ViewRadius);
+        Handles.DrawLine(fow.transform.position, fow.transform.position+secondDir*fow.ViewRadius);//show the range of sight
 
-        Handles.color=Color.red;
-        //for (int i = 0; i < fow.VisibleObjects.Count-1; i++)
-        //{
-        //    Handles.DrawLine(fow.transform.position, fow.transform.position + fow.VisibleObjects[i].transform.position);
-        //} 
+        Handles.color=Color.red;//show all detected targets
         foreach(Transform transform in fow.VisibleObjects)
         {
             Handles.DrawLine(fow.transform.position, transform.position);

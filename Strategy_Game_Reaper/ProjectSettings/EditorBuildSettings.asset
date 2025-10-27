@@ -4,5 +4,15 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Testing_Stealthy.unity
+    guid: 677b1f9a58b2c604692ff1561be203fb
+  - enabled: 1
+    path: Assets/Scenes/Testing_CameraAngle.unity
+    guid: 94519183679094844b1b03e9fe893bdb
+  - enabled: 1
+    path: Assets/Scenes/Testing_Drag.unity
+    guid: 9f2b7c87f4ddcff4aa0d0b2752e2c2a8
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
