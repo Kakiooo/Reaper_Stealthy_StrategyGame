@@ -564,6 +564,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera_Capture: {fileID: 1625639946}
+  _isCaptured: 0
+  _maxLastTime: 2
+  _timer: 0
 --- !u!1 &537793064
 GameObject:
   m_ObjectHideFlags: 0

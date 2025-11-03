@@ -3,34 +3,85 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using System.Threading;
 
 public class CameraScreenShot : MonoBehaviour
 {
     [SerializeField] Image _camera_Capture;
+    [SerializeField] bool _isCaptured;
+
+    [SerializeField] float _maxLastTime,   _timer;
+    private void Awake()
+    {
+        _timer = _maxLastTime;
+    }
 
     private void Update()
     {
        if(Input.GetKeyDown(KeyCode.T))
         {
             StartCoroutine("CaptureThePhoto");
+            _isCaptured = true;
         }
+        ImageLasting();
+    }
+    void ImageLasting()
+    {
+        Timer counting = CountDown(_isCaptured, _timer,_maxLastTime);
+        _isCaptured = counting.IsActive;
+        _timer=counting.Time;
+
+        if (!_isCaptured&& _camera_Capture.sprite!=null&&_camera_Capture.isActiveAndEnabled)
+        {
+            _camera_Capture.enabled = false;
+            _camera_Capture.sprite = null;  
+        }
+
     }
     IEnumerator CaptureThePhoto()
     {
         yield return new WaitForEndOfFrame();
         Texture2D screenShot = ScreenCapture.CaptureScreenshotAsTexture();
-        Texture2D newScreenShot=new Texture2D(screenShot.width,screenShot.height,TextureFormat.RGBA32,false);
+        Texture2D newScreenShot = new Texture2D(screenShot.width, screenShot.height, TextureFormat.RGBA32, false);//make the new tecture has proper color by USING TextureFormat
 
         newScreenShot.SetPixels(screenShot.GetPixels());//Make the new texture has the same pixel as captured image
         newScreenShot.Apply();
 
         Destroy(screenShot);
 
-        Sprite newImage = Sprite.Create(newScreenShot, new Rect(0, 0, newScreenShot.width, newScreenShot.height), new Vector2(0.5f, 0.5f));
-        _camera_Capture.enabled = true; 
-        _camera_Capture.sprite = newImage;
-        float buffer_X = newScreenShot.width / 10;
+        Sprite newImage = Sprite.Create(newScreenShot, new Rect(0, 0, newScreenShot.width, newScreenShot.height), new Vector2(0.5f, 0.5f)); //creating new sprite by using texture 2d
+        _camera_Capture.enabled = true;
+        _camera_Capture.sprite = newImage;//assign the image
+
+        float buffer_X = newScreenShot.width / 10;//make the screenshot smaller so that it can be identified.
         float buffer_Y = newScreenShot.height / 10;
-        _camera_Capture.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(newScreenShot.width- buffer_X, newScreenShot.height- buffer_Y);
+        _camera_Capture.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(newScreenShot.width - buffer_X, newScreenShot.height - buffer_Y);//make the picuture be shown with the smaller size but same ratio as the resolution of screen
     }
+
+    public struct Timer //used to store multiple types of variables for return
+    {
+        public float Time;
+        public bool IsActive;
+        public Timer(float time,bool isActive)
+        {
+            Time=time;  
+            IsActive=isActive;  
+        }
+    }
+
+    Timer CountDown(bool control,float Timer,float MaxTime)
+    {
+        if (control)
+        {
+            Timer -= Time.deltaTime;
+            if (Timer < 0)
+            {
+                control = false;
+                Timer = MaxTime;
+            }
+        }
+        return new Timer(Timer,control);//can only return the value that Struc contains
+    }
+
+  
 }
