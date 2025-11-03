@@ -15,10 +15,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _originalSpeed=_speed;
     }
-    void Start()
-    {
-        
-    }
     private void Update()
     {
         CameraControl();
