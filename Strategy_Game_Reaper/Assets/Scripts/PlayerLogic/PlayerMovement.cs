@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Rigidbody _rb;
     [SerializeField] float _speed, _originalSpeed;
     float _y_Input, _x_Input;
-    public bool PickItem, IsTop,IsCameraShot;
+    public bool PickItem, IsTop, IsCameraShot;
 
     [SerializeField] PlayerManager _p_M;
 
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
                 transform.forward = new Vector3(_x_Input, 0, _y_Input);
                 break;
             case PlayerManager.PlayerState.CameraShot:
-
+                _rb.velocity = Vector3.zero;
                 break;
 
         }
@@ -80,5 +80,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void Mouse_PosInput(InputAction.CallbackContext callback)
+    {
+        Vector2 mousePos = callback.ReadValue<Vector2>();
 
+    }
+
+    void TakePicMode_CameraMovement()
+    {
+        
+    }
 }
