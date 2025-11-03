@@ -11,6 +11,7 @@ public class CameraScreenShot : MonoBehaviour
     [SerializeField] bool _isCaptured;
 
     [SerializeField] float _maxLastTime,   _timer;
+    [SerializeField] PlayerManager _p_State;
     private void Awake()
     {
         _timer = _maxLastTime;
@@ -18,25 +19,12 @@ public class CameraScreenShot : MonoBehaviour
 
     private void Update()
     {
-       if(Input.GetKeyDown(KeyCode.T))
+       if(Input.GetKeyDown(KeyCode.Mouse0)&& _p_State.CurrentState==PlayerManager.PlayerState.CameraShot)
         {
             StartCoroutine("CaptureThePhoto");
             _isCaptured = true;
         }
         ImageLasting();
-    }
-    void ImageLasting()
-    {
-        Timer counting = CountDown(_isCaptured, _timer,_maxLastTime);
-        _isCaptured = counting.IsActive;
-        _timer=counting.Time;
-
-        if (!_isCaptured&& _camera_Capture.sprite!=null&&_camera_Capture.isActiveAndEnabled)
-        {
-            _camera_Capture.enabled = false;
-            _camera_Capture.sprite = null;  
-        }
-
     }
     IEnumerator CaptureThePhoto()
     {
@@ -57,7 +45,19 @@ public class CameraScreenShot : MonoBehaviour
         float buffer_Y = newScreenShot.height / 10;
         _camera_Capture.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(newScreenShot.width - buffer_X, newScreenShot.height - buffer_Y);//make the picuture be shown with the smaller size but same ratio as the resolution of screen
     }
+    void ImageLasting()
+    {
+        Timer counting = CountDown(_isCaptured, _timer,_maxLastTime);
+        _isCaptured = counting.IsActive;
+        _timer=counting.Time;
 
+        if (!_isCaptured&& _camera_Capture.sprite!=null&&_camera_Capture.isActiveAndEnabled)
+        {
+            _camera_Capture.enabled = false;
+            _camera_Capture.sprite = null;  
+        }
+
+    }//how long the screen shot will disappear
     public struct Timer //used to store multiple types of variables for return
     {
         public float Time;

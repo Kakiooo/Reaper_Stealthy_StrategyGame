@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,15 +10,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Rigidbody _rb;
     [SerializeField] float _speed, _originalSpeed;
     float _y_Input, _x_Input;
-    public bool PickItem,IsTop;
-    [SerializeField] CinemachineVirtualCamera _camera_AnotherAngle;  
+    public bool PickItem, IsTop,IsCameraShot;
+
+    [SerializeField] PlayerManager _p_M;
+
+
     private void Awake()
     {
-        _originalSpeed=_speed;
+        _originalSpeed = _speed;
     }
     private void Update()
     {
-        CameraControl();
     }
 
     // Update is called once per frame
@@ -28,12 +31,21 @@ public class PlayerMovement : MonoBehaviour
 
     void HorizontalMovement()
     {
+        //_rb.velocity = transform.forward* _y_Input * _speed+transform.right*_x_Input* _speed;
+        switch (_p_M.CurrentState)
+        {
+            case PlayerManager.PlayerState.GeneralMoving:
+                _rb.velocity = new Vector3(_x_Input * _speed, 0, _y_Input * _speed);
+                transform.forward = new Vector3(_x_Input, 0, _y_Input);
+                break;
+            case PlayerManager.PlayerState.CameraShot:
 
-        //_rb.velocity = new Vector3(_speed * _x_Input, 0, _y_Input * _speed);
-        _rb.velocity = transform.forward* _y_Input * _speed+transform.right*_x_Input* _speed;
+                break;
+
+        }
     }
 
-    public void HorizontalMovementInput(InputAction.CallbackContext callback)
+    public void HorizontalMovement_Input(InputAction.CallbackContext callback)
     {
         if (callback.performed)
         {
@@ -46,7 +58,6 @@ public class PlayerMovement : MonoBehaviour
             _y_Input = 0;
         }
     }
-
     public void DraggingItem(InputAction.CallbackContext callback)
     {
         if (callback.performed)
@@ -69,20 +80,5 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void CameraControl()
-    {
-        if(Input.GetKeyDown(KeyCode.C))
-        {
-            IsTop=!IsTop;
-        }
-        if (IsTop)
-        {
-            _camera_AnotherAngle.transform.gameObject.SetActive(false);
-        }
-        else
-        {
-            _camera_AnotherAngle.transform.gameObject.SetActive(true);
-        }
 
-    }
 }
