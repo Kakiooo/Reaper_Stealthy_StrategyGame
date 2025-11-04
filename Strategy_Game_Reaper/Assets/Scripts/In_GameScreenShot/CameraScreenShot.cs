@@ -9,30 +9,36 @@ public class CameraScreenShot : MonoBehaviour
 {
     [SerializeField] Image _camera_Capture,_cameraFrame,_cameraFlash;
     [SerializeField] bool _isCaptured;
-
+    float _flash_A,_tFlash;
     [SerializeField] float _maxLastTime,   _timer;
     [SerializeField] PlayerManager _p_State;
     private void Awake()
     {
-
+        _flash_A = 1;
+        _cameraFlash.gameObject.SetActive(false);
         _timer = _maxLastTime;
     }
 
     private void Update()
     {
-       if(Input.GetKeyDown(KeyCode.Mouse0)&& _p_State.CurrentState==PlayerManager.PlayerState.CameraShot&& !_isCaptured)
+        Flash_CameraUI(2);
+        if (Input.GetKeyDown(KeyCode.Mouse0) && _p_State.CurrentState == PlayerManager.PlayerState.CameraShot && !_isCaptured)
         {
             StartCoroutine("CaptureThePhoto");
             _isCaptured = true;
         }
+
         ImageLasting();
-    }
+
+    
+        }
     IEnumerator CaptureThePhoto()
     {
+
         _cameraFrame.gameObject.SetActive(false);
-        
-        //_cameraFlash.color=new Color(_cameraFlash.color.r,_cameraFlash.color.g,_cameraFlash.color.b,)
+
         yield return new WaitForEndOfFrame();
+ 
         Texture2D screenShot = ScreenCapture.CaptureScreenshotAsTexture();
         Texture2D newScreenShot = new Texture2D(screenShot.width, screenShot.height, TextureFormat.RGBA32, false);//make the new tecture has proper color by USING TextureFormat
 
@@ -48,8 +54,37 @@ public class CameraScreenShot : MonoBehaviour
         float buffer_X = newScreenShot.width / 10;//make the screenshot smaller so that it can be identified.
         float buffer_Y = newScreenShot.height / 10;
         _camera_Capture.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(newScreenShot.width - buffer_X, newScreenShot.height - buffer_Y);//make the picuture be shown with the smaller size but same ratio as the resolution of screen
-        _cameraFrame.gameObject.SetActive(true);//hiding UI
+
+        _cameraFlash.gameObject.SetActive(true);
+        _cameraFrame.gameObject.SetActive(true);//show uI Again after hide it for screenshot
     }
+
+    void Flash_CameraUI(float FadeSpeed)
+    {
+        if (_p_State.CurrentState == PlayerManager.PlayerState.CameraShot)
+        {
+            _cameraFrame.gameObject.SetActive(true);
+        }
+        else _cameraFrame.gameObject.SetActive(false);
+
+        if (_cameraFlash.isActiveAndEnabled)
+        {
+            float targetTransparency = 0;
+            _tFlash += Time.deltaTime/ FadeSpeed;
+            _flash_A = Mathf.Lerp(_flash_A, targetTransparency, _tFlash);          
+            if (_flash_A == targetTransparency)
+            {
+                _cameraFlash.gameObject.SetActive(false);
+                _tFlash = 0;
+                _flash_A = 1;
+            }
+            _cameraFlash.color = new Color(_cameraFlash.color.r, _cameraFlash.color.g, _cameraFlash.color.b, _flash_A);
+            print("Is ON!!");
+        }
+    }
+
+
+
     void ImageLasting()
     {
         Timer counting = CountDown(_isCaptured, _timer,_maxLastTime);
