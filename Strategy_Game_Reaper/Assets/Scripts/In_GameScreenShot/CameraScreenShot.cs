@@ -55,8 +55,8 @@ public class CameraScreenShot : MonoBehaviour
         float buffer_Y = newScreenShot.height / 10;
         _camera_Capture.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(newScreenShot.width - buffer_X, newScreenShot.height - buffer_Y);//make the picuture be shown with the smaller size but same ratio as the resolution of screen
 
-        _cameraFlash.gameObject.SetActive(true);
-        _cameraFrame.gameObject.SetActive(true);//show uI Again after hide it for screenshot
+        _cameraFlash.gameObject.SetActive(true);//show UI after hide it for screenshot
+        _cameraFrame.gameObject.SetActive(true);
     }
 
     void Flash_CameraUI(float FadeSpeed)
@@ -83,7 +83,10 @@ public class CameraScreenShot : MonoBehaviour
         }
     }
 
+    void _takingPhotoTimeLimit() //the longer you stay, the easier you will get spotted
+    {
 
+    }
 
     void ImageLasting()
     {

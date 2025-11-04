@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-    public bool IsCameraShot;
+    public bool IsCameraShot, IsIdle;
     [SerializeField] CinemachineVirtualCamera _camera_General, _camera_TakePhoto;
     [SerializeField] Transform _anchor_AnotherAngle, _anchor_TakePhoto;
     public enum PlayerState

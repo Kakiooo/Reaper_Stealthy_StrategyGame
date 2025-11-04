@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96446aa6b9314f44a9dd06a89acd5524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentState: 1
+  CurrentState: 0
 --- !u!1 &190555004
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,11 +432,11 @@ Transform:
   m_GameObject: {fileID: 190555004}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.25, z: 0.95564556}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0.9556465}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 629008740}
+  m_Father: {fileID: 315627604}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &195330694
 GameObject:
@@ -720,6 +720,7 @@ Transform:
   - {fileID: 1957752137}
   - {fileID: 537793065}
   - {fileID: 690215852}
+  - {fileID: 190555005}
   m_Father: {fileID: 629008740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &315627605
@@ -892,7 +893,6 @@ MonoBehaviour:
   _originalSpeed: 0
   PickItem: 0
   IsTop: 0
-  IsCameraShot: 0
   _p_M: {fileID: 1248961008}
 --- !u!23 &315627608
 MeshRenderer:
@@ -960,6 +960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera_Capture: {fileID: 1625639946}
   _cameraFrame: {fileID: 1472652568}
+  _cameraFlash: {fileID: 1637016418}
   _isCaptured: 0
   _maxLastTime: 2
   _timer: 0
@@ -1451,7 +1452,7 @@ Transform:
   m_GameObject: {fileID: 602947845}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6414778, z: 0.95564556}
+  m_LocalPosition: {x: 0, y: 0.6414778, z: 0.49999905}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1530,7 +1531,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _orig_Detect: {fileID: 690215852}
-  _triggerBoxSize: {x: 5, y: 5, z: 15}
+  _triggerBoxSize: {x: 10, y: 5, z: 15}
   _p_Manager: {fileID: 1248961008}
 --- !u!1 &629008739
 GameObject:
@@ -1564,7 +1565,6 @@ Transform:
   m_Children:
   - {fileID: 315627604}
   - {fileID: 9892228}
-  - {fileID: 190555005}
   - {fileID: 294254823}
   m_Father: {fileID: 1304297319}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2309,6 +2309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsCameraShot: 0
+  IsIdle: 0
   _camera_General: {fileID: 9892230}
   _camera_TakePhoto: {fileID: 602947848}
   _anchor_AnotherAngle: {fileID: 294254823}
@@ -2800,7 +2801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1472652567
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2981,7 +2982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1637016417
 RectTransform:
   m_ObjectHideFlags: 0

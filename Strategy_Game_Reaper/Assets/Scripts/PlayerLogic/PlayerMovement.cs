@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Rigidbody _rb;
     [SerializeField] float _speed, _originalSpeed;
     float _y_Input, _x_Input;
-    public bool PickItem, IsTop, IsCameraShot;
+    public bool PickItem, IsTop;
+    Vector3 _dir;
 
     [SerializeField] PlayerManager _p_M;
 
@@ -35,8 +36,8 @@ public class PlayerMovement : MonoBehaviour
         switch (_p_M.CurrentState)
         {
             case PlayerManager.PlayerState.GeneralMoving:
-                _rb.velocity = new Vector3(_x_Input * _speed, 0, _y_Input * _speed);
-                transform.forward = new Vector3(_x_Input, 0, _y_Input);
+                _rb.velocity =new Vector3(_x_Input * _speed, 0, _y_Input * _speed);
+                transform.forward = _dir;//keep the same direction when stop
                 break;
             case PlayerManager.PlayerState.CameraShot:
                 _rb.velocity = Vector3.zero;
@@ -51,9 +52,12 @@ public class PlayerMovement : MonoBehaviour
         {
             _x_Input = callback.ReadValue<Vector2>().x;
             _y_Input = callback.ReadValue<Vector2>().y;
+            _dir = new Vector3(_x_Input, 0, _y_Input).normalized;
         }
         if (callback.canceled)
         {
+            _dir = new Vector3(_x_Input, 0, _y_Input).normalized;
+            print(_dir);
             _x_Input = 0;
             _y_Input = 0;
         }

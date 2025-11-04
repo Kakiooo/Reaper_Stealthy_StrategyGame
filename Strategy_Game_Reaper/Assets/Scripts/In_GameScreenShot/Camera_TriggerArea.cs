@@ -10,7 +10,7 @@ public class Camera_TriggerArea : MonoBehaviour
     [SerializeField] Vector3 _triggerBoxSize;
     [SerializeField] PlayerManager _p_Manager;
     private void Awake()
-    {
+    { 
     }
 
     private void Update()
@@ -34,6 +34,7 @@ public class Camera_TriggerArea : MonoBehaviour
             {
                 targetPos.Add(inRangeEnemy[i].transform.position);
                 targetState.Add(inRangeEnemy[i].transform.gameObject.GetComponent<Enemy_SelfState_Manager>().CurrentState);    //Collecting All the states
+                print(targetState[i]);
             }
             if (targetPos.Count >= 2)
             {
@@ -41,7 +42,6 @@ public class Camera_TriggerArea : MonoBehaviour
                 {
                     float currentDis = Vector3.Distance(targetPos[i], targetPos[i + 1]);
                     dis.Add(currentDis);  //Collecting all the distance
-                    print(dis[i]);
                 }
             }           
         }
