@@ -10,8 +10,11 @@ public class CameraScreenShot : MonoBehaviour
     [SerializeField] Image _camera_Capture,_cameraFrame,_cameraFlash;
     [SerializeField] bool _isCaptured;
     float _flash_A,_tFlash;
-    [SerializeField] float _maxLastTime,   _timer;
+    [SerializeField] float _maxLastTime,   _timer,_warningCountDown,_maxObserveTime;
     [SerializeField] PlayerManager _p_State;
+    [SerializeField] GameObject _warningBar;
+    [SerializeField] Slider _warningBarSlider;
+
     private void Awake()
     {
         _flash_A = 1;
@@ -22,19 +25,27 @@ public class CameraScreenShot : MonoBehaviour
     private void Update()
     {
         Flash_CameraUI(2);
-        if (Input.GetKeyDown(KeyCode.Mouse0) && _p_State.CurrentState == PlayerManager.PlayerState.CameraShot && !_isCaptured)
-        {
-            StartCoroutine("CaptureThePhoto");
-            _isCaptured = true;
-        }
 
-        ImageLasting();
+
+        if(_p_State.CurrentState == PlayerManager.PlayerState.CameraShot)
+        {
+            _warningBar.gameObject.SetActive(true);
+            _warningTimeLimit();
+
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !_isCaptured)
+            {
+                StartCoroutine("CaptureThePhoto");
+                _isCaptured = true;
+            }
+        }
+            ImageLasting();
 
     
         }
     IEnumerator CaptureThePhoto()
     {
         _cameraFrame.gameObject.SetActive(false);//Hide UI
+        _warningBar.gameObject.SetActive(false);
 
         yield return new WaitForEndOfFrame();
  
@@ -82,8 +93,26 @@ public class CameraScreenShot : MonoBehaviour
         }
     }
 
-    void _takingPhotoTimeLimit() //the longer you stay, the easier you will get spotted
+    void _warningTimeLimit() //the longer you stay, the easier you will get spotted
     {
+        if (_warningBar.gameObject.activeSelf)
+        {
+            _warningCountDown -= Time.deltaTime;
+            _warningBarSlider.value = _warningCountDown;
+            if (_warningBarSlider.value <= 0)
+            {
+                print("time is End");
+                //need to force to back to normal state
+                _warningBarSlider.value = _maxObserveTime;
+                _warningCountDown = _maxObserveTime;
+            }
+        }
+        else
+        {
+            _warningBarSlider.value = _maxObserveTime;
+            _warningCountDown = _maxObserveTime;
+        }
+
 
     }
 
