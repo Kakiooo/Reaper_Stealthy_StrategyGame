@@ -56,7 +56,8 @@ public class Camera_TriggerArea : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawCube(_orig_Detect.transform.position, _triggerBoxSize);
+        //Gizmos.DrawCube(_orig_Detect.transform.position, _triggerBoxSize);
+        Gizmos.DrawWireCube(_orig_Detect.transform.position, _triggerBoxSize);
     }
 
     struct infoGather

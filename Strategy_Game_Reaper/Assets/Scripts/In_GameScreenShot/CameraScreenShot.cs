@@ -7,10 +7,11 @@ using System.Threading;
 
 public class CameraScreenShot : MonoBehaviour
 {
-    [SerializeField] Image _camera_Capture,_cameraFrame,_cameraFlash;
+    [SerializeField] Image _camera_Capture, _cameraFrame, _cameraFlash;
     [SerializeField] bool _isCaptured;
-    float _flash_A,_tFlash;
-    [SerializeField] float _maxLastTime,   _timer,_warningCountDown,_maxObserveTime;
+    public bool GetNoticed;
+    float _flash_A, _tFlash;
+    [SerializeField] float _maxLastTime, _timer, _warningCountDown, _maxObserveTime;
     [SerializeField] PlayerManager _p_State;
     [SerializeField] GameObject _warningBar;
     [SerializeField] Slider _warningBarSlider;
@@ -20,6 +21,7 @@ public class CameraScreenShot : MonoBehaviour
         _flash_A = 1;
         _cameraFlash.gameObject.SetActive(false);
         _timer = _maxLastTime;
+        _warningCountDown = _maxObserveTime;
     }
 
     private void Update()
@@ -27,7 +29,7 @@ public class CameraScreenShot : MonoBehaviour
         Flash_CameraUI(2);
 
 
-        if(_p_State.CurrentState == PlayerManager.PlayerState.CameraShot)
+        if (_p_State.CurrentState == PlayerManager.PlayerState.CameraShot)
         {
             _warningBar.gameObject.SetActive(true);
             _warningTimeLimit();
@@ -38,17 +40,23 @@ public class CameraScreenShot : MonoBehaviour
                 _isCaptured = true;
             }
         }
-            ImageLasting();
-
-    
+        else
+        {
+            _warningBar.gameObject.SetActive(false);
         }
-    IEnumerator CaptureThePhoto()
+
+
+        ImageLasting();
+
+
+    }
+    IEnumerator CaptureThePhoto()///How many times are available for taking pictures is not set
     {
         _cameraFrame.gameObject.SetActive(false);//Hide UI
         _warningBar.gameObject.SetActive(false);
 
         yield return new WaitForEndOfFrame();
- 
+
         Texture2D screenShot = ScreenCapture.CaptureScreenshotAsTexture();
         Texture2D newScreenShot = new Texture2D(screenShot.width, screenShot.height, TextureFormat.RGBA32, false);//make the new tecture has proper color by USING TextureFormat
 
@@ -80,8 +88,8 @@ public class CameraScreenShot : MonoBehaviour
         if (_cameraFlash.isActiveAndEnabled)
         {
             float targetTransparency = 0;
-            _tFlash += Time.deltaTime/ FadeSpeed;
-            _flash_A = Mathf.Lerp(_flash_A, targetTransparency, _tFlash);          
+            _tFlash += Time.deltaTime / FadeSpeed;
+            _flash_A = Mathf.Lerp(_flash_A, targetTransparency, _tFlash);
             if (_flash_A == targetTransparency)
             {
                 _cameraFlash.gameObject.SetActive(false);
@@ -97,14 +105,17 @@ public class CameraScreenShot : MonoBehaviour
     {
         if (_warningBar.gameObject.activeSelf)
         {
-            _warningCountDown -= Time.deltaTime;
-            _warningBarSlider.value = _warningCountDown;
+            if (!_isCaptured)
+            {
+                _warningCountDown -= Time.deltaTime;
+                _warningBarSlider.value = _warningCountDown;
+                //stop the count down and switch
+            }
             if (_warningBarSlider.value <= 0)
             {
                 print("time is End");
-                //need to force to back to normal state
-                _warningBarSlider.value = _maxObserveTime;
-                _warningCountDown = _maxObserveTime;
+                GetNoticed=true;
+                //need to force to back to walking state or lose state
             }
         }
         else
@@ -116,16 +127,17 @@ public class CameraScreenShot : MonoBehaviour
 
     }
 
+
     void ImageLasting()
     {
-        Timer counting = CountDown(_isCaptured, _timer,_maxLastTime);
+        Timer counting = CountDown(_isCaptured, _timer, _maxLastTime);
         _isCaptured = counting.IsActive;
-        _timer=counting.Time;
+        _timer = counting.Time;
 
-        if (!_isCaptured&& _camera_Capture.sprite!=null&&_camera_Capture.isActiveAndEnabled)
+        if (!_isCaptured && _camera_Capture.sprite != null && _camera_Capture.isActiveAndEnabled)
         {
             _camera_Capture.enabled = false;
-            _camera_Capture.sprite = null;  
+            _camera_Capture.sprite = null;
         }
 
     }//how long the screen shot will disappear
@@ -133,14 +145,14 @@ public class CameraScreenShot : MonoBehaviour
     {
         public float Time;
         public bool IsActive;
-        public Timer(float time,bool isActive)
+        public Timer(float time, bool isActive)
         {
-            Time=time;  
-            IsActive=isActive;  
+            Time = time;
+            IsActive = isActive;
         }
     }
 
-    Timer CountDown(bool control,float Timer,float MaxTime)
+    Timer CountDown(bool control, float Timer, float MaxTime)
     {
         if (control)
         {
@@ -151,8 +163,8 @@ public class CameraScreenShot : MonoBehaviour
                 Timer = MaxTime;
             }
         }
-        return new Timer(Timer,control);//can only return the value that Struc contains
+        return new Timer(Timer, control);//can only return the value that Struc contains
     }
 
-  
+
 }
