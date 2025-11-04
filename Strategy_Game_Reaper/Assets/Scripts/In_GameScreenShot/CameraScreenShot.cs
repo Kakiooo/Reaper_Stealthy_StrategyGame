@@ -30,6 +30,8 @@ public class CameraScreenShot : MonoBehaviour
     IEnumerator CaptureThePhoto()
     {
         _cameraFrame.gameObject.SetActive(false);
+        
+        //_cameraFlash.color=new Color(_cameraFlash.color.r,_cameraFlash.color.g,_cameraFlash.color.b,)
         yield return new WaitForEndOfFrame();
         Texture2D screenShot = ScreenCapture.CaptureScreenshotAsTexture();
         Texture2D newScreenShot = new Texture2D(screenShot.width, screenShot.height, TextureFormat.RGBA32, false);//make the new tecture has proper color by USING TextureFormat
