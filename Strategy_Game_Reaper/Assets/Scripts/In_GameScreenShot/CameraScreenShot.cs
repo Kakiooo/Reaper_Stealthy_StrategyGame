@@ -7,19 +7,20 @@ using System.Threading;
 
 public class CameraScreenShot : MonoBehaviour
 {
-    [SerializeField] Image _camera_Capture;
+    [SerializeField] Image _camera_Capture,_cameraFrame,_cameraFlash;
     [SerializeField] bool _isCaptured;
 
     [SerializeField] float _maxLastTime,   _timer;
     [SerializeField] PlayerManager _p_State;
     private void Awake()
     {
+
         _timer = _maxLastTime;
     }
 
     private void Update()
     {
-       if(Input.GetKeyDown(KeyCode.Mouse0)&& _p_State.CurrentState==PlayerManager.PlayerState.CameraShot)
+       if(Input.GetKeyDown(KeyCode.Mouse0)&& _p_State.CurrentState==PlayerManager.PlayerState.CameraShot&& !_isCaptured)
         {
             StartCoroutine("CaptureThePhoto");
             _isCaptured = true;
@@ -28,6 +29,7 @@ public class CameraScreenShot : MonoBehaviour
     }
     IEnumerator CaptureThePhoto()
     {
+        _cameraFrame.gameObject.SetActive(false);
         yield return new WaitForEndOfFrame();
         Texture2D screenShot = ScreenCapture.CaptureScreenshotAsTexture();
         Texture2D newScreenShot = new Texture2D(screenShot.width, screenShot.height, TextureFormat.RGBA32, false);//make the new tecture has proper color by USING TextureFormat
@@ -44,6 +46,7 @@ public class CameraScreenShot : MonoBehaviour
         float buffer_X = newScreenShot.width / 10;//make the screenshot smaller so that it can be identified.
         float buffer_Y = newScreenShot.height / 10;
         _camera_Capture.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(newScreenShot.width - buffer_X, newScreenShot.height - buffer_Y);//make the picuture be shown with the smaller size but same ratio as the resolution of screen
+        _cameraFrame.gameObject.SetActive(true);//hiding UI
     }
     void ImageLasting()
     {
