@@ -868,7 +868,19 @@ MonoBehaviour:
     m_ActionId: da68ec2e-82c3-4c1f-b979-ea0fedc318df
     m_ActionName: 'PlayerMovement/SwitchState_Controller[/XInputControllerWindows/buttonSouth]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 315627607}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Mouse_PosInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: cba57556-62fd-4058-80c7-e27ccc3270cc
     m_ActionName: 'PlayerMovement/MousePos[/Mouse/position]'
   m_NeverAutoSwitchControlSchemes: 0
@@ -891,8 +903,10 @@ MonoBehaviour:
   _rb: {fileID: 629008741}
   _speed: 5
   _originalSpeed: 0
+  _mouseBuffer: 5
   PickItem: 0
   IsTop: 0
+  _cam_TakePhoto: {fileID: 602947848}
   _p_M: {fileID: 1248961008}
 --- !u!23 &315627608
 MeshRenderer:
@@ -1605,7 +1619,7 @@ GameObject:
   m_Component:
   - component: {fileID: 690215852}
   m_Layer: 8
-  m_Name: Anchor_CameraDetect
+  m_Name: Anchor_CameraTriggerPoint
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

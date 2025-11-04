@@ -34,8 +34,7 @@ public class CameraScreenShot : MonoBehaviour
         }
     IEnumerator CaptureThePhoto()
     {
-
-        _cameraFrame.gameObject.SetActive(false);
+        _cameraFrame.gameObject.SetActive(false);//Hide UI
 
         yield return new WaitForEndOfFrame();
  
