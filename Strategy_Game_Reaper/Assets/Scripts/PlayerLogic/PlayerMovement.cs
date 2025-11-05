@@ -67,24 +67,28 @@ public class PlayerMovement : MonoBehaviour
     }
     public void DraggingItem(InputAction.CallbackContext callback)
     {
-        if (callback.performed)
+        if (_p_M.CurrentState != PlayerManager.PlayerState.CameraShot)
         {
-            if (Gamepad.current != null)
+            if (callback.performed)
             {
-                Gamepad.current.SetMotorSpeeds(0.25f, 0.75f);
+                if (Gamepad.current != null)
+                {
+                    Gamepad.current.SetMotorSpeeds(0.25f, 0.75f);
+                }
+                PickItem = true;
+                _speed /= 2;
             }
-            PickItem = true;
-            _speed /= 2;
-        }
-        else if (callback.canceled)
-        {
-            if (Gamepad.current != null)
+            else if (callback.canceled)
             {
-                Gamepad.current.SetMotorSpeeds(0, 0);
+                if (Gamepad.current != null)
+                {
+                    Gamepad.current.SetMotorSpeeds(0, 0);
+                }
+                PickItem = false;
+                _speed = _originalSpeed;
             }
-            PickItem = false;
-            _speed = _originalSpeed;
         }
+       
     }
 
    public void Mouse_PosInput(InputAction.CallbackContext callback)

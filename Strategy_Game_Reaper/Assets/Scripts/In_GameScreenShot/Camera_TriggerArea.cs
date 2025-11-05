@@ -39,7 +39,7 @@ public class Camera_TriggerArea : MonoBehaviour
                 {
                     targetState.Add(inRangeEnemy[i].transform.gameObject.GetComponent<Enemy_SelfState_Manager>().CurrentState);    //Collecting All the states
                 }
-                if (targetState.Count!=0) print(targetState[i]); //only when enemies are not behind the wall the state will be recorded
+                if (targetState.Count!=0) print(targetState[i]); //only when enemies are not behind the wall the enemy state will be recorded
 
             }
             if (targetPos.Count >= 2)
