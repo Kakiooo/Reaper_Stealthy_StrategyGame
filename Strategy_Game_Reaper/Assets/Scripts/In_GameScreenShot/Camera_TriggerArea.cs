@@ -6,7 +6,7 @@ using UnityEngine;
 public class Camera_TriggerArea : MonoBehaviour
 {
     [SerializeField] PlayerMovement _p_Move;
-    [SerializeField] LayerMask _enemyLayer;
+    [SerializeField] LayerMask _enemyLayer,_obstaclesLayer;
     [SerializeField] Transform _orig_Detect;
     [SerializeField] Vector3 _triggerBoxSize;
     [SerializeField] PlayerManager _p_Manager;
@@ -24,7 +24,7 @@ public class Camera_TriggerArea : MonoBehaviour
     infoGather GatherEnemyInfo()
     {
        // Collider[] inRangeEnemy = Physics.OverlapBox(_orig_Detect.transform.position, _triggerBoxSize, Quaternion.identity, _enemyLayer, QueryTriggerInteraction.Collide);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        Collider[] inRangeEnemy = Physics.OverlapCapsule(transform.position,_orig_Detect.position,5,_enemyLayer,QueryTriggerInteraction.UseGlobal);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Collider[] inRangeEnemy = Physics.OverlapCapsule(transform.position,_orig_Detect.position,4,_enemyLayer,QueryTriggerInteraction.UseGlobal);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         int numTarget = inRangeEnemy.Length;
         List< Vector3 > targetPos= new List< Vector3 >();
@@ -35,8 +35,12 @@ public class Camera_TriggerArea : MonoBehaviour
             for (int i = 0; i <= inRangeEnemy.Length-1; i++)
             {
                 targetPos.Add(inRangeEnemy[i].transform.position);
-                targetState.Add(inRangeEnemy[i].transform.gameObject.GetComponent<Enemy_SelfState_Manager>().CurrentState);    //Collecting All the states
-                print(targetState[i]);
+                if (!Physics.Raycast(targetPos[i], _p_Move.transform.position, Vector3.Distance(targetPos[i], _p_Move.transform.position), _obstaclesLayer))//only when there is no obstacles in-between player and enemies
+                {
+                    targetState.Add(inRangeEnemy[i].transform.gameObject.GetComponent<Enemy_SelfState_Manager>().CurrentState);    //Collecting All the states
+                }
+                if (targetState.Count!=0) print(targetState[i]); //only when enemies are not behind the wall the state will be recorded
+
             }
             if (targetPos.Count >= 2)
             {
@@ -60,8 +64,8 @@ public class Camera_TriggerArea : MonoBehaviour
     {
         Gizmos.color = Color.red;
         //Gizmos.DrawCube(_orig_Detect.transform.position, _triggerBoxSize);
-        Gizmos.DrawWireSphere(_orig_Detect.transform.position, 5);
-        Gizmos.DrawWireSphere(transform.position, 5);
+        Gizmos.DrawWireSphere(_orig_Detect.transform.position, 4);
+        Gizmos.DrawWireSphere(transform.position,4);
         // Gizmos.DrawWireCube(_orig_Detect.transform.position, _triggerBoxSize);
     }
 
