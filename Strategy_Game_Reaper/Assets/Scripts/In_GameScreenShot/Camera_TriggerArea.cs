@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Camera_TriggerArea : MonoBehaviour
@@ -19,11 +20,12 @@ public class Camera_TriggerArea : MonoBehaviour
         {
             GatherEnemyInfo();
         }
-
     }
     infoGather GatherEnemyInfo()
     {
-        Collider[] inRangeEnemy = Physics.OverlapBox(_orig_Detect.transform.position, _triggerBoxSize, Quaternion.identity, _enemyLayer, QueryTriggerInteraction.Collide);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+       // Collider[] inRangeEnemy = Physics.OverlapBox(_orig_Detect.transform.position, _triggerBoxSize, Quaternion.identity, _enemyLayer, QueryTriggerInteraction.Collide);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Collider[] inRangeEnemy = Physics.OverlapCapsule(transform.position,_orig_Detect.position,5,_enemyLayer,QueryTriggerInteraction.UseGlobal);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         int numTarget = inRangeEnemy.Length;
         List< Vector3 > targetPos= new List< Vector3 >();
         List<Enemy_SelfState_Manager.EnemyState> targetState=new List<Enemy_SelfState_Manager.EnemyState> ();   
@@ -53,11 +55,14 @@ public class Camera_TriggerArea : MonoBehaviour
 
     }
 
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         //Gizmos.DrawCube(_orig_Detect.transform.position, _triggerBoxSize);
-        Gizmos.DrawWireCube(_orig_Detect.transform.position, _triggerBoxSize);
+        Gizmos.DrawWireSphere(_orig_Detect.transform.position, 5);
+        Gizmos.DrawWireSphere(transform.position, 5);
+        // Gizmos.DrawWireCube(_orig_Detect.transform.position, _triggerBoxSize);
     }
 
     struct infoGather

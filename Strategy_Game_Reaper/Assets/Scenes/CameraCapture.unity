@@ -972,6 +972,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: cba57556-62fd-4058-80c7-e27ccc3270cc
     m_ActionName: 'PlayerMovement/MousePos[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ae6279f6-0612-4094-8fb9-a105f3d23b3a
+    m_ActionName: 'MenuUI/MousePos[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 53693565-d653-4702-bb5f-8bce075ff499
+    m_ActionName: 'MenuUI/MouseChoose[/Mouse/leftButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
@@ -1561,7 +1569,7 @@ Transform:
   m_GameObject: {fileID: 602947845}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6414778, z: 0.49999905}
+  m_LocalPosition: {x: 0, y: 0.6414778, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
