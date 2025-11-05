@@ -1074,6 +1074,7 @@ MonoBehaviour:
   _cameraFlash: {fileID: 1637016418}
   _isCaptured: 0
   GetNoticed: 0
+  _cm_Detection: {fileID: 602947849}
   _maxLastTime: 2
   _timer: 0
   _warningCountDown: 0
@@ -1653,6 +1654,9 @@ MonoBehaviour:
   _orig_Detect: {fileID: 690215852}
   _triggerBoxSize: {x: 10, y: 5, z: 15}
   _p_Manager: {fileID: 1248961008}
+  ReachLimit_Shots: 0
+  _numCameraShot: 0
+  _max_ShotTime: 2
 --- !u!1 &629008739
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class CameraScreenShot : MonoBehaviour
     [SerializeField] bool _isCaptured;
     public bool GetNoticed;
     float _flash_A, _tFlash;
+    [SerializeField] Camera_TriggerArea _cm_Detection;
     [SerializeField] float _maxLastTime, _timer, _warningCountDown, _maxObserveTime;
     [SerializeField] PlayerManager _p_State;
     [SerializeField] GameObject _warningBar;
@@ -34,7 +35,7 @@ public class CameraScreenShot : MonoBehaviour
             _warningBar.gameObject.SetActive(true);
             _warningTimeLimit();
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !_isCaptured)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !_isCaptured&& !_cm_Detection.ReachLimit_Shots)
             {
                 StartCoroutine("CaptureThePhoto");
                 _isCaptured = true;
