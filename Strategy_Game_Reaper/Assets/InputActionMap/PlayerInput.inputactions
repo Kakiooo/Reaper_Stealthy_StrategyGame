@@ -192,6 +192,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "MenuUI",
+            "id": "5077f04a-aec3-46bf-8372-9d92407e74ad",
+            "actions": [
+                {
+                    "name": "MousePos",
+                    "type": "Value",
+                    "id": "ae6279f6-0612-4094-8fb9-a105f3d23b3a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MouseChoose",
+                    "type": "Button",
+                    "id": "53693565-d653-4702-bb5f-8bce075ff499",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "35a9940a-3ef7-40e5-9b26-5cb866ce48f5",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePos",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e459fde6-5695-42f1-b974-037cbeedd11a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseChoose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
