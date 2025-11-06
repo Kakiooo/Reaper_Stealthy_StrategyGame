@@ -6,16 +6,23 @@ using UnityEngine.UIElements;
 
 public class FOW_Enemy : MonoBehaviour
 {
+    [Header("===Tweaking them Please!!!!==============================================================================================")]
     public float ViewRadius;
-    [Range(0,360)]
+    [Range(0, 360)]
     public float ViewAngle;
     public int MeshResolution;
-    [SerializeField] LayerMask _obstacles, _target;
+
+    [Header("Assign Values")]
+    [SerializeField] LayerMask _obstacles;
+    [SerializeField] LayerMask _target;
     public List<Transform> VisibleObjects=new List<Transform> ();
     [SerializeField] GameObject _spotImage;
     public MeshFilter FOW_Filter;
     Mesh _viewMesh;
     bool _isLost;
+
+
+
     private void Start()
     {
         _viewMesh=new Mesh ();

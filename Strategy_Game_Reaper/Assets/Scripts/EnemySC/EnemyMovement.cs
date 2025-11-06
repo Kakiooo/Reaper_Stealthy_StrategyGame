@@ -4,16 +4,25 @@ using UnityEngine;
 using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
+    [Header("===Tweaking them Please!!!!==============================================================================================")]
+    [SerializeField] float _maxTime_Push;
+    [SerializeField] float _pushForce;
+    [SerializeField] float _maxWait_time;
+
+    [Header("Assign Values")]
     [SerializeField] NavMeshAgent _enemyAgent;
     public List<Transform> Step = new List<Transform>();
     [SerializeField] int _stepIndex = 0;
-    [SerializeField] float _timer, _maxWait_time, _pushForce, _delayTime, _maxTime;
-    [SerializeField] bool _getPushed, _forwardRound_Finish;
+
+    [SerializeField] bool _getPushed;
+    [SerializeField] bool  _forwardRound_Finish;
     [SerializeField] Rigidbody _rb;
+    [SerializeField] float _delayTime;
+    [SerializeField] float _timer_Waiting;
 
     private void Awake()
     {
-        _delayTime = _maxTime;
+        _delayTime = _maxTime_Push;
     }
     void Start()
     {
@@ -32,8 +41,8 @@ public class EnemyMovement : MonoBehaviour
         _enemyAgent.destination = Step[_stepIndex].transform.position;
         if (_enemyAgent.remainingDistance <= 0)
         {
-            _timer -= Time.deltaTime;
-            if (_timer < 0)
+            _timer_Waiting -= Time.deltaTime;
+            if (_timer_Waiting < 0)
             {
                 if (!_forwardRound_Finish)
                 {
@@ -45,7 +54,7 @@ public class EnemyMovement : MonoBehaviour
                 }
 
 
-                _timer = Random.Range(0, _maxWait_time);
+                _timer_Waiting = Random.Range(0, _maxWait_time);
             }
             if (_stepIndex > Step.Count - 1)
             {

@@ -7,21 +7,32 @@ using System.Threading;
 
 public class CameraScreenShot : MonoBehaviour
 {
-    [SerializeField] Image _camera_Capture, _cameraFrame, _cameraFlash;
+    [Header("===Tweaking them Please!!!!==============================================================================================")]
+    [SerializeField] float _maxLastTime;
+    [SerializeField] float _maxObserveTime;
+
+    [Header("Assign Values")]
+    [SerializeField] Image _camera_Capture;
+    [SerializeField] Image _cameraFrame;
+    [SerializeField] Image _cameraFlash;
     [SerializeField] bool _isCaptured;
     public bool GetNoticed;
     float _flash_A, _tFlash;
     [SerializeField] Camera_TriggerArea _cm_Detection;
-    [SerializeField] float _maxLastTime, _timer, _warningCountDown, _maxObserveTime;
+   
     [SerializeField] PlayerManager _p_State;
     [SerializeField] GameObject _warningBar;
     [SerializeField] Slider _warningBarSlider;
+    [SerializeField] float _timer_ShotPic;
+    [SerializeField] float _warningCountDown;
+
+
 
     private void Awake()
     {
         _flash_A = 1;
         _cameraFlash.gameObject.SetActive(false);
-        _timer = _maxLastTime;
+        _timer_ShotPic = _maxLastTime;
         _warningCountDown = _maxObserveTime;
     }
 
@@ -131,9 +142,9 @@ public class CameraScreenShot : MonoBehaviour
 
     void ImageLasting()
     {
-        Timer counting = CountDown(_isCaptured, _timer, _maxLastTime);
+        Timer counting = CountDown(_isCaptured, _timer_ShotPic, _maxLastTime);
         _isCaptured = counting.IsActive;
-        _timer = counting.Time;
+        _timer_ShotPic = counting.Time;
 
         if (!_isCaptured && _camera_Capture.sprite != null && _camera_Capture.isActiveAndEnabled)
         {

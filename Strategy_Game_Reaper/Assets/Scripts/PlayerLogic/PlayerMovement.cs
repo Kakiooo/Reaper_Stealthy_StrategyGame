@@ -7,11 +7,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("===Tweaking them Please!!!!==============================================================================================")]
+    [SerializeField] float _speed;
+    [SerializeField] float _originalSpeed;
+    [SerializeField] float _mouse_Camera_Sensitivity;
+
+    [Header("Assign Values")]
     [SerializeField] Rigidbody _rb;
-    [SerializeField] float _speed, _originalSpeed,_mouseBuffer;
-    float _y_Input, _x_Input,_mouseX,_mouseY;
-    public bool PickItem, IsTop;
-    Vector3 _dir;
+    float _y_Input, _x_Input, _mouseX, _mouseY;
+    public bool PickItem;
+    public bool IsTop;
+    [SerializeField] bool _isCrouch;
+    [SerializeField] GameObject _p_Mesh;
+    Vector3 _dir, _crouchSize, _originalSize;
     [SerializeField] CinemachineVirtualCamera _cam_TakePhoto;
     [SerializeField] PlayerManager _p_M;
 
@@ -19,34 +27,47 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _originalSpeed = _speed;
+        _crouchSize = new Vector3(_p_Mesh.transform.localScale.x, _p_Mesh.transform.localScale.y / 2, _p_Mesh.transform.localScale.z);
+        _originalSize = _p_Mesh.transform.localScale;
     }
     private void Update()
     {
+        CrouchVisual();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        HorizontalMovement();
+        PlayerMovementLogic();
     }
     private void LateUpdate()
     {
     }
 
-    void HorizontalMovement()
+    void PlayerMovementLogic()
     {
         //_rb.velocity = transform.forward* _y_Input * _speed+transform.right*_x_Input* _speed;
         switch (_p_M.CurrentState)
         {
             case PlayerManager.PlayerState.GeneralMoving:
-                _rb.velocity =new Vector3(_x_Input * _speed, 0, _y_Input * _speed);
-                transform.forward = _dir;//keep the same direction when stop
+                HorizontalMovement();
                 break;
             case PlayerManager.PlayerState.CameraShot:
                 _rb.velocity = Vector3.zero;
                 break;
 
         }
+    }
+
+    void HorizontalMovement()
+    { 
+        _rb.velocity = new Vector3(_x_Input * _speed, 0, _y_Input * _speed);
+        transform.forward = _dir;//keep the same direction when stop
+    }
+
+    void CrouchVisual()
+    {
+        _p_Mesh.transform.localScale= _isCrouch ? _crouchSize : _originalSize; //if iscrouch is true then first result, if courch is false then second result
     }
 
     public void HorizontalMovement_Input(InputAction.CallbackContext callback)
@@ -88,17 +109,29 @@ public class PlayerMovement : MonoBehaviour
                 _speed = _originalSpeed;
             }
         }
-       
+
     }
 
-   public void Mouse_PosInput(InputAction.CallbackContext callback)
+    public void StealthyMode(InputAction.CallbackContext callback)
+    {
+
+        if (callback.performed)
+        {
+            _isCrouch = !_isCrouch;
+            if (_isCrouch) _speed /= 2;
+            else _speed = _originalSpeed;
+            print("time");
+        }
+
+    }
+    public void Mouse_PosInput(InputAction.CallbackContext callback)
     {
         if (_p_M.CurrentState == PlayerManager.PlayerState.CameraShot)
         {
             Vector2 mousePos = callback.ReadValue<Vector2>();
 
-            _mouseX += mousePos.x * _mouseBuffer * Time.deltaTime;
-            _mouseY -= mousePos.y * _mouseBuffer * Time.deltaTime;
+            _mouseX += mousePos.x * _mouse_Camera_Sensitivity * Time.deltaTime;
+            _mouseY -= mousePos.y * _mouse_Camera_Sensitivity * Time.deltaTime;
 
             // Clamp the pitch (X rotation)
             _mouseY = Mathf.Clamp(_mouseY, -80, 80);
@@ -108,9 +141,5 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-    }
-    void TakePicMode_CameraMovement()
-    {
-        
     }
 }

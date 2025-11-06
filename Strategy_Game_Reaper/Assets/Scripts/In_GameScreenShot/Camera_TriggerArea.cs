@@ -5,13 +5,20 @@ using UnityEngine;
 
 public class Camera_TriggerArea : MonoBehaviour
 {
+
+    [Header("===Tweaking them Please!!!!==============================================================================================")]
+    [SerializeField] int _numCameraShot;
+    [SerializeField] int _max_ShotTime;
+
+    [Header("Assign Values")]
     [SerializeField] PlayerMovement _p_Move;
-    [SerializeField] LayerMask _enemyLayer,_obstaclesLayer;
+    [SerializeField] LayerMask _enemyLayer;
+    [SerializeField] LayerMask _obstaclesLayer;
     [SerializeField] Transform _orig_Detect;
     [SerializeField] Vector3 _triggerBoxSize;
     [SerializeField] PlayerManager _p_Manager;
     public bool ReachLimit_Shots;
-    [SerializeField] int _numCameraShot,_max_ShotTime;
+
     private void Awake()
     {
         ReachLimit_Shots = false;

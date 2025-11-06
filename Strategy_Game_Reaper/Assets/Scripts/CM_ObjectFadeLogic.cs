@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CM_ObjectFadeLogic : MonoBehaviour
 {
+    [Header("Assign Values")]
     Vector3 _cameraDir;
     [SerializeField] GameObject _p_Object;
     float _rayLength;

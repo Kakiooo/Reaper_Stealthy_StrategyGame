@@ -377,19 +377,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02943624855213f47a220c1a6cd3065a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxTime_Push: 0
+  _pushForce: 2
+  _maxWait_time: 1
   _enemyAgent: {fileID: 36559445}
   Step:
   - {fileID: 716610465}
   - {fileID: 1617157775}
   _stepIndex: 0
-  _timer: 1
-  _maxWait_time: 1
-  _pushForce: 2
-  _delayTime: 1
-  _maxTime: 1
   _getPushed: 0
   _forwardRound_Finish: 0
   _rb: {fileID: 733733226}
+  _delayTime: 1
+  _timer_Waiting: 0
 --- !u!114 &36559449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ViewRadius: 4.31
-  ViewAngle: 100
+  ViewAngle: 80
   MeshResolution: 5
   _obstacles:
     serializedVersion: 2
@@ -805,9 +805,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 602947846}
-  - {fileID: 1013790805}
   - {fileID: 1957752137}
   - {fileID: 537793065}
+  - {fileID: 843214174}
   - {fileID: 690215852}
   - {fileID: 190555005}
   m_Father: {fileID: 629008740}
@@ -980,6 +980,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 53693565-d653-4702-bb5f-8bce075ff499
     m_ActionName: 'MenuUI/MouseChoose[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 315627607}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: StealthyMode
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ce59b9b3-a18f-47b3-9244-9795659dda19
+    m_ActionName: 'PlayerMovement/Crouch[/Keyboard/leftCtrl]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
@@ -997,12 +1013,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefc97292f015af4893110aa1e210462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 629008741}
   _speed: 5
   _originalSpeed: 0
-  _mouseBuffer: 5
+  _mouse_Camera_Sensitivity: 0
+  _rb: {fileID: 629008741}
   PickItem: 0
   IsTop: 0
+  _isCrouch: 0
+  _p_Mesh: {fileID: 537793064}
   _cam_TakePhoto: {fileID: 602947848}
   _p_M: {fileID: 1248961008}
 --- !u!23 &315627608
@@ -1069,19 +1087,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d6fb8e28675db44f81a25bfbfeb8de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxLastTime: 2
+  _maxObserveTime: 10
   _camera_Capture: {fileID: 1625639946}
   _cameraFrame: {fileID: 1472652568}
   _cameraFlash: {fileID: 1637016418}
   _isCaptured: 0
   GetNoticed: 0
   _cm_Detection: {fileID: 602947849}
-  _maxLastTime: 2
-  _timer: 0
-  _warningCountDown: 0
-  _maxObserveTime: 10
   _p_State: {fileID: 1248961008}
   _warningBar: {fileID: 30675206}
   _warningBarSlider: {fileID: 30675208}
+  _timer_ShotPic: 0
+  _warningCountDown: 0
 --- !u!1 &406266598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1264,7 +1282,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.14147788, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1013790805}
   m_Father: {fileID: 315627604}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &537793066
@@ -1644,6 +1663,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3ac8886e842434380b30017b7a64fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _numCameraShot: 0
+  _max_ShotTime: 2
   _p_Move: {fileID: 315627607}
   _enemyLayer:
     serializedVersion: 2
@@ -1655,8 +1676,6 @@ MonoBehaviour:
   _triggerBoxSize: {x: 10, y: 5, z: 15}
   _p_Manager: {fileID: 1248961008}
   ReachLimit_Shots: 0
-  _numCameraShot: 0
-  _max_ShotTime: 2
 --- !u!1 &629008739
 GameObject:
   m_ObjectHideFlags: 0
@@ -1932,6 +1951,91 @@ Transform:
   m_Children: []
   m_Father: {fileID: 36559452}
   m_LocalEulerAnglesHint: {x: 0.153, y: 0, z: 0}
+--- !u!1 &843214173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 843214174}
+  - component: {fileID: 843214176}
+  - component: {fileID: 843214175}
+  m_Layer: 8
+  m_Name: Crouch_ColorIndicate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &843214174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843214173}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.98, z: 0.1}
+  m_LocalScale: {x: 3.214053, y: 3.214053, z: 3.214053}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 315627604}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &843214175
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843214173}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: d1c5116da66e77446af1d8e3b4cb9a8f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &843214176
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843214173}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &935119527
 GameObject:
   m_ObjectHideFlags: 0
@@ -2034,12 +2138,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013790804}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8914778, z: 0.5}
-  m_LocalScale: {x: 1, y: 0.2, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.49999997, z: 0.33333334}
+  m_LocalScale: {x: 0.6666667, y: 0.13333334, z: 0.6666667}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 315627604}
+  m_Father: {fileID: 537793065}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1013790806
 BoxCollider:
@@ -2282,19 +2386,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02943624855213f47a220c1a6cd3065a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxTime_Push: 0
+  _pushForce: 2
+  _maxWait_time: 1
   _enemyAgent: {fileID: 1055341909}
   Step:
   - {fileID: 716610465}
   - {fileID: 1617157775}
   _stepIndex: 0
-  _timer: 1
-  _maxWait_time: 1
-  _pushForce: 2
-  _delayTime: 1
-  _maxTime: 1
   _getPushed: 0
   _forwardRound_Finish: 0
   _rb: {fileID: 406266599}
+  _delayTime: 1
+  _timer_Waiting: 0
 --- !u!114 &1055341912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2584,10 +2688,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsCameraShot: 0
   IsIdle: 0
-  _camera_General: {fileID: 9892230}
   _camera_TakePhoto: {fileID: 602947848}
-  _anchor_AnotherAngle: {fileID: 294254823}
+  _camera_General: {fileID: 9892230}
   _anchor_TakePhoto: {fileID: 190555005}
+  _anchor_AnotherAngle: {fileID: 294254823}
   CurrentState: 0
 --- !u!4 &1248961009
 Transform:
