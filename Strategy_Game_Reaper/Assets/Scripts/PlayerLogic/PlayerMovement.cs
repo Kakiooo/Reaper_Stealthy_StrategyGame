@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     public bool IsTop;
     [SerializeField] bool _isCrouch;
     [SerializeField] GameObject _p_Mesh;
+    [SerializeField] GameObject _pSight;
+    [SerializeField] GameObject _pSight_Anchor;
     Vector3 _dir, _crouchSize, _originalSize;
     [SerializeField] CinemachineVirtualCamera _cam_TakePhoto;
     [SerializeField] PlayerManager _p_M;
@@ -26,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+
         _originalSpeed = _speed;
         _crouchSize = new Vector3(_p_Mesh.transform.localScale.x, _p_Mesh.transform.localScale.y / 2, _p_Mesh.transform.localScale.z);
         _originalSize = _p_Mesh.transform.localScale;
@@ -67,7 +70,9 @@ public class PlayerMovement : MonoBehaviour
 
     void CrouchVisual()
     {
+       Vector3 _originalPos_Sight = _pSight_Anchor.transform.position;
         _p_Mesh.transform.localScale= _isCrouch ? _crouchSize : _originalSize; //if iscrouch is true then first result, if courch is false then second result
+        _pSight.transform.position = _isCrouch ? transform.position : _originalPos_Sight;
     }
 
     public void HorizontalMovement_Input(InputAction.CallbackContext callback)
@@ -81,7 +86,6 @@ public class PlayerMovement : MonoBehaviour
         if (callback.canceled)
         {
             _dir = new Vector3(_x_Input, 0, _y_Input).normalized;
-            print(_dir);
             _x_Input = 0;
             _y_Input = 0;
         }
@@ -120,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
             _isCrouch = !_isCrouch;
             if (_isCrouch) _speed /= 2;
             else _speed = _originalSpeed;
-            print("time");
+
         }
 
     }
@@ -128,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_p_M.CurrentState == PlayerManager.PlayerState.CameraShot)
         {
+  
             Vector2 mousePos = callback.ReadValue<Vector2>();
 
             _mouseX += mousePos.x * _mouse_Camera_Sensitivity * Time.deltaTime;
@@ -135,7 +140,6 @@ public class PlayerMovement : MonoBehaviour
 
             // Clamp the pitch (X rotation)
             _mouseY = Mathf.Clamp(_mouseY, -80, 80);
-
             transform.rotation = Quaternion.Euler(0f, _mouseX, 0f);
             _cam_TakePhoto.transform.localRotation = Quaternion.Euler(_mouseY, 0f, 0f);
         }

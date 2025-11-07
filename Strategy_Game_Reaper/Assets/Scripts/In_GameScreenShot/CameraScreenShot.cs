@@ -109,7 +109,6 @@ public class CameraScreenShot : MonoBehaviour
                 _flash_A = 1;
             }
             _cameraFlash.color = new Color(_cameraFlash.color.r, _cameraFlash.color.g, _cameraFlash.color.b, _flash_A);
-            print("Is ON!!");
         }
     }
 

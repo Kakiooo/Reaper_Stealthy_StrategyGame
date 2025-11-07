@@ -15,7 +15,6 @@ public class Camera_TriggerArea : MonoBehaviour
     [SerializeField] LayerMask _enemyLayer;
     [SerializeField] LayerMask _obstaclesLayer;
     [SerializeField] Transform _orig_Detect;
-    [SerializeField] Vector3 _triggerBoxSize;
     [SerializeField] PlayerManager _p_Manager;
     public bool ReachLimit_Shots;
 
@@ -52,7 +51,6 @@ public class Camera_TriggerArea : MonoBehaviour
                     targetState.Add(inRangeEnemy[i].transform.gameObject.GetComponent<Enemy_SelfState_Manager>().CurrentState);    //Collecting All the states
                 }
                 if (targetState.Count!=0) print(targetState[i]); //only when enemies are not behind the wall the enemy state will be recorded
-
             }
             if (targetPos.Count >= 2)
             {

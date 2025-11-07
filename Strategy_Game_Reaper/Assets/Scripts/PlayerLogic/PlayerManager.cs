@@ -64,6 +64,5 @@ public class PlayerManager : MonoBehaviour
     {
         _camera_General.transform.position = _anchor_AnotherAngle.transform.position;
         _camera_TakePhoto.transform.position = _anchor_TakePhoto.transform.position;
-        print("Running");
     }
 }
