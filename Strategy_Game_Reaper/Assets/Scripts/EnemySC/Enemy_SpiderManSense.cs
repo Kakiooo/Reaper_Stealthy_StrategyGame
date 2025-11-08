@@ -13,6 +13,8 @@ public class Enemy_SpiderManSense : MonoBehaviour
     [SerializeField] GameObject _p_G_Sight;
     [SerializeField] GameObject _p_G;
     [SerializeField] GameObject _sight;
+    [SerializeField] GameObject _visualSight_Indicator;
+
     [SerializeField] float _detectTimer;
     [SerializeField] bool _letRotate;
     [SerializeField] bool _hideBehindObjects;
@@ -30,6 +32,7 @@ public class Enemy_SpiderManSense : MonoBehaviour
         DancingModeActivate();
         Player_InCircle_Detection();
         ObstaclesDetection();
+        VisualizeDetectRance();
     }
     /// <summary>
     /// Need to detect two layers of objects
@@ -57,6 +60,12 @@ public class Enemy_SpiderManSense : MonoBehaviour
             _letRotate = false;
             _e_Manager.CurrentState = Enemy_SelfState_Manager.EnemyState.Move;
         }
+    }
+
+   void VisualizeDetectRance()
+    {
+        Vector2 size=new Vector2(_maxDetect_Dis, _maxDetect_Dis);
+        _visualSight_Indicator.transform.localScale = size;
     }
 
     void DancingModeActivate()
