@@ -9,16 +9,16 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float _pushForce;
     [SerializeField] float _maxWait_time;
 
-    [Header("Assign Values")]
+    [Header("Assign Values==============================================================================================")]
     [SerializeField] NavMeshAgent _enemyAgent;
     public List<Transform> Step = new List<Transform>();
     [SerializeField] int _stepIndex = 0;
 
-    [SerializeField] bool _getPushed;
     [SerializeField] bool  _forwardRound_Finish;
     [SerializeField] Rigidbody _rb;
     [SerializeField] float _delayTime;
     [SerializeField] float _timer_Waiting;
+    [SerializeField] Enemy_SelfState_Manager _e_M;
 
     private void Awake()
     {
@@ -32,7 +32,11 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FollowSteps();
+        if (_e_M.CurrentState == Enemy_SelfState_Manager.EnemyState.Move)
+        {
+            FollowSteps();
+        }
+
         //GetPush();
     }
 
@@ -52,9 +56,8 @@ public class EnemyMovement : MonoBehaviour
                 {
                     _stepIndex--;
                 }
-
-
                 _timer_Waiting = Random.Range(0, _maxWait_time);
+
             }
             if (_stepIndex > Step.Count - 1)
             {
@@ -68,22 +71,6 @@ public class EnemyMovement : MonoBehaviour
             }
 
 
-        }
-    }
-
-
-    private void GetPush()
-    {
-
-        if (_getPushed)
-        {
-            _delayTime -= Time.deltaTime;
-            transform.position += transform.forward * _pushForce * Time.deltaTime;
-            if (_delayTime <= 0)
-            {
-                _getPushed = false;
-                _delayTime = 1;
-            }
         }
     }
 }

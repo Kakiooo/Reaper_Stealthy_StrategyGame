@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy_SpiderManSense : MonoBehaviour
 {
@@ -15,24 +16,34 @@ public class Enemy_SpiderManSense : MonoBehaviour
     [SerializeField] GameObject _sight;
     [SerializeField] GameObject _visualSight_Indicator;
 
+
     [SerializeField] float _detectTimer;
     [SerializeField] bool _letRotate;
     [SerializeField] bool _hideBehindObjects;
     [SerializeField] bool _isWallBetween;
     [SerializeField] float _rotateSpeed;
+
+    [SerializeField] float _visualSightRange_Radius;
+
     [SerializeField] Enemy_SelfState_Manager _e_Manager;
     [SerializeField] LayerMask _obstaclesLayer;
     [SerializeField] LayerMask _movingItemsLayer;
+    [SerializeField] Slider _aware_Bar;
     private void Awake()
     {
-        _detectTimer = _max_PStayingTime;
+        _visualSightRange_Radius = _maxDetect_Dis * 2;
+        _aware_Bar.maxValue = _max_PStayingTime;
     }
     private void Update()
     {
-        DancingModeActivate();
-        Player_InCircle_Detection();
-        ObstaclesDetection();
-        VisualizeDetectRance();
+        if (_e_Manager.CurrentState == Enemy_SelfState_Manager.EnemyState.Move)
+        {
+            DancingModeActivate();
+            Player_InCircle_Detection();
+            ObstaclesDetection();
+            VisualizeDetectRance();
+        }
+
     }
     /// <summary>
     /// Need to detect two layers of objects
@@ -41,14 +52,16 @@ public class Enemy_SpiderManSense : MonoBehaviour
     /// </summary>
     void Player_InCircle_Detection() ///Need Visual to show enemy circle and time Countdown for awaring players
     {
-        float dis=Vector3.Distance(_p_G_Sight.transform.position,transform.position);
+        float dis=Vector3.Distance(_p_G.transform.position,transform.position);
+        Debug.DrawLine(_p_G.transform.position, transform.position);/////////////bug on showing the correct distance
 
         if(dis <_maxDetect_Dis&& !_hideBehindObjects)//detect if player is hiding behind movable object
         {
             if (!_isWallBetween) //only when there is no wall then player can be detected in range of enemy
             {
-                _detectTimer -= Time.deltaTime;
-                if (_detectTimer < 0)
+                _detectTimer += Time.deltaTime;
+                _aware_Bar.value = _detectTimer;
+                if (_detectTimer >= _max_PStayingTime)
                 {
                     _letRotate = true;
                     _e_Manager.CurrentState = Enemy_SelfState_Manager.EnemyState.SpotIt;
@@ -56,7 +69,8 @@ public class Enemy_SpiderManSense : MonoBehaviour
             }
         }else if(dis > _maxDetect_Dis&& !_hideBehindObjects)
         {
-            _detectTimer = _max_PStayingTime;
+            _detectTimer = 0;
+            _aware_Bar.value = _detectTimer;
             _letRotate = false;
             _e_Manager.CurrentState = Enemy_SelfState_Manager.EnemyState.Move;
         }
@@ -64,8 +78,8 @@ public class Enemy_SpiderManSense : MonoBehaviour
 
    void VisualizeDetectRance()
     {
-        Vector2 size=new Vector2(_maxDetect_Dis, _maxDetect_Dis);
-        _visualSight_Indicator.transform.localScale = size;
+        Vector3 size=new Vector3(_visualSightRange_Radius, _visualSightRange_Radius, _visualSightRange_Radius);
+        _visualSight_Indicator.transform.localScale = size; 
     }
 
     void DancingModeActivate()
@@ -76,7 +90,7 @@ public class Enemy_SpiderManSense : MonoBehaviour
     void ObstaclesDetection()
     {
         Vector3 dir = _p_G_Sight.transform.position-_sight.transform.position;
-        Debug.DrawRay(_sight.transform.position, dir*100);
+        //Debug.DrawRay(_sight.transform.position, dir*100);
         if(Physics.Raycast(_sight.transform.position, dir, Vector3.Distance(_sight.transform.position, _p_G_Sight.transform.position), _movingItemsLayer)) //change to moving item Layer
         {
             _hideBehindObjects=true;

@@ -1,4 +1,4 @@
-using Cinemachine;
+﻿using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -23,12 +23,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject _pSight_Anchor;
     Vector3 _dir, _crouchSize, _originalSize;
     [SerializeField] CinemachineVirtualCamera _cam_TakePhoto;
+    [SerializeField] Transform _cam;
     [SerializeField] PlayerManager _p_M;
 
 
     private void Awake()
     {
-
+        _cam = Camera.main.transform;
+        Cursor.lockState= CursorLockMode.Locked;    
         _originalSpeed = _speed;
         _crouchSize = new Vector3(_p_Mesh.transform.localScale.x, _p_Mesh.transform.localScale.y / 2, _p_Mesh.transform.localScale.z);
         _originalSize = _p_Mesh.transform.localScale;
@@ -63,10 +65,35 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void HorizontalMovement()
-    { 
-        _rb.velocity = new Vector3(_x_Input * _speed, 0, _y_Input * _speed);
-        transform.forward = _dir;//keep the same direction when stop
+    {
+        //_rb.velocity = new Vector3(_x_Input * _speed, 0, _y_Input * _speed);
+        //transform.forward = _dir;//keep the same direction when stop
+        // Movement direction based on player’s facing direction
+        Vector3 camForward = _cam.forward;
+        camForward.y = 0;
+        camForward.Normalize();
+
+        Vector3 camRight = _cam.right;
+        camRight.y = 0;
+        camRight.Normalize();
+
+        // ✅ Combine input with camera orientation
+        Vector3 moveDir = camForward * _y_Input + camRight * _x_Input;
+
+        // ✅ Apply movement
+        Vector3 targetVelocity = moveDir * _speed;
+        targetVelocity.y = _rb.velocity.y; // keep gravity
+        _rb.velocity = targetVelocity;
+
+        // ✅ Rotate player to face camera direction when moving
+        if (moveDir.sqrMagnitude > 0.01f)
+        {
+            float rotationSpeed = 10;
+            Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+        }
     }
+
 
     void CrouchVisual()
     {
@@ -81,11 +108,11 @@ public class PlayerMovement : MonoBehaviour
         {
             _x_Input = callback.ReadValue<Vector2>().x;
             _y_Input = callback.ReadValue<Vector2>().y;
-            _dir = new Vector3(_x_Input, 0, _y_Input).normalized;
+           // _dir = new Vector3(_x_Input, 0, _y_Input).normalized;
         }
         if (callback.canceled)
         {
-            _dir = new Vector3(_x_Input, 0, _y_Input).normalized;
+            //_dir = new Vector3(_x_Input, 0, _y_Input).normalized;
             _x_Input = 0;
             _y_Input = 0;
         }

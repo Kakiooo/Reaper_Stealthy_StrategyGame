@@ -12,14 +12,14 @@ public class FOW_Enemy : MonoBehaviour
     public float ViewAngle;
     public int MeshResolution;
 
-    [Header("Assign Values")]
+    [Header("Assign Values==============================================================================================")]
     [SerializeField] LayerMask _obstacles;
     [SerializeField] LayerMask _target;
     public List<Transform> VisibleObjects=new List<Transform> ();
     [SerializeField] GameObject _spotImage;
+    [SerializeField] PlayerManager _p_M;
     public MeshFilter FOW_Filter;
     Mesh _viewMesh;
-    bool _isLost;
 
 
 
@@ -28,18 +28,20 @@ public class FOW_Enemy : MonoBehaviour
         _viewMesh=new Mesh ();
         FOW_Filter.mesh = _viewMesh;
         StartCoroutine("LineOfSight", 0.2f);
-        if (_spotImage != null)
-        {
-            _spotImage.SetActive(false);
-            _isLost = false;
-        }
+        _p_M.LoseLevel = false;
+        //if (_spotImage != null)
+        //{
+        //    _spotImage.SetActive(false);
+        //     _p_M.LoseLevel = false;
+        //}
     }
     private void Update()
     {
-        if (_isLost && Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }//only use this for testing Delete afterwards 
+        //if (_p_M.LoseLevel && Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //}
+        //only use this for testing Delete afterwards 
     }
     private void LateUpdate()
     {
@@ -78,12 +80,12 @@ public class FOW_Enemy : MonoBehaviour
                 if (!Physics.Raycast(transform.position, targetDir, dis, _obstacles))//if there is no obstacles inbetween target and object with vision
                 {
                     VisibleObjects.Add(target); //It means the target has been seen
-                    if (_spotImage != null)
-                    {
-                        _spotImage.SetActive(true);
-                        _isLost = true;
-                    }
-
+                                                //if (_spotImage != null)
+                                                //{
+                                                //    _spotImage.SetActive(true);
+                                                //     _p_M.LoseLevel = true;
+                                                //}
+                    _p_M.LoseLevel = true;
                 }
             }
         }

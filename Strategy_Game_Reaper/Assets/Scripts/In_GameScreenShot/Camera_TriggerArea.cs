@@ -31,13 +31,14 @@ public class Camera_TriggerArea : MonoBehaviour
         }
         BeyondLimits();
     }
-    infoGather GatherEnemyInfo()
+    infoGather GatherEnemyInfo()//obstacles are causing some issue, so dont use that much obstacles
     {
         _numCameraShot++; //count how many shots have been token
         // Collider[] inRangeEnemy = Physics.OverlapBox(_orig_Detect.transform.position, _triggerBoxSize, Quaternion.identity, _enemyLayer, QueryTriggerInteraction.Collide);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
         Collider[] inRangeEnemy = Physics.OverlapCapsule(transform.position,_orig_Detect.position,4,_enemyLayer,QueryTriggerInteraction.UseGlobal);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         int numTarget = inRangeEnemy.Length;
+        print(numTarget);
         List< Vector3 > targetPos= new List< Vector3 >();
         List<Enemy_SelfState_Manager.EnemyState> targetState=new List<Enemy_SelfState_Manager.EnemyState> ();   
         List<float> dis= new List< float >();   
@@ -49,6 +50,7 @@ public class Camera_TriggerArea : MonoBehaviour
                 if (!Physics.Raycast(targetPos[i], _p_Move.transform.position, Vector3.Distance(targetPos[i], _p_Move.transform.position), _obstaclesLayer))//only when there is no obstacles in-between player and enemies
                 {
                     targetState.Add(inRangeEnemy[i].transform.gameObject.GetComponent<Enemy_SelfState_Manager>().CurrentState);    //Collecting All the states
+                    print("TargetCount:"+targetState.Count);
                 }
                 if (targetState.Count!=0) print(targetState[i]); //only when enemies are not behind the wall the enemy state will be recorded
             }

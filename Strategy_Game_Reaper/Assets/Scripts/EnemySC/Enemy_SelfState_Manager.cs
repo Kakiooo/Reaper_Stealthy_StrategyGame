@@ -24,9 +24,13 @@ public class Enemy_SelfState_Manager : MonoBehaviour
         {
             _e_Navi.isStopped = true;
         }
-        if (CurrentState == EnemyState.Move)
+       else if (CurrentState == EnemyState.Move)
         {
             _e_Navi.isStopped = false;
+        }
+        else if (CurrentState == EnemyState.Kiss)
+        {
+            _e_Navi.isStopped = true;
         }
     }
 }
