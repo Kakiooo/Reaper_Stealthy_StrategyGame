@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Assign Values")]
     public bool IsCameraShot, IsIdle;
     [SerializeField] CinemachineVirtualCamera _camera_TakePhoto;
-    [SerializeField] CinemachineFreeLook _camera_General;
+    [SerializeField] CinemachineVirtualCamera _camera_General;
 
    [SerializeField] Transform  _anchor_TakePhoto;
     [SerializeField] Transform _anchor_AnotherAngle;

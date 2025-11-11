@@ -1,0 +1,43 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class CM_ThirdPerson : MonoBehaviour
+{
+    [Header("References")]
+    public Transform Player; // Player target
+    public Transform Cam;    // The virtual camera's Follow target (pivot)
+
+    [Header("Settings")]
+    public float SensitivityX = 180f;
+    public float FixedPitch = 30f; // Constant downward tilt angle
+    public float SmoothTime = 0.1f;
+
+    private float _x_input;
+    private float _mouseX;
+    private Vector2 _smoothInput;
+    private Vector2 _currentVelocity;
+
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    void LateUpdate()
+    {
+        _smoothInput = Vector2.SmoothDamp(_smoothInput, new Vector2(_mouseX, 0f), ref _currentVelocity, SmoothTime);
+
+        _x_input += _smoothInput.x * SensitivityX * Time.deltaTime;
+        transform.rotation = Quaternion.Euler(FixedPitch, _x_input, 0f);
+        transform.position = Player.position;
+
+        if(Cam) Cam.rotation = transform.rotation;
+        if(Player)Player.rotation = Quaternion.Euler(0, _x_input, 0);
+    }
+
+    public void GetMouseInput(InputAction.CallbackContext ctx)
+    {
+        _mouseX = ctx.ReadValue<Vector2>().x;
+    }
+}
+
