@@ -15,6 +15,7 @@ public class Enemy_SpiderManSense : MonoBehaviour
     [SerializeField] GameObject _p_G;
     [SerializeField] GameObject _sight;
     [SerializeField] GameObject _visualSight_Indicator;
+    [SerializeField] UI_blinking _spot_It;
 
 
     [SerializeField] float _detectTimer;
@@ -62,6 +63,7 @@ public class Enemy_SpiderManSense : MonoBehaviour
                 _aware_Bar.value = _detectTimer;
                 if (_detectTimer >= _max_PStayingTime)
                 {
+                    _spot_It.StartBlinking = true;
                     _letRotate = true;
                     _e_Manager.CurrentState = Enemy_SelfState_Manager.EnemyState.SpotIt;
                 }

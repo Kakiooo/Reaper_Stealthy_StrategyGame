@@ -42,7 +42,6 @@ public class EnemyMovement : MonoBehaviour
         _enemyAgent.destination = Step[_stepIndex].transform.position;
         if (_enemyAgent.remainingDistance <= 0)
         {
-            print("EnterTheStateSwitch");
             _timer_Waiting -= Time.deltaTime;
             if (_timer_Waiting < 0)
             {
