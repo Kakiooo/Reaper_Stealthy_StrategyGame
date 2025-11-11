@@ -13,6 +13,7 @@ public class CM_ObjectFadeLogic : MonoBehaviour
     public bool CMStartFade;
     public string HitObject;
     Obstacles_Fading _wallBlocking;
+    GameObject _currentHitObject;
     public string CurrentHitObject_Name;
     private void Update()
     {
@@ -27,16 +28,23 @@ public class CM_ObjectFadeLogic : MonoBehaviour
         {
             if (_hit.transform.tag == "Wall")
             {
-                print("Working?");
-                //_wallBlocking = _hit.transform.gameObject.GetComponent<Obstacles_Fading>();
-                _hit.transform.gameObject.GetComponent<MeshRenderer>().enabled = false;
-                CurrentHitObject_Name = _hit.transform.gameObject.name;
-                //_wallBlocking.StartFade = true;
+                if(_hit.transform.gameObject!= _currentHitObject)
+                {
+                   if(_currentHitObject != null) _currentHitObject.gameObject.GetComponent<MeshRenderer>().enabled = true;
+                    //_wallBlocking = _hit.transform.gameObject.GetComponent<Obstacles_Fading>();
+                    _hit.transform.gameObject.GetComponent<MeshRenderer>().enabled = false;
+                    _currentHitObject = _hit.transform.gameObject;
+                    CurrentHitObject_Name = _hit.transform.gameObject.name;
+                }
+                else
+                {
+                   _currentHitObject.GetComponent<MeshRenderer>().enabled= false;
+                }
             }
-            else if (_hit.transform.tag == "Player")
+            else if (_hit.transform.tag == "Player" && _currentHitObject != null)
             {
                 //if(_wallBlocking!=null) _wallBlocking.StartFade = false;
-                _hit.transform.gameObject.GetComponent<MeshRenderer>().enabled = true;
+                _currentHitObject.gameObject.GetComponent<MeshRenderer>().enabled = true;
             }
 
         }

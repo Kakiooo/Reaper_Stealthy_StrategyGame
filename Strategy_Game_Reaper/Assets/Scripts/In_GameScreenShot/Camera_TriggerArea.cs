@@ -9,6 +9,7 @@ public class Camera_TriggerArea : MonoBehaviour
     [Header("===Tweaking them Please!!!!==============================================================================================")]
     [SerializeField] int _numCameraShot;
     [SerializeField] int _max_ShotTime;
+    [SerializeField] int _detectRadius;
 
     [Header("Assign Values")]
     [SerializeField] PlayerMovement _p_Move;
@@ -17,6 +18,7 @@ public class Camera_TriggerArea : MonoBehaviour
     [SerializeField] Transform _orig_Detect;
     [SerializeField] PlayerManager _p_Manager;
     public bool ReachLimit_Shots;
+    [SerializeField] Transform _testing_e_DeletePls;
 
     private void Awake()
     {
@@ -35,7 +37,7 @@ public class Camera_TriggerArea : MonoBehaviour
     {
         _numCameraShot++; //count how many shots have been token
         // Collider[] inRangeEnemy = Physics.OverlapBox(_orig_Detect.transform.position, _triggerBoxSize, Quaternion.identity, _enemyLayer, QueryTriggerInteraction.Collide);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        Collider[] inRangeEnemy = Physics.OverlapCapsule(transform.position,_orig_Detect.position,4,_enemyLayer,QueryTriggerInteraction.UseGlobal);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Collider[] inRangeEnemy = Physics.OverlapCapsule(transform.position,_orig_Detect.position, _detectRadius, _enemyLayer,QueryTriggerInteraction.UseGlobal);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         int numTarget = inRangeEnemy.Length;
         print(numTarget);
@@ -47,12 +49,14 @@ public class Camera_TriggerArea : MonoBehaviour
             for (int i = 0; i <= inRangeEnemy.Length-1; i++)
             {
                 targetPos.Add(inRangeEnemy[i].transform.position);
-                if (!Physics.Raycast(targetPos[i], _p_Move.transform.position, Vector3.Distance(targetPos[i], _p_Move.transform.position), _obstaclesLayer))//only when there is no obstacles in-between player and enemies
+                Vector3 dir = targetPos[i]- transform.position;
+                if (!Physics.Raycast(_p_Move.transform.position, dir.normalized, dir.magnitude, _obstaclesLayer))//only when there is no obstacles in-between player and enemies
                 {
                     targetState.Add(inRangeEnemy[i].transform.gameObject.GetComponent<Enemy_SelfState_Manager>().CurrentState);    //Collecting All the states
-                    print("TargetCount:"+targetState.Count);
+                    print("TargetCount:" + targetState.Count);
+                    print("No The Obstacles");
                 }
-                if (targetState.Count!=0) print(targetState[i]); //only when enemies are not behind the wall the enemy state will be recorded
+                if (targetState.Count != 0) print(targetState[i]); //only when enemies are not behind the wall the enemy state will be recorded
             }
             if (targetPos.Count >= 2)
             {
@@ -83,8 +87,9 @@ public class Camera_TriggerArea : MonoBehaviour
     {
         Gizmos.color = Color.red;
         //Gizmos.DrawCube(_orig_Detect.transform.position, _triggerBoxSize);
-        Gizmos.DrawWireSphere(_orig_Detect.transform.position, 4);
-        Gizmos.DrawWireSphere(transform.position,4);
+        Gizmos.DrawWireSphere(_orig_Detect.transform.position, _detectRadius);
+        Gizmos.DrawWireSphere(transform.position, _detectRadius);
+        Gizmos.DrawRay(transform.position, (_testing_e_DeletePls.position - transform.position));
         // Gizmos.DrawWireCube(_orig_Detect.transform.position, _triggerBoxSize);
     }
 

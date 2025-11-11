@@ -5,8 +5,6 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     [Header("===Tweaking them Please!!!!==============================================================================================")]
-    [SerializeField] float _maxTime_Push;
-    [SerializeField] float _pushForce;
     [SerializeField] float _maxWait_time;
 
     [Header("Assign Values==============================================================================================")]
@@ -16,13 +14,12 @@ public class EnemyMovement : MonoBehaviour
 
     [SerializeField] bool  _forwardRound_Finish;
     [SerializeField] Rigidbody _rb;
-    [SerializeField] float _delayTime;
     [SerializeField] float _timer_Waiting;
     [SerializeField] Enemy_SelfState_Manager _e_M;
 
     private void Awake()
     {
-        _delayTime = _maxTime_Push;
+        _timer_Waiting = _maxWait_time;
     }
     void Start()
     {
@@ -45,6 +42,7 @@ public class EnemyMovement : MonoBehaviour
         _enemyAgent.destination = Step[_stepIndex].transform.position;
         if (_enemyAgent.remainingDistance <= 0)
         {
+            print("EnterTheStateSwitch");
             _timer_Waiting -= Time.deltaTime;
             if (_timer_Waiting < 0)
             {
@@ -62,14 +60,13 @@ public class EnemyMovement : MonoBehaviour
             if (_stepIndex > Step.Count - 1)
             {
                 _forwardRound_Finish = true;
-                 _stepIndex--;
+                _stepIndex--;
             }
             if (_stepIndex < 0)
             {
                 _forwardRound_Finish = false;
                 _stepIndex++;
             }
-
 
         }
     }

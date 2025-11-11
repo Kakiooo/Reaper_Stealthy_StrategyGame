@@ -38,12 +38,11 @@ public class Enemy_SpiderManSense : MonoBehaviour
     {
         if (_e_Manager.CurrentState == Enemy_SelfState_Manager.EnemyState.Move)
         {
-            DancingModeActivate();
             Player_InCircle_Detection();
             ObstaclesDetection();
             VisualizeDetectRance();
         }
-
+        DancingModeActivate();
     }
     /// <summary>
     /// Need to detect two layers of objects
@@ -53,7 +52,7 @@ public class Enemy_SpiderManSense : MonoBehaviour
     void Player_InCircle_Detection() ///Need Visual to show enemy circle and time Countdown for awaring players
     {
         float dis=Vector3.Distance(_p_G.transform.position,transform.position);
-        Debug.DrawLine(_p_G.transform.position, transform.position);/////////////bug on showing the correct distance
+        //Debug.DrawLine(_p_G.transform.position, transform.position);/////////////bug on showing the correct distance
 
         if(dis <_maxDetect_Dis&& !_hideBehindObjects)//detect if player is hiding behind movable object
         {
