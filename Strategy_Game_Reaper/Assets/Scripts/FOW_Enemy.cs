@@ -21,7 +21,10 @@ public class FOW_Enemy : MonoBehaviour
     public MeshFilter FOW_Filter;
     Mesh _viewMesh;
 
-
+    private void Awake()
+    {
+        _e_M=GetComponent<Enemy_SelfState_Manager>();
+    }
 
     private void Start()
     {

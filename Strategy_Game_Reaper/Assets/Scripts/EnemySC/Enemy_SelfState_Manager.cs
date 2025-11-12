@@ -8,6 +8,7 @@ public class Enemy_SelfState_Manager : MonoBehaviour
 {
     [SerializeField] NavMeshAgent _e_Navi;
     [SerializeField] GameManager _gameManager;
+    [SerializeField] float _rotateSpeed;
     public enum EnemyState
     {
         Move,
@@ -21,12 +22,13 @@ public class Enemy_SelfState_Manager : MonoBehaviour
     }
     void EnemyStateOnNAVI()
     {
-        if(CurrentState == EnemyState.SpotIt)
+        if (CurrentState == EnemyState.SpotIt)
         {
             _e_Navi.isStopped = true;
-           if(_gameManager!=null) _gameManager.LoseLevel = true;
+            if (_gameManager != null) _gameManager.LoseLevel = true;
+            DancingModeActivate();
         }
-       else if (CurrentState == EnemyState.Move)
+        else if (CurrentState == EnemyState.Move)
         {
             _e_Navi.isStopped = false;
         }
@@ -34,5 +36,9 @@ public class Enemy_SelfState_Manager : MonoBehaviour
         {
             _e_Navi.isStopped = true;
         }
+    }
+    void DancingModeActivate()
+    {
+        transform.Rotate(Vector3.up * _rotateSpeed * Time.deltaTime);
     }
 }

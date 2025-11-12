@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     void LoseResult()
     {
+        if (LoseLevel)
         print("Sorry You Lose");
     }
 }

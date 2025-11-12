@@ -12,8 +12,6 @@ public class Enemy_MeetOtherEnemies : MonoBehaviour
         if (other.CompareTag("OtherCelebrity"))
         {
             _e_M.CurrentState = Enemy_SelfState_Manager.EnemyState.Kiss;
-
-            print("I wanna kiss you so badyly");
         }
     }
 }

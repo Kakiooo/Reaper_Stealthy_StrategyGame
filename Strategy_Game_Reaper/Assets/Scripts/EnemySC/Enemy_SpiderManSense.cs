@@ -43,7 +43,6 @@ public class Enemy_SpiderManSense : MonoBehaviour
             ObstaclesDetection();
             VisualizeDetectRance();
         }
-        DancingModeActivate();
     }
     /// <summary>
     /// Need to detect two layers of objects
@@ -64,7 +63,6 @@ public class Enemy_SpiderManSense : MonoBehaviour
                 if (_detectTimer >= _max_PStayingTime)
                 {
                     _spot_It.StartBlinking = true;
-                    _letRotate = true;
                     _e_Manager.CurrentState = Enemy_SelfState_Manager.EnemyState.SpotIt;
                 }
             }
@@ -72,7 +70,6 @@ public class Enemy_SpiderManSense : MonoBehaviour
         {
             _detectTimer = 0;
             _aware_Bar.value = _detectTimer;
-            _letRotate = false;
             _e_Manager.CurrentState = Enemy_SelfState_Manager.EnemyState.Move;
         }
     }
@@ -81,11 +78,6 @@ public class Enemy_SpiderManSense : MonoBehaviour
     {
         Vector3 size=new Vector3(_visualSightRange_Radius, _visualSightRange_Radius, _visualSightRange_Radius);
         _visualSight_Indicator.transform.localScale = size; 
-    }
-
-    void DancingModeActivate()
-    {
-        if (_letRotate) transform.Rotate(Vector3.up * _rotateSpeed*Time.deltaTime);
     }
 
     void ObstaclesDetection()

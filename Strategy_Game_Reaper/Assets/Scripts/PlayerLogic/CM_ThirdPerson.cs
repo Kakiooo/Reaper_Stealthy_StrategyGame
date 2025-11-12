@@ -10,7 +10,7 @@ public class CM_ThirdPerson : MonoBehaviour
 
     [Header("Settings")]
     public float SensitivityX = 180f;
-    public float FixedPitch = 30f; // Constant downward tilt angle
+    public float Angle_Down;// Constant downward tilt angle
     public float SmoothTime = 0.1f;
 
     private float _x_input;
@@ -31,7 +31,7 @@ public class CM_ThirdPerson : MonoBehaviour
             _smoothInput = Vector2.SmoothDamp(_smoothInput, new Vector2(_mouseX, 0f), ref _currentVelocity, SmoothTime);
 
             _x_input += _smoothInput.x * SensitivityX * Time.deltaTime;
-            transform.rotation = Quaternion.Euler(FixedPitch, _x_input, 0f);
+            transform.rotation = Quaternion.Euler(Angle_Down, _x_input, 0f);
             transform.position = Player.position;
 
             if (Cam) Cam.rotation = transform.rotation;
