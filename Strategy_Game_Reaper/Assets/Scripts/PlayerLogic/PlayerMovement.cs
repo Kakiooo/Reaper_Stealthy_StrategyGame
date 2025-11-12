@@ -106,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void HorizontalMovement_Input(InputAction.CallbackContext callback)
     {
+
         if (callback.performed)
         {
             _x_Input = callback.ReadValue<Vector2>().x;

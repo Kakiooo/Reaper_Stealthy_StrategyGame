@@ -15,6 +15,7 @@ public class CameraScreenShot : MonoBehaviour
     [SerializeField] Image _camera_Capture;
     [SerializeField] Image _cameraFrame;
     [SerializeField] Image _cameraFlash;
+    [SerializeField] Image _capTuredImage;
     [SerializeField] bool _isCaptured;
     public bool GetNoticed;
     float _flash_A, _tFlash;
@@ -32,6 +33,7 @@ public class CameraScreenShot : MonoBehaviour
     {
         _flash_A = 1;
         _cameraFlash.gameObject.SetActive(false);
+        _capTuredImage.enabled = false;
         _timer_ShotPic = _maxLastTime;
         _warningCountDown = _maxObserveTime;
     }
@@ -39,7 +41,7 @@ public class CameraScreenShot : MonoBehaviour
     private void Update()
     {
         Flash_CameraUI(2);
-
+        ConfirmPic();
 
         if (_p_State.CurrentState == PlayerManager.PlayerState.CameraShot)
         {
@@ -66,10 +68,12 @@ public class CameraScreenShot : MonoBehaviour
     {
         _cameraFrame.gameObject.SetActive(false);//Hide UI
         _warningBar.gameObject.SetActive(false);
+        _capTuredImage.enabled = false;
 
         yield return new WaitForEndOfFrame();
 
         Texture2D screenShot = ScreenCapture.CaptureScreenshotAsTexture();
+        ScreenCapture.CaptureScreenshot("Assets/INGAMEScreen_Shot"+".png");
         Texture2D newScreenShot = new Texture2D(screenShot.width, screenShot.height, TextureFormat.RGBA32, false);//make the new tecture has proper color by USING TextureFormat
 
         newScreenShot.SetPixels(screenShot.GetPixels());//Make the new texture has the same pixel as captured image
@@ -84,6 +88,9 @@ public class CameraScreenShot : MonoBehaviour
         float buffer_X = newScreenShot.width / 10;//make the screenshot smaller so that it can be identified.
         float buffer_Y = newScreenShot.height / 10;
         _camera_Capture.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(newScreenShot.width - buffer_X, newScreenShot.height - buffer_Y);//make the picuture be shown with the smaller size but same ratio as the resolution of screen
+
+        _capTuredImage.enabled = true;
+        _capTuredImage.sprite = newImage;
 
         _cameraFlash.gameObject.SetActive(true);//show UI after hide it for screenshot
         _cameraFrame.gameObject.SetActive(true);
@@ -177,5 +184,11 @@ public class CameraScreenShot : MonoBehaviour
         return new Timer(Timer, control);//can only return the value that Struc contains
     }
 
-
+    void ConfirmPic()//May change after this testing phase
+    {
+        if(_capTuredImage.sprite != null && Input.GetKeyDown(KeyCode.Space))
+        {
+            _cm_Detection.IsConfirmPic = true;
+        } 
+    }
 }

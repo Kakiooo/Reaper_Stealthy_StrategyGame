@@ -24,9 +24,10 @@ public class Enemy_SelfState_Manager : MonoBehaviour
     {
         if (CurrentState == EnemyState.SpotIt)
         {
+            DancingModeActivate();
             _e_Navi.isStopped = true;
             if (_gameManager != null) _gameManager.LoseLevel = true;
-            DancingModeActivate();
+
         }
         else if (CurrentState == EnemyState.Move)
         {
