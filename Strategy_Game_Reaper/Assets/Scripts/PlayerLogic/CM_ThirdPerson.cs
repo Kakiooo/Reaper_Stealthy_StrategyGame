@@ -6,6 +6,7 @@ public class CM_ThirdPerson : MonoBehaviour
     [Header("References")]
     public Transform Player; // Player target
     public Transform Cam;    // The virtual camera's Follow target (pivot)
+    public PlayerManager P_M;    // The virtual camera's Follow target (pivot)
 
     [Header("Settings")]
     public float SensitivityX = 180f;
@@ -25,14 +26,17 @@ public class CM_ThirdPerson : MonoBehaviour
 
     void LateUpdate()
     {
-        _smoothInput = Vector2.SmoothDamp(_smoothInput, new Vector2(_mouseX, 0f), ref _currentVelocity, SmoothTime);
+        if (P_M.CurrentState == PlayerManager.PlayerState.GeneralMoving)
+        {
+            _smoothInput = Vector2.SmoothDamp(_smoothInput, new Vector2(_mouseX, 0f), ref _currentVelocity, SmoothTime);
 
-        _x_input += _smoothInput.x * SensitivityX * Time.deltaTime;
-        transform.rotation = Quaternion.Euler(FixedPitch, _x_input, 0f);
-        transform.position = Player.position;
+            _x_input += _smoothInput.x * SensitivityX * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(FixedPitch, _x_input, 0f);
+            transform.position = Player.position;
 
-        if(Cam) Cam.rotation = transform.rotation;
-        if(Player)Player.rotation = Quaternion.Euler(0, _x_input, 0);
+            if (Cam) Cam.rotation = transform.rotation;
+            if (Player) Player.rotation = Quaternion.Euler(0, _x_input, 0);
+        }
     }
 
     public void GetMouseInput(InputAction.CallbackContext ctx)

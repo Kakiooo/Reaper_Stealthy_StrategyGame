@@ -53,11 +53,12 @@ public class PlayerManager : MonoBehaviour
     {
         if (CurrentState == PlayerState.CameraShot)
         {
-            _camera_General.transform.gameObject.SetActive(false);
+            print("Really not Working?");
+            _camera_General.enabled = false;
         }
         else if (CurrentState == PlayerState.GeneralMoving)
         {
-            _camera_General.transform.gameObject.SetActive(true);
+            _camera_General.enabled = true;
         }
     }
     void CameraFollow()

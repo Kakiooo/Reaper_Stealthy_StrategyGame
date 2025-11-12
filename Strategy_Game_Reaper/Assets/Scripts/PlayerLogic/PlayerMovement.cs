@@ -23,13 +23,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject _pSight_Anchor;
     Vector3 _dir, _crouchSize, _originalSize;
     [SerializeField] CinemachineVirtualCamera _cam_TakePhoto;
+    [SerializeField] CinemachineVirtualCamera _cam_General;
     [SerializeField] Transform _cam;
     [SerializeField] PlayerManager _p_M;
 
 
     private void Awake()
     {
-        _cam = Camera.main.transform;
+        _cam = _cam_General.transform;
         Cursor.lockState= CursorLockMode.Locked;    
         _originalSpeed = _speed;
         _crouchSize = new Vector3(_p_Mesh.transform.localScale.x, _p_Mesh.transform.localScale.y / 2, _p_Mesh.transform.localScale.z);
@@ -38,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         CrouchVisual();
+
     }
 
     // Update is called once per frame
