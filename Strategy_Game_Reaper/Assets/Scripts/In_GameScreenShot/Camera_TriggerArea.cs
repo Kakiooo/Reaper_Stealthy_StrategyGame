@@ -21,6 +21,7 @@ public class Camera_TriggerArea : MonoBehaviour
     public bool ReachLimit_Shots;
     [SerializeField] Transform _testing_e_DeletePls;
     public bool IsConfirmPic;
+    infoGather _outcome;
     private void Awake()
     {
         ReachLimit_Shots = false;
@@ -30,7 +31,7 @@ public class Camera_TriggerArea : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && _p_Manager.CurrentState == PlayerManager.PlayerState.CameraShot && !ReachLimit_Shots)
         {
-            GatherEnemyInfo();
+            _outcome=GatherEnemyInfo();
         }
         BeyondLimits();
 
@@ -77,18 +78,18 @@ public class Camera_TriggerArea : MonoBehaviour
     {
         if (IsConfirmPic)
         {
-            infoGather outcome = GatherEnemyInfo();
-            if (outcome.TargetState.Count == 0) return;
-            if (outcome.TargetState[0] == Enemy_SelfState_Manager.EnemyState.Kiss && outcome.TargetState[1] == Enemy_SelfState_Manager.EnemyState.Kiss)
+            if (_outcome.TargetState.Count == 0) SceneManager.LoadScene("LoseScene");
+            if (_outcome.TargetState[0] == Enemy_SelfState_Manager.EnemyState.Kiss || _outcome.TargetState[1] == Enemy_SelfState_Manager.EnemyState.Kiss)
             {
                 print("Win");
                 SceneManager.LoadScene("WinScene");
             }
-            else if(outcome.TargetState[0] == Enemy_SelfState_Manager.EnemyState.Move || outcome.TargetState[1] == Enemy_SelfState_Manager.EnemyState.Move)
+            else if(_outcome.TargetState[0] == Enemy_SelfState_Manager.EnemyState.Move || _outcome.TargetState[1] == Enemy_SelfState_Manager.EnemyState.Move)
             {
                 print("Lose");
                 SceneManager.LoadScene("LoseScene");
             }
+            IsConfirmPic=false;
         }
 
     }
