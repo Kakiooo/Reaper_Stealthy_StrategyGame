@@ -16,7 +16,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] Rigidbody _rb;
     [SerializeField] float _timer_Waiting;
     [SerializeField] Enemy_SelfState_Manager _e_M;
-
+    [SerializeField] Animator _a_E;
     private void Awake()
     {
         _timer_Waiting = _maxWait_time;
@@ -40,10 +40,12 @@ public class EnemyMovement : MonoBehaviour
     void FollowSteps()
     {
         _enemyAgent.destination = Step[_stepIndex].transform.position;
+        _a_E.SetBool("IsIdle", false);
         if (_enemyAgent.remainingDistance <= 0)
         {
             _timer_Waiting -= Time.deltaTime;
-            if (_timer_Waiting < 0)
+           _a_E.SetBool("IsIdle", true);
+            if (_timer_Waiting <= 0)
             {
                 if (!_forwardRound_Finish)
                 {
@@ -53,6 +55,7 @@ public class EnemyMovement : MonoBehaviour
                 {
                     _stepIndex--;
                 }
+                _a_E.SetBool("IsIdle", false);
                 _timer_Waiting = Random.Range(0, _maxWait_time);
 
             }

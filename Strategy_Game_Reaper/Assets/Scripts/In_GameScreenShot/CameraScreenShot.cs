@@ -34,6 +34,7 @@ public class CameraScreenShot : MonoBehaviour
         _flash_A = 1;
         _cameraFlash.gameObject.SetActive(false);
         _capTuredImage.enabled = false;
+        _capTuredImage.transform.GetChild(0).gameObject.SetActive(false);
         _timer_ShotPic = _maxLastTime;
         _warningCountDown = _maxObserveTime;
     }
@@ -69,6 +70,7 @@ public class CameraScreenShot : MonoBehaviour
         _cameraFrame.gameObject.SetActive(false);//Hide UI
         _warningBar.gameObject.SetActive(false);
         _capTuredImage.enabled = false;
+        _capTuredImage.transform.GetChild(0).gameObject.SetActive(false);
 
         yield return new WaitForEndOfFrame();
 
@@ -94,6 +96,7 @@ public class CameraScreenShot : MonoBehaviour
 
         _cameraFlash.gameObject.SetActive(true);//show UI after hide it for screenshot
         _cameraFrame.gameObject.SetActive(true);
+        _capTuredImage.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     void Flash_CameraUI(float FadeSpeed)
