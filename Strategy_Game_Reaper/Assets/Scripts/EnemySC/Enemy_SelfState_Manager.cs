@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class Enemy_SelfState_Manager : MonoBehaviour
 {
     [SerializeField] NavMeshAgent _e_Navi;
+    [SerializeField] GameManager _gameManager;
     public enum EnemyState
     {
         Move,
@@ -23,6 +24,7 @@ public class Enemy_SelfState_Manager : MonoBehaviour
         if(CurrentState == EnemyState.SpotIt)
         {
             _e_Navi.isStopped = true;
+           if(_gameManager!=null) _gameManager.LoseLevel = true;
         }
        else if (CurrentState == EnemyState.Move)
         {

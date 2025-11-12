@@ -17,7 +17,7 @@ public class CM_ObjectFadeLogic : MonoBehaviour
     public string CurrentHitObject_Name;
     private void Update()
     {
-        DetectWall();
+         DetectWall();
     }
     public void DetectWall()
     {

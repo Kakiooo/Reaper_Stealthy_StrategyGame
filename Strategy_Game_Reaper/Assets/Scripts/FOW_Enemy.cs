@@ -17,7 +17,7 @@ public class FOW_Enemy : MonoBehaviour
     [SerializeField] LayerMask _target;
     public List<Transform> VisibleObjects=new List<Transform> ();
     [SerializeField] GameObject _spotImage;
-    [SerializeField] PlayerManager _p_M;
+    [SerializeField] Enemy_SelfState_Manager _e_M;
     public MeshFilter FOW_Filter;
     Mesh _viewMesh;
 
@@ -28,7 +28,6 @@ public class FOW_Enemy : MonoBehaviour
         _viewMesh=new Mesh ();
         FOW_Filter.mesh = _viewMesh;
         StartCoroutine("LineOfSight", 0.2f);
-        _p_M.LoseLevel = false;
         //if (_spotImage != null)
         //{
         //    _spotImage.SetActive(false);
@@ -80,12 +79,7 @@ public class FOW_Enemy : MonoBehaviour
                 if (!Physics.Raycast(transform.position, targetDir, dis, _obstacles))//if there is no obstacles inbetween target and object with vision
                 {
                     VisibleObjects.Add(target); //It means the target has been seen
-                                                //if (_spotImage != null)
-                                                //{
-                                                //    _spotImage.SetActive(true);
-                                                //     _p_M.LoseLevel = true;
-                                                //}
-                    _p_M.LoseLevel = true;
+                    _e_M.CurrentState = Enemy_SelfState_Manager.EnemyState.SpotIt;
                 }
             }
         }
