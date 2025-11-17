@@ -53,7 +53,6 @@ public class PlayerManager : MonoBehaviour
     {
         if (CurrentState == PlayerState.CameraShot)
         {
-            print("Really not Working?");
             _camera_General.enabled = false;
         }
         else if (CurrentState == PlayerState.GeneralMoving)

@@ -26,6 +26,7 @@ public class CameraScreenShot : MonoBehaviour
     [SerializeField] float _timer_ShotPic;
     [SerializeField] float _warningCountDown;
     [SerializeField] GameManager _r_G;
+    [SerializeField] Ending_DisplayResult _endingResult;
     public List<Texture2D> PictureTooken=new List<Texture2D>(); 
 
 
@@ -34,7 +35,6 @@ public class CameraScreenShot : MonoBehaviour
         _flash_A = 1;
         _cameraFlash.gameObject.SetActive(false);
         _capTuredImage.enabled = false;
-        _capTuredImage.transform.GetChild(0).gameObject.SetActive(false);
         _timer_ShotPic = _maxLastTime;
         _warningCountDown = _maxObserveTime;
     }
@@ -74,7 +74,6 @@ public class CameraScreenShot : MonoBehaviour
         _cameraFrame.gameObject.SetActive(false);//Hide UI
         _warningBar.gameObject.SetActive(false);
         _capTuredImage.enabled = false;
-        _capTuredImage.transform.GetChild(0).gameObject.SetActive(false);
 
         yield return new WaitForEndOfFrame();
 
@@ -82,8 +81,8 @@ public class CameraScreenShot : MonoBehaviour
 
         //ScreenCapture.CaptureScreenshot("Assets/INGAME_ScreenShot"+".png");
         Texture2D newScreenShot = new Texture2D(screenShot.width, screenShot.height, TextureFormat.RGBA32, false);//make the new tecture has proper color by USING TextureFormat
-        PictureTooken.Add(newScreenShot);
 
+        _endingResult.PictureTooken.Add(newScreenShot);
         newScreenShot.SetPixels(screenShot.GetPixels());//Make the new texture has the same pixel as captured image
         newScreenShot.Apply();
 
@@ -102,7 +101,6 @@ public class CameraScreenShot : MonoBehaviour
 
         _cameraFlash.gameObject.SetActive(true);//show UI after hide it for screenshot
         _cameraFrame.gameObject.SetActive(true);
-        _capTuredImage.transform.GetChild(0).gameObject.SetActive(true);
         _cm_Detection.NumCameraShot++;
     }
 

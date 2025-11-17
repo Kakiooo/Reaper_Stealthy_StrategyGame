@@ -19,8 +19,10 @@ public class Camera_TriggerArea : MonoBehaviour
     [SerializeField] LayerMask _obstaclesLayer;
     [SerializeField] Transform _orig_Detect;
     [SerializeField] PlayerManager _p_Manager;
+    [SerializeField] Ending_DisplayResult _endingPart;
     public bool ReachLimit_Shots;
     public bool IsConfirmPic;
+    public bool CheckResult;
     infoGather _outcome;
     private void Awake()
     {
@@ -31,11 +33,12 @@ public class Camera_TriggerArea : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && _p_Manager.CurrentState == PlayerManager.PlayerState.CameraShot && !ReachLimit_Shots)
         {
-            _outcome=GatherEnemyInfo();
+            CheckResult = true;
+            ScoreCalculation();
         }
         BeyondLimits();
 
-        ScoreCalculation();
+
     }
     infoGather GatherEnemyInfo()//obstacles are causing some issue, so dont use that much obstacles
     {
@@ -43,7 +46,6 @@ public class Camera_TriggerArea : MonoBehaviour
         Collider[] inRangeEnemy = Physics.OverlapCapsule(transform.position, _orig_Detect.position, _detectRadius, _enemyLayer, QueryTriggerInteraction.UseGlobal);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         int numTarget = inRangeEnemy.Length;
-        print(numTarget);
         List<Vector3> targetPos = new List<Vector3>();
         List<Enemy_SelfState_Manager.EnemyState> targetState = new List<Enemy_SelfState_Manager.EnemyState>();
         List<float> dis = new List<float>();
@@ -56,26 +58,40 @@ public class Camera_TriggerArea : MonoBehaviour
                 if (!Physics.Raycast(_p_Move.transform.position, dir.normalized, dir.magnitude, _obstaclesLayer))//only when there is no obstacles in-between player and enemies
                 {
                     targetState.Add(inRangeEnemy[i].transform.gameObject.GetComponent<Enemy_SelfState_Manager>().CurrentState);    //Collecting All the states
-                    print("TargetCount:" + targetState.Count);
-                    print("No The Obstacles");
+                    print("Detected_Enemy_Count:" + targetState.Count);
                 }
                 if (targetState.Count != 0) print(targetState[i]); //only when enemies are not behind the wall the enemy state will be recorded
             }
-            if (targetPos.Count >= 2)
-            {
-                for (int i = 0; i <= targetPos.Count - 2; i++)
-                {
-                    float currentDis = Vector3.Distance(targetPos[i], targetPos[i + 1]);
-                    dis.Add(currentDis);  //Collecting all the distance
-                }
-            }
+            //if (targetPos.Count >= 2)
+            //{
+            //    for (int i = 0; i <= targetPos.Count - 2; i++)
+            //    {
+            //        float currentDis = Vector3.Distance(targetPos[i], targetPos[i + 1]);
+            //        dis.Add(currentDis);  //Collecting all the distance
+            //    }
+            //}
         }
+
         return new infoGather(dis, targetState);//get info about how far two enemies are, and what are the states 
     }
 
     void ScoreCalculation()
     {
-
+        if (CheckResult)
+        {
+            _outcome = GatherEnemyInfo();
+            if (_outcome.TargetState[0] == Enemy_SelfState_Manager.EnemyState.Kiss && _outcome.TargetState[1] == Enemy_SelfState_Manager.EnemyState.Kiss)
+            {
+                _endingPart.PicResults.Add(true);
+            }
+            else if (_outcome.TargetState[0] == Enemy_SelfState_Manager.EnemyState.Move || _outcome.TargetState[1] == Enemy_SelfState_Manager.EnemyState.Move)
+            {
+                _endingPart.PicResults.Add(false);
+            }
+            print("IsCalled");
+            //CheckResult = false;
+        }
+    
     }
 
     void BeyondLimits()
