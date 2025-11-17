@@ -27,23 +27,45 @@ public class Enemy_AnimationControl : MonoBehaviour
     void Animation_EnemyFacing()
     {
         float angle=CheckPlayerPos();
-        if (angle <= 60)
+        print(angle);
+        float frontAngle = 45;
+        float sideAngle = 135;
+        float backAngle = 180;
+        if (angle>=0&&angle <= frontAngle)
         {
             _e_Animator.SetBool("IsBack",false);
             _e_Animator.SetBool("IsSide", false);
-            print("Work?");
-        }
-        else if(angle>60 && angle <=120)
+        }     
+        else if(angle> frontAngle && angle <= sideAngle)
         {
             _e_Animator.SetBool("IsSide", true);
             _e_Animator.SetBool("IsBack", false);
-            print("Work1111?");
+            GetComponent<SpriteRenderer>().flipX = false;
         }
-        else if (120 < angle && angle <= 180)
+        else if (sideAngle < angle && angle <= backAngle)
         {
             _e_Animator.SetBool("IsBack", true);
             _e_Animator.SetBool("IsSide", false);
-            print("Work?2222");
+
+        }
+
+        if (angle >= -frontAngle && angle<0)
+        {
+            _e_Animator.SetBool("IsBack", false);
+            _e_Animator.SetBool("IsSide", false);
+            print("Work?");
+        }
+        else if (angle <-frontAngle && angle >= -sideAngle)
+        {
+            _e_Animator.SetBool("IsSide", true);
+            _e_Animator.SetBool("IsBack", false);
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+
+        else if ( angle<-sideAngle && angle >=-backAngle)
+        {
+            _e_Animator.SetBool("IsBack", true);
+            _e_Animator.SetBool("IsSide", false);
         }
     }
 
@@ -55,7 +77,7 @@ public class Enemy_AnimationControl : MonoBehaviour
         playerPos.y = 0;
         enemyDir.y = 0;
 
-        float angleBetween=Vector3.Angle(playerPos, enemyDir);
+        float angleBetween=Vector3.SignedAngle(enemyDir,playerPos,Vector3.up);
         return angleBetween;
     }
 

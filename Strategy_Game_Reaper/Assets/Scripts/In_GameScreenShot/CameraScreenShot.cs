@@ -17,7 +17,6 @@ public class CameraScreenShot : MonoBehaviour
     [SerializeField] Image _cameraFlash;
     [SerializeField] Image _capTuredImage;
     [SerializeField] bool _isCaptured;
-    public bool GetNoticed;
     float _flash_A, _tFlash;
     [SerializeField] Camera_TriggerArea _cm_Detection;
    
@@ -26,6 +25,7 @@ public class CameraScreenShot : MonoBehaviour
     [SerializeField] Slider _warningBarSlider;
     [SerializeField] float _timer_ShotPic;
     [SerializeField] float _warningCountDown;
+    [SerializeField] GameManager _r_G;
 
 
 
@@ -47,7 +47,7 @@ public class CameraScreenShot : MonoBehaviour
         if (_p_State.CurrentState == PlayerManager.PlayerState.CameraShot)
         {
             _warningBar.gameObject.SetActive(true);
-            _warningTimeLimit();
+            _warningShotTimeLimit();
 
             if (Input.GetKeyDown(KeyCode.Mouse0) && !_isCaptured&& !_cm_Detection.ReachLimit_Shots)
             {
@@ -122,7 +122,7 @@ public class CameraScreenShot : MonoBehaviour
         }
     }
 
-    void _warningTimeLimit() //the longer you stay, the easier you will get spotted
+    void _warningShotTimeLimit() //the longer you stay, the easier you will get spotted
     {
         if (_warningBar.gameObject.activeSelf)
         {
@@ -135,7 +135,7 @@ public class CameraScreenShot : MonoBehaviour
             if (_warningBarSlider.value <= 0)
             {
                 print("time is End");
-                GetNoticed=true;
+                _r_G.LoseLevel=true;
                 //need to force to back to walking state or lose state
             }
         }

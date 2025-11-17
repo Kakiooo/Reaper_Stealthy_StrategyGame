@@ -9,7 +9,7 @@ public class Camera_TriggerArea : MonoBehaviour
 
     [Header("===Tweaking them Please!!!!==============================================================================================")]
     [SerializeField] int _numCameraShot;
-    [SerializeField] int _max_ShotTime;
+    [SerializeField] int _max_ShotNum;
     [SerializeField] int _detectRadius;
 
     [Header("Assign Values")]
@@ -95,7 +95,7 @@ public class Camera_TriggerArea : MonoBehaviour
 
     void BeyondLimits()
     {
-        if (_numCameraShot >= _max_ShotTime)
+        if (_numCameraShot >= _max_ShotNum)
         {
             ReachLimit_Shots = true;
         }
