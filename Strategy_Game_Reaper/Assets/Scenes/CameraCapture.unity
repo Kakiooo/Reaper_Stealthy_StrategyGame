@@ -2921,7 +2921,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d4de2e0d059123246b58dcb4583d7acf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 4.96, y: 5.8245873}
@@ -2957,6 +2957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36412eb217428944f9dbec82c8ddc914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _refTo_P: {fileID: 986212122}
 --- !u!1 &1471622246
 GameObject:
   m_ObjectHideFlags: 0
@@ -4137,8 +4138,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7644214766693148766}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0013371906, y: 0.00000013411044, z: -6.5483613e-10, w: 0.9999991}
-  m_LocalPosition: {x: 6.33, y: 1.1, z: -6.53}
+  m_LocalRotation: {x: 0.0009345564, y: 0.71522367, z: 0.0009563906, w: 0.69889444}
+  m_LocalPosition: {x: 6.332767, y: 1.1000077, z: -6.5328364}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4150,7 +4151,7 @@ Transform:
   - {fileID: 6667476265763521428}
   - {fileID: 1426644169}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0.153, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.004, y: 91.323, z: 0.153}
 --- !u!4 &2490724435207847232
 Transform:
   m_ObjectHideFlags: 0
@@ -4265,7 +4266,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
