@@ -8,11 +8,12 @@ public class Camera_TriggerArea : MonoBehaviour
 {
 
     [Header("===Tweaking them Please!!!!==============================================================================================")]
-    [SerializeField] int _numCameraShot;
+
     [SerializeField] int _max_ShotNum;
     [SerializeField] int _detectRadius;
 
     [Header("Assign Values")]
+    public int NumCameraShot;
     [SerializeField] PlayerMovement _p_Move;
     [SerializeField] LayerMask _enemyLayer;
     [SerializeField] LayerMask _obstaclesLayer;
@@ -38,7 +39,6 @@ public class Camera_TriggerArea : MonoBehaviour
     }
     infoGather GatherEnemyInfo()//obstacles are causing some issue, so dont use that much obstacles
     {
-        _numCameraShot++; //count how many shots have been token
         // Collider[] inRangeEnemy = Physics.OverlapBox(_orig_Detect.transform.position, _triggerBoxSize, Quaternion.identity, _enemyLayer, QueryTriggerInteraction.Collide);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
         Collider[] inRangeEnemy = Physics.OverlapCapsule(transform.position, _orig_Detect.position, _detectRadius, _enemyLayer, QueryTriggerInteraction.UseGlobal);//!!!!!!!!size of BOX is WIRED !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -75,27 +75,12 @@ public class Camera_TriggerArea : MonoBehaviour
 
     void ScoreCalculation()
     {
-        if (IsConfirmPic)
-        {
-            if (_outcome.TargetState.Count == 0) SceneManager.LoadScene("LoseScene");
-            if (_outcome.TargetState[0] == Enemy_SelfState_Manager.EnemyState.Kiss || _outcome.TargetState[1] == Enemy_SelfState_Manager.EnemyState.Kiss)
-            {
-                print("Win");
-                SceneManager.LoadScene("WinScene");
-            }
-            else if(_outcome.TargetState[0] == Enemy_SelfState_Manager.EnemyState.Move || _outcome.TargetState[1] == Enemy_SelfState_Manager.EnemyState.Move)
-            {
-                print("Lose");
-                SceneManager.LoadScene("LoseScene");
-            }
-            IsConfirmPic=false;
-        }
 
     }
 
     void BeyondLimits()
     {
-        if (_numCameraShot >= _max_ShotNum)
+        if (NumCameraShot >= _max_ShotNum)
         {
             ReachLimit_Shots = true;
         }

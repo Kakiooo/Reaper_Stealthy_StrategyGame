@@ -65,6 +65,6 @@ public class Enemy_AnimationControl : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(_refTo_E.transform.position, _refTo_P.transform.position);
+        //Gizmos.DrawLine(_refTo_E.transform.position, _refTo_P.transform.position);
     }
 }

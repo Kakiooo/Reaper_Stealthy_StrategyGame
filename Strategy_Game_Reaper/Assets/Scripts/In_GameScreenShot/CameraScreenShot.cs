@@ -26,7 +26,7 @@ public class CameraScreenShot : MonoBehaviour
     [SerializeField] float _timer_ShotPic;
     [SerializeField] float _warningCountDown;
     [SerializeField] GameManager _r_G;
-
+    public List<Texture2D> PictureTooken=new List<Texture2D>(); 
 
 
     private void Awake()
@@ -44,16 +44,19 @@ public class CameraScreenShot : MonoBehaviour
         Flash_CameraUI(2);
         ConfirmPic();
 
+
         if (_p_State.CurrentState == PlayerManager.PlayerState.CameraShot)
         {
             _warningBar.gameObject.SetActive(true);
             _warningShotTimeLimit();
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !_isCaptured&& !_cm_Detection.ReachLimit_Shots)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !_isCaptured && !_cm_Detection.ReachLimit_Shots)
             {
+               // print("Flash");
                 StartCoroutine("CaptureThePhoto");
                 _isCaptured = true;
             }
+
         }
         else
         {
@@ -67,6 +70,7 @@ public class CameraScreenShot : MonoBehaviour
     }
     IEnumerator CaptureThePhoto()///How many times are available for taking pictures is not set
     {
+
         _cameraFrame.gameObject.SetActive(false);//Hide UI
         _warningBar.gameObject.SetActive(false);
         _capTuredImage.enabled = false;
@@ -75,8 +79,10 @@ public class CameraScreenShot : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         Texture2D screenShot = ScreenCapture.CaptureScreenshotAsTexture();
-        ScreenCapture.CaptureScreenshot("Assets/INGAMEScreen_Shot"+".png");
+
+        //ScreenCapture.CaptureScreenshot("Assets/INGAME_ScreenShot"+".png");
         Texture2D newScreenShot = new Texture2D(screenShot.width, screenShot.height, TextureFormat.RGBA32, false);//make the new tecture has proper color by USING TextureFormat
+        PictureTooken.Add(newScreenShot);
 
         newScreenShot.SetPixels(screenShot.GetPixels());//Make the new texture has the same pixel as captured image
         newScreenShot.Apply();
@@ -97,6 +103,7 @@ public class CameraScreenShot : MonoBehaviour
         _cameraFlash.gameObject.SetActive(true);//show UI after hide it for screenshot
         _cameraFrame.gameObject.SetActive(true);
         _capTuredImage.transform.GetChild(0).gameObject.SetActive(true);
+        _cm_Detection.NumCameraShot++;
     }
 
     void Flash_CameraUI(float FadeSpeed)
@@ -189,9 +196,5 @@ public class CameraScreenShot : MonoBehaviour
 
     void ConfirmPic()//May change after this testing phase
     {
-        if(_capTuredImage.sprite != null && Input.GetKeyDown(KeyCode.Space))
-        {
-            _cm_Detection.IsConfirmPic = true;
-        } 
     }
 }

@@ -776,9 +776,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3ac8886e842434380b30017b7a64fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numCameraShot: 0
-  _max_ShotNum: 0
+  _max_ShotNum: 2
   _detectRadius: 8
+  NumCameraShot: 0
   _p_Move: {fileID: 986212122}
   _enemyLayer:
     serializedVersion: 2
@@ -1930,7 +1930,6 @@ MonoBehaviour:
   _cameraFlash: {fileID: 141733493}
   _capTuredImage: {fileID: 2071035692}
   _isCaptured: 0
-  GetNoticed: 0
   _cm_Detection: {fileID: 358293537}
   _p_State: {fileID: 1825707384}
   _warningBar: {fileID: 141733491}
@@ -1938,6 +1937,7 @@ MonoBehaviour:
   _timer_ShotPic: 1
   _warningCountDown: 10
   _r_G: {fileID: 1701335607}
+  PictureTooken: []
 --- !u!136 &986212120
 CapsuleCollider:
   m_ObjectHideFlags: 0
