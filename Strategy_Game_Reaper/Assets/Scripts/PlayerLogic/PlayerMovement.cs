@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("===Tweaking them Please!!!!==============================================================================================")]
     [SerializeField] float _speed;
     [SerializeField] float _originalSpeed;
-    [SerializeField] float _mouse_Camera_Sensitivity;
+    [SerializeField] float _mouse_Camera_PhotoTaking_Sensitivity;
 
     [Header("Assign Values")]
     [SerializeField] Rigidbody _rb;
@@ -165,8 +165,8 @@ public class PlayerMovement : MonoBehaviour
   
             Vector2 mousePos = callback.ReadValue<Vector2>();
 
-            _mouseX += mousePos.x * _mouse_Camera_Sensitivity * Time.deltaTime;
-            _mouseY -= mousePos.y * _mouse_Camera_Sensitivity * Time.deltaTime;
+            _mouseX += mousePos.x * _mouse_Camera_PhotoTaking_Sensitivity * Time.deltaTime;
+            _mouseY -= mousePos.y * _mouse_Camera_PhotoTaking_Sensitivity * Time.deltaTime;
 
             // Clamp the pitch (X rotation)
             _mouseY = Mathf.Clamp(_mouseY, -80, 80);

@@ -19,7 +19,6 @@ public class Camera_TriggerArea : MonoBehaviour
     [SerializeField] Transform _orig_Detect;
     [SerializeField] PlayerManager _p_Manager;
     public bool ReachLimit_Shots;
-    [SerializeField] Transform _testing_e_DeletePls;
     public bool IsConfirmPic;
     infoGather _outcome;
     private void Awake()
@@ -108,7 +107,6 @@ public class Camera_TriggerArea : MonoBehaviour
         //Gizmos.DrawCube(_orig_Detect.transform.position, _triggerBoxSize);
         Gizmos.DrawWireSphere(_orig_Detect.transform.position, _detectRadius);
         Gizmos.DrawWireSphere(transform.position, _detectRadius);
-        Gizmos.DrawRay(transform.position, (_testing_e_DeletePls.position - transform.position));
         // Gizmos.DrawWireCube(_orig_Detect.transform.position, _triggerBoxSize);
     }
 

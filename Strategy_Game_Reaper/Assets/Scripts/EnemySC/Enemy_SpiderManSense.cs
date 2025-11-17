@@ -32,7 +32,7 @@ public class Enemy_SpiderManSense : MonoBehaviour
     [SerializeField] Slider _aware_Bar;
     private void Awake()
     {
-        _visualSightRange_Radius = _maxDetect_Dis * 2;
+        _visualSightRange_Radius = _maxDetect_Dis*2;
         _aware_Bar.maxValue = _max_PStayingTime;
     }
     private void Update()
@@ -76,7 +76,7 @@ public class Enemy_SpiderManSense : MonoBehaviour
 
    void VisualizeDetectRance()
     {
-        Vector3 size=new Vector3(_visualSightRange_Radius, _visualSightRange_Radius, _visualSightRange_Radius);
+        Vector3 size=new Vector3(_visualSightRange_Radius, _visualSight_Indicator.transform.localScale.y, _visualSightRange_Radius);
         _visualSight_Indicator.transform.localScale = size; 
     }
 

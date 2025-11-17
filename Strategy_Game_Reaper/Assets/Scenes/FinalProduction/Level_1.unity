@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 7ed994c1997814049b44c36a823bba6c, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: dd5394365fbf6614bacbe89828a51279, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 310289925}
   m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -436,7 +436,7 @@ Transform:
   m_GameObject: {fileID: 78509805}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.46, y: 2.89, z: 22.93}
+  m_LocalPosition: {x: 0.66, y: 2.89, z: 22.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1175,6 +1175,8 @@ Transform:
   - {fileID: 545544598}
   - {fileID: 1448406919}
   - {fileID: 84429253}
+  - {fileID: 1828919636}
+  - {fileID: 142346153}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &87856586
@@ -1224,7 +1226,7 @@ GameObject:
   - component: {fileID: 142346148}
   m_Layer: 7
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1561,7 +1563,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 87535428}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &150760904
 GameObject:
@@ -2778,7 +2780,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 0.33842114, g: 0.4115845, b: 0.4245283, a: 1}
+  m_Color: {r: 0.57232696, g: 0.28546482, b: 0.2825639, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -9319,7 +9321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6201577738034175779, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6488460372043633170, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: CurrentState
@@ -9347,15 +9349,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6667476266802620973, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.7273486
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6667476266802620973, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.7273486
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6667476266802620973, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.7273486
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6667476266802620973, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9400,6 +9402,10 @@ PrefabInstance:
     - target: {fileID: 7644214766864073191, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644214766864073191, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8204893968863442885, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_CastShadows
@@ -11660,7 +11666,7 @@ GameObject:
   - component: {fileID: 1213599388}
   - component: {fileID: 1213599387}
   - component: {fileID: 1213599386}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Cube (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15458,7 +15464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1229546899102756557, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: _maxDetect_Dis
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1229546899102756557, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: _visualSightRange_Radius
@@ -15614,15 +15620,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6667476266802620973, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.7273486
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6667476266802620973, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.7273486
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6667476266802620973, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.7273486
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6667476266802620973, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17167,7 +17173,7 @@ GameObject:
   - component: {fileID: 1746146517}
   m_Layer: 7
   m_Name: Cube (19)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17970,7 +17976,7 @@ GameObject:
   - component: {fileID: 1828919631}
   m_Layer: 7
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18307,7 +18313,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 87535428}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1854154258
 GameObject:
@@ -20084,7 +20090,7 @@ Transform:
   m_GameObject: {fileID: 2077880343}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3, y: 2.89, z: 23.28}
+  m_LocalPosition: {x: -2.2, y: 2.89, z: 22.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20534,5 +20540,3 @@ SceneRoots:
   - {fileID: 7738505506360303479}
   - {fileID: 1634604741}
   - {fileID: 826025001}
-  - {fileID: 1828919636}
-  - {fileID: 142346153}
