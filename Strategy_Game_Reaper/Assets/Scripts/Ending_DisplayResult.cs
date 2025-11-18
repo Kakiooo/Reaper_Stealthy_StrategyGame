@@ -14,8 +14,8 @@ public class Ending_DisplayResult : MonoBehaviour
     public float CountDown;
     [SerializeField] RectTransform _end_CanvaUI;
     [SerializeField] GameManager _gameManager;
-    [SerializeField] Image _photoFrame1;
-    [SerializeField] Image _photoFrame2;
+    [SerializeField] Image _photoFrame1;//too dependent need to make it as list
+    [SerializeField] Image _photoFrame2;//too dependent need to make it as list
     public List<bool> PicResults = new List<bool>();
 
     public List<Image> ChoosePictures = new List<Image>();
@@ -58,22 +58,19 @@ public class Ending_DisplayResult : MonoBehaviour
 
     public void ChoiceFirst()
     {
-        _photoFrame2.gameObject.SetActive(false);
-        if (PicResults[0] == false)
-        {
-            print("Lose Game");
-        }
-        else if (PicResults[0] == true) print("WinGame");
-        _resultMove = true;
+        HandleChoice(0, _photoFrame1, _photoFrame2); //Can make a list of ALL image Options
     }
     public void ChoiceSecond()
     {
-        _photoFrame1.gameObject.SetActive(false);
-        if (PicResults[1] == false)
-        {
-            print("Lose Game");
-        }
-        else if (PicResults[1] == true) print("WinGame");
+        HandleChoice(1, _photoFrame2, _photoFrame1);//Can make a list of all Image Options
+    }
+
+    private void HandleChoice(int index, Image chosenFrame, Image otherFrame)
+    {
+        otherFrame.gameObject.SetActive(false);
+
+        Debug.Log(PicResults[index] ? "WinGame" : "Lose Game");
+
         _resultMove = true;
     }
 
