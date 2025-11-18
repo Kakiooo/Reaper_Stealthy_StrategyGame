@@ -77,9 +77,9 @@ public class Camera_TriggerArea : MonoBehaviour
 
     void ScoreCalculation()
     {
-        if (CheckResult)
-        {
-            _outcome = GatherEnemyInfo();
+        _outcome = GatherEnemyInfo();
+        if (CheckResult&&_outcome.TargetState.Count>1)
+        {       
             if (_outcome.TargetState[0] == Enemy_SelfState_Manager.EnemyState.Kiss && _outcome.TargetState[1] == Enemy_SelfState_Manager.EnemyState.Kiss)
             {
                 _endingPart.PicResults.Add(true);
@@ -89,7 +89,12 @@ public class Camera_TriggerArea : MonoBehaviour
                 _endingPart.PicResults.Add(false);
             }
             print("IsCalled");
-            //CheckResult = false;
+            CheckResult = false;
+        }
+        else if ( CheckResult)
+        {
+            _endingPart.PicResults.Add(false);
+            CheckResult = false;
         }
     
     }

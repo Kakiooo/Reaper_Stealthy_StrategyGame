@@ -17,7 +17,8 @@ public class PlayerManager : MonoBehaviour
     public enum PlayerState
     {
         CameraShot,
-        GeneralMoving
+        GeneralMoving,
+        EndGame
     }
     public PlayerState CurrentState;
     private void Awake()
