@@ -13,12 +13,14 @@ public class Enemy_SelfState_Manager : MonoBehaviour
     {
         Move,
         Kiss,
-        SpotIt
+        SpotIt,
+        StopMoving
     }
     public EnemyState CurrentState;
     private void Update()
     {
         EnemyStateOnNAVI();
+        StopMoving();
     }
     void EnemyStateOnNAVI()
     {
@@ -37,9 +39,21 @@ public class Enemy_SelfState_Manager : MonoBehaviour
         {
             _e_Navi.isStopped = true;
         }
+        else if (CurrentState == EnemyState.StopMoving)
+        {
+            _e_Navi.isStopped = false;
+        }
     }
     void DancingModeActivate()
     {
         transform.Rotate(Vector3.up * _rotateSpeed * Time.deltaTime);
+    }
+
+    void StopMoving()
+    {
+        if (_gameManager.CurrentState==GameManager.GameState.EndPhase)
+        {
+            CurrentState = EnemyState.StopMoving;
+        }
     }
 }

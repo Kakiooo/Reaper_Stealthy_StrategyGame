@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
    [SerializeField] Transform  _anchor_TakePhoto;
     [SerializeField] Transform _anchor_AnotherAngle;
     public bool LoseLevel;
+    public GameManager GameManager;
     public enum PlayerState
     {
         CameraShot,
@@ -27,20 +28,24 @@ public class PlayerManager : MonoBehaviour
     }
     private void Update()
     {
-        StateSwitch();
+       StateSwitch();
         CameraControl();
         CameraFollow();
     }
     void StateSwitch()
     {
-        if (IsCameraShot)
+        if (GameManager.CurrentState!=GameManager.GameState.EndPhase)
         {
-            CurrentState = PlayerState.CameraShot;
+            if (IsCameraShot)
+            {
+                CurrentState = PlayerState.CameraShot;
+            }
+            else
+            {
+                CurrentState = PlayerState.GeneralMoving;
+            }
         }
-        else
-        {
-            CurrentState = PlayerState.GeneralMoving;
-        }
+
     }
     public void StateSwitch_Input(InputAction.CallbackContext content)
     {

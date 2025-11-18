@@ -5558,16 +5558,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LoseLevel: 0
-  HasMade_Choice: 0
-  HasLoad_Everything: 0
-  ShownResultEnd_Menu: 0
   CountDown: 2
-  _end_CanvaUI: {fileID: 1567140023}
-  TargetState: 
-  ChoosePictures:
-  - {fileID: 963255026}
-  - {fileID: 955263071}
-  PictureTooken: []
+  PlayerManager: {fileID: 1825707384}
+  DisplayResult: {fileID: 2056391759}
+  CurrentState: 0
 --- !u!4 &1701335608
 Transform:
   m_ObjectHideFlags: 0
@@ -5807,6 +5801,7 @@ MonoBehaviour:
   _anchor_TakePhoto: {fileID: 1244710731}
   _anchor_AnotherAngle: {fileID: 743905976}
   LoseLevel: 0
+  GameManager: {fileID: 1701335607}
   CurrentState: 1
 --- !u!4 &1825707385
 Transform:
@@ -6433,6 +6428,7 @@ MonoBehaviour:
   ShownResultEnd_Menu: 0
   CountDown: 0
   _end_CanvaUI: {fileID: 1567140023}
+  _gameManager: {fileID: 1701335607}
   PicResults: 
   ChoosePictures:
   - {fileID: 963255026}
@@ -6555,7 +6551,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2071035690}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1.6, y: 0.9, z: 1.654}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6563,7 +6559,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 614.7, y: -323}
+  m_AnchoredPosition: {x: 655, y: -336}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2071035692

@@ -11,10 +11,12 @@ public class Ending_DisplayResult : MonoBehaviour
     public bool ShownResultEnd_Menu;
     public float CountDown;
     [SerializeField] RectTransform _end_CanvaUI;
+    [SerializeField] GameManager _gameManager;
     public List<bool> PicResults = new List<bool>();
 
     public List<Image> ChoosePictures = new List<Image>();
     public List<Texture2D> PictureTooken = new List<Texture2D>();
+    
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -30,6 +32,7 @@ public class Ending_DisplayResult : MonoBehaviour
 
     public void SetUpOptions()
     {
+        _gameManager.CurrentState = GameManager.GameState.EndPhase;
         if (PictureTooken.Count == 0) return;
         for (int i = 0; i <= PictureTooken.Count - 1; i++)
         {

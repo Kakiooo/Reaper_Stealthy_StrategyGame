@@ -8,7 +8,18 @@ public class GameManager : MonoBehaviour
 {
     public bool LoseLevel;
     public float CountDown;
+    public PlayerManager PlayerManager;
+    public Ending_DisplayResult DisplayResult;
+    public enum GameState
+    {
+        StartPhase,
+        InGame,
+        EndPhase,
+        GameWin,
+        GameLose,
 
+    }
+    public GameState CurrentState;
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -18,6 +29,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         LoseResult();
+        FreezeAllMovement();
     }
 
     void LoseResult()
@@ -29,6 +41,14 @@ public class GameManager : MonoBehaviour
             {
                 SceneManager.LoadScene("LoseScene");
             }
+        }
+    }
+
+    void FreezeAllMovement()
+    {
+        if (DisplayResult.ShownResultEnd_Menu)
+        {
+            PlayerManager.CurrentState=PlayerManager.PlayerState.EndGame;
         }
     }
 
