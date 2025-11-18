@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,12 @@ public class Ending_DisplayResult : MonoBehaviour
     public bool HasMade_Choice;
     public bool HasLoad_Everything;
     public bool ShownResultEnd_Menu;
+    [SerializeField] private bool _resultMove;
     public float CountDown;
     [SerializeField] RectTransform _end_CanvaUI;
     [SerializeField] GameManager _gameManager;
+    [SerializeField] Image _photoFrame1;
+    [SerializeField] Image _photoFrame2;
     public List<bool> PicResults = new List<bool>();
 
     public List<Image> ChoosePictures = new List<Image>();
@@ -28,6 +32,7 @@ public class Ending_DisplayResult : MonoBehaviour
         if (ShownResultEnd_Menu && !HasLoad_Everything) SetUpOptions();
 
         DisplayOptions();
+        MovetoCenterResult();
     }
 
     public void SetUpOptions()
@@ -46,12 +51,48 @@ public class Ending_DisplayResult : MonoBehaviour
         if (HasLoad_Everything)
         {
             Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
             _end_CanvaUI.anchoredPosition = Vector2.MoveTowards(_end_CanvaUI.anchoredPosition, Vector2.zero, Time.deltaTime * 1500);
         }
     }
 
-    public void DoneChoice()
+    public void ChoiceFirst()
     {
+        _photoFrame2.gameObject.SetActive(false);
+        if (PicResults[0] == false)
+        {
+            print("Lose Game");
+        }
+        else if (PicResults[0] == true) print("WinGame");
+        _resultMove = true;
+    }
+    public void ChoiceSecond()
+    {
+        _photoFrame1.gameObject.SetActive(false);
+        if (PicResults[1] == false)
+        {
+            print("Lose Game");
+        }
+        else if (PicResults[1] == true) print("WinGame");
+        _resultMove = true;
+    }
+
+    public void MovetoCenterResult()
+    {
+        if (_resultMove)
+        {
+            if (_photoFrame1.gameObject.activeSelf==true)
+            {
+                RectTransform Rect = _photoFrame1.transform.GetComponent<RectTransform>();
+                Rect.DOAnchorPos(Vector2.zero, 0.5f, false);
+                print("IsitWork");
+            }
+            else if (_photoFrame2.gameObject.activeSelf == true)
+            {
+                RectTransform Rect = _photoFrame2.transform.GetComponent<RectTransform>();
+                Rect.DOAnchorPos(Vector2.zero, 0.5f, false);
+            }
+        }
 
     }
 }
