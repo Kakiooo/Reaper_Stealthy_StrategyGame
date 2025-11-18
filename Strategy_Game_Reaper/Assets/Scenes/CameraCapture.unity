@@ -1708,7 +1708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5044,8 +5044,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2056391759}
         m_TargetAssemblyTypeName: Ending_DisplayResult, Assembly-CSharp
-        m_MethodName: ChoiceFirst
-        m_Mode: 1
+        m_MethodName: Choice
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5177,12 +5177,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2056391759}
         m_TargetAssemblyTypeName: Ending_DisplayResult, Assembly-CSharp
-        m_MethodName: ChoiceSecond
-        m_Mode: 1
+        m_MethodName: Choice
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6456,11 +6456,15 @@ MonoBehaviour:
   _gameManager: {fileID: 1701335607}
   _photoFrame1: {fileID: 579648800}
   _photoFrame2: {fileID: 1361563373}
+  _photoFrames:
+  - {fileID: 579648800}
+  - {fileID: 1361563373}
   PicResults: 
   ChoosePictures:
   - {fileID: 963255026}
   - {fileID: 955263071}
   PictureTooken: []
+  ChoosePic: 0
 --- !u!1 &2069072079
 GameObject:
   m_ObjectHideFlags: 0

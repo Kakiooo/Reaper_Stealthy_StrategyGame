@@ -16,10 +16,13 @@ public class Ending_DisplayResult : MonoBehaviour
     [SerializeField] GameManager _gameManager;
     [SerializeField] Image _photoFrame1;//too dependent need to make it as list
     [SerializeField] Image _photoFrame2;//too dependent need to make it as list
+    [SerializeField] List<Image> _photoFrames = new List<Image>();
+
     public List<bool> PicResults = new List<bool>();
 
     public List<Image> ChoosePictures = new List<Image>();
     public List<Texture2D> PictureTooken = new List<Texture2D>();
+    public int ChoosePic;
     
     private void Awake()
     {
@@ -56,21 +59,14 @@ public class Ending_DisplayResult : MonoBehaviour
         }
     }
 
-    public void ChoiceFirst()
+    public void Choice(int index)
     {
-        HandleChoice(0, _photoFrame1, _photoFrame2); //Can make a list of ALL image Options
-    }
-    public void ChoiceSecond()
-    {
-        HandleChoice(1, _photoFrame2, _photoFrame1);//Can make a list of all Image Options
-    }
-
-    private void HandleChoice(int index, Image chosenFrame, Image otherFrame)
-    {
-        otherFrame.gameObject.SetActive(false);
-
-        Debug.Log(PicResults[index] ? "WinGame" : "Lose Game");
-
+        //HandleChoice(i, _photoFrame1, _photoFrame2); //Can make a list of ALL image Options
+        ChoosePic = index;
+        for(int i = 0; i <= _photoFrames.Count - 1; i++)
+        {
+            if(i!=index) _photoFrames[i].gameObject.SetActive(false);
+        }
         _resultMove = true;
     }
 
@@ -78,17 +74,8 @@ public class Ending_DisplayResult : MonoBehaviour
     {
         if (_resultMove)
         {
-            if (_photoFrame1.gameObject.activeSelf==true)
-            {
-                RectTransform Rect = _photoFrame1.transform.GetComponent<RectTransform>();
-                Rect.DOAnchorPos(Vector2.zero, 0.5f, false);
-                print("IsitWork");
-            }
-            else if (_photoFrame2.gameObject.activeSelf == true)
-            {
-                RectTransform Rect = _photoFrame2.transform.GetComponent<RectTransform>();
-                Rect.DOAnchorPos(Vector2.zero, 0.5f, false);
-            }
+            RectTransform Rect= _photoFrames[ChoosePic].transform.GetComponent<RectTransform>();
+            Rect.DOAnchorPos(Vector2.zero, 0.5f, false);
         }
 
     }
