@@ -16,8 +16,8 @@ public class Ending_DisplayResult : MonoBehaviour
     public TextMeshProUGUI TimeResult;
     [SerializeField] RectTransform _end_CanvaUI;
     [SerializeField] GameManager _gameManager;
-    [SerializeField] Image _photoFrame1;//too dependent need to make it as list
-    [SerializeField] Image _photoFrame2;//too dependent need to make it as list
+    [SerializeField] Image _gameWin;
+    [SerializeField] Image _gameLose;
     [SerializeField] List<Image> _photoFrames = new List<Image>();
 
     public List<bool> PicResults = new List<bool>();
@@ -25,7 +25,7 @@ public class Ending_DisplayResult : MonoBehaviour
     public List<Image> ChoosePictures = new List<Image>();
     public List<Texture2D> PictureTooken = new List<Texture2D>();
     public int ChoosePic;
-    
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -65,10 +65,11 @@ public class Ending_DisplayResult : MonoBehaviour
     {
         //HandleChoice(i, _photoFrame1, _photoFrame2); //Can make a list of ALL image Options
         ChoosePic = index;
-        for(int i = 0; i <= _photoFrames.Count - 1; i++)
+        for (int i = 0; i <= _photoFrames.Count - 1; i++)
         {
-            if(i!=index) _photoFrames[i].gameObject.SetActive(false);
+            if (i != index) _photoFrames[i].gameObject.SetActive(false);
         }
+
         _resultMove = true;
     }
 
@@ -76,7 +77,11 @@ public class Ending_DisplayResult : MonoBehaviour
     {
         if (_resultMove)
         {
-            RectTransform Rect= _photoFrames[ChoosePic].transform.GetComponent<RectTransform>();
+            RectTransform Rect = _photoFrames[ChoosePic].transform.GetComponent<RectTransform>();
+
+            if (PicResults[ChoosePic]) _gameWin.enabled = true;
+            else _gameLose.enabled = true;
+
             Vector2 targetPos = new Vector2(0, 45);
             TimeResult.text = "Time Cost: " + _gameManager.Timer_Result;
             Rect.DOAnchorPos(targetPos, 0.5f, false);
