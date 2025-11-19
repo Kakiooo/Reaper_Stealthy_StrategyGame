@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviour
         StartPhase,
         InGame,
         EndPhase,
-        GameWin,
-        GameLose,
 
     }
     public GameState CurrentState;
@@ -32,8 +30,31 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         LoseResult();
-        FreezeAllMovement();
+        EndGamePhase();
         MissionTimer();
+    }
+
+    void GameState_Determine()
+    {
+        string sceneName=SceneManager.GetActiveScene().name;
+        switch (sceneName)
+        {
+            case "Menu":
+                CurrentState = GameState.StartPhase;
+                break;
+            case "LevelSelect":
+                CurrentState = GameState.StartPhase;
+                break;
+            case "CutScene":
+                CurrentState = GameState.StartPhase;
+                break;
+            case "Instruction":
+                CurrentState = GameState.StartPhase;
+                break;
+            case "InGame":
+                EndGamePhase();
+                    break;
+        }
     }
 
     void LoseResult()
@@ -54,12 +75,14 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void FreezeAllMovement()
+    void EndGamePhase()
     {
         if (DisplayResult == null) return;
-        if (DisplayResult.ShownResultEnd_Menu)
+        if (!DisplayResult.ShownResultEnd_Menu) CurrentState = GameState.InGame;
+        else
         {
-            PlayerManager.CurrentState=PlayerManager.PlayerState.EndGame;
+            PlayerManager.CurrentState = PlayerManager.PlayerState.EndGame;
+            CurrentState = GameState.EndPhase;
         }
     }
 
