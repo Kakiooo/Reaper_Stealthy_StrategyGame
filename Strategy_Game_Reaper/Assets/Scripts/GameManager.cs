@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        DontDestroyOnLoad(this);
     }
 
     private void Update()
@@ -55,10 +56,27 @@ public class GameManager : MonoBehaviour
 
     void FreezeAllMovement()
     {
+        if (DisplayResult == null) return;
         if (DisplayResult.ShownResultEnd_Menu)
         {
             PlayerManager.CurrentState=PlayerManager.PlayerState.EndGame;
         }
     }
 
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void InstructionEnd_SwitchScene()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    
 }

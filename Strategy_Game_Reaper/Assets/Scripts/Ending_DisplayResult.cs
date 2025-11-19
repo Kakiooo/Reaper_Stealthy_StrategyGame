@@ -26,6 +26,8 @@ public class Ending_DisplayResult : MonoBehaviour
     public List<Texture2D> PictureTooken = new List<Texture2D>();
     public int ChoosePic;
 
+    public List<Button> ChooseButton=new List<Button>();    
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -78,7 +80,7 @@ public class Ending_DisplayResult : MonoBehaviour
         if (_resultMove)
         {
             RectTransform Rect = _photoFrames[ChoosePic].transform.GetComponent<RectTransform>();
-
+            ChooseButton[ChoosePic].gameObject.SetActive(false);
             if (PicResults[ChoosePic]) _gameWin.enabled = true;
             else _gameLose.enabled = true;
 

@@ -6867,6 +6867,9 @@ MonoBehaviour:
   - {fileID: 955263071}
   PictureTooken: []
   ChoosePic: 0
+  ChooseButton:
+  - {fileID: 1560522458}
+  - {fileID: 1563878453}
 --- !u!1 &2069072079
 GameObject:
   m_ObjectHideFlags: 0
