@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera _cam_General;
     [SerializeField] Transform _cam;
     [SerializeField] PlayerManager _p_M;
+    [SerializeField] Animator _p_Animator;
 
 
     private void Awake()
@@ -68,9 +69,6 @@ public class PlayerMovement : MonoBehaviour
 
     void HorizontalMovement()
     {
-        //_rb.velocity = new Vector3(_x_Input * _speed, 0, _y_Input * _speed);
-        //transform.forward = _dir;//keep the same direction when stop
-        // Movement direction based on player’s facing direction
         Vector3 camForward = _cam.forward;
         camForward.y = 0;
         camForward.Normalize();
@@ -86,14 +84,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 targetVelocity = moveDir * _speed;
         targetVelocity.y = _rb.velocity.y; // keep gravity
         _rb.velocity = targetVelocity;
-
-        // Rotate player to face camera direction when moving
-        //if (moveDir.sqrMagnitude > 0.01f)
-        //{
-        //    float rotationSpeed = 10;
-        //    Quaternion targetRotation = Quaternion.LookRotation(moveDir);
-        //    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
-        //}
+        PlayerAnimationControl();
     }
 
 
@@ -175,5 +166,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
+    }
+
+
+    void PlayerAnimationControl()
+    {
+        if (_rb.velocity != Vector3.zero)
+        {
+            _p_Animator.SetBool("IsWalking", true);
+            _p_Animator.SetBool("IsIdle", false);
+        }
+        else
+        {
+            _p_Animator.SetBool("IsWalking", false);
+            _p_Animator.SetBool("IsIdle", true);
+        }
     }
 }
