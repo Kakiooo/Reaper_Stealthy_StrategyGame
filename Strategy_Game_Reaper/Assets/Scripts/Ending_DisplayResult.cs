@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class Ending_DisplayResult : MonoBehaviour
     public bool ShownResultEnd_Menu;
     [SerializeField] private bool _resultMove;
     public float CountDown;
+    public TextMeshProUGUI TimeResult;
     [SerializeField] RectTransform _end_CanvaUI;
     [SerializeField] GameManager _gameManager;
     [SerializeField] Image _photoFrame1;//too dependent need to make it as list
@@ -75,7 +77,9 @@ public class Ending_DisplayResult : MonoBehaviour
         if (_resultMove)
         {
             RectTransform Rect= _photoFrames[ChoosePic].transform.GetComponent<RectTransform>();
-            Rect.DOAnchorPos(Vector2.zero, 0.5f, false);
+            Vector2 targetPos = new Vector2(0, 45);
+            TimeResult.text = "Time Cost: " + _gameManager.Timer_Result;
+            Rect.DOAnchorPos(targetPos, 0.5f, false);
         }
 
     }
