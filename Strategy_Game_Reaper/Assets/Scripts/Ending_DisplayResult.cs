@@ -59,7 +59,7 @@ public class Ending_DisplayResult : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-            _end_CanvaUI.anchoredPosition = Vector2.MoveTowards(_end_CanvaUI.anchoredPosition, Vector2.zero, Time.deltaTime * 1500);
+            _end_CanvaUI.DOAnchorPos(Vector2.zero, 0.5f);
         }
     }
 
