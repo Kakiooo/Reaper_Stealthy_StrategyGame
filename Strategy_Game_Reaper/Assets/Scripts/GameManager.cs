@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
         LoseResult();
         EndGamePhase();
         MissionTimer();
+        GameState_Determine();
     }
 
     void GameState_Determine()
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
             case "LevelSelect":
                 CurrentState = GameState.StartPhase;
                 break;
-            case "CutScene":
+            case "CutScene_Story":
                 CurrentState = GameState.StartPhase;
                 break;
             case "Instruction":
@@ -89,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("LevelSelect");
     }
     public void QuitGame()
     {
@@ -98,7 +99,7 @@ public class GameManager : MonoBehaviour
 
     public void InstructionEnd_SwitchScene()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("InGame");
     }
 
     
