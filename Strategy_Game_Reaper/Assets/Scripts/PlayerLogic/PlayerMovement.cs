@@ -84,7 +84,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 targetVelocity = moveDir * _speed;
         targetVelocity.y = _rb.velocity.y; // keep gravity
         _rb.velocity = targetVelocity;
-        PlayerAnimationControl();
     }
 
 
@@ -102,13 +101,17 @@ public class PlayerMovement : MonoBehaviour
         {
             _x_Input = callback.ReadValue<Vector2>().x;
             _y_Input = callback.ReadValue<Vector2>().y;
-           // _dir = new Vector3(_x_Input, 0, _y_Input).normalized;
+            _p_Animator.SetBool("IsWalking", true);
+            _p_Animator.SetBool("IsIdle", false);
+            // _dir = new Vector3(_x_Input, 0, _y_Input).normalized;
         }
         if (callback.canceled)
         {
             //_dir = new Vector3(_x_Input, 0, _y_Input).normalized;
             _x_Input = 0;
             _y_Input = 0;
+            _p_Animator.SetBool("IsWalking", false);
+            _p_Animator.SetBool("IsIdle", true);
         }
     }
     public void DraggingItem(InputAction.CallbackContext callback)
@@ -169,17 +172,4 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    void PlayerAnimationControl()
-    {
-        if (_rb.velocity != Vector3.zero)
-        {
-            _p_Animator.SetBool("IsWalking", true);
-            _p_Animator.SetBool("IsIdle", false);
-        }
-        else
-        {
-            _p_Animator.SetBool("IsWalking", false);
-            _p_Animator.SetBool("IsIdle", true);
-        }
-    }
 }
