@@ -58,9 +58,11 @@ public class PlayerMovement : MonoBehaviour
         switch (_p_M.CurrentState)
         {
             case PlayerManager.PlayerState.GeneralMoving:
+                _p_Animator.SetBool("IsCamera", false);
                 HorizontalMovement();
                 break;
             case PlayerManager.PlayerState.CameraShot:
+                _p_Animator.SetBool("IsCamera", true);
                 _rb.velocity = Vector3.zero;
                 break;
 
@@ -174,6 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
     void AnimationControl()
     {
+        if (_y_Input == 0 && _x_Input == 0) _p_Animator.SetBool("IsIdle", true);
         if (_y_Input != 0)
         {
             _p_Animator.SetBool("IsWalking", true);
@@ -193,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
 
             print("where");
         }
-        if (_y_Input == 0 && _x_Input == 0) _p_Animator.SetBool("IsIdle", false);
+
     }
 
 }
