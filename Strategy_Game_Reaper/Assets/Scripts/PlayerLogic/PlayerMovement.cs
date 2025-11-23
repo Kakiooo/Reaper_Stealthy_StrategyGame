@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         _originalSpeed = _speed;
         _crouchSize = new Vector3(_p_Mesh.transform.localScale.x, _p_Mesh.transform.localScale.y / 2, _p_Mesh.transform.localScale.z);
         _originalSize = _p_Mesh.transform.localScale;
+
     }
     private void Update()
     {

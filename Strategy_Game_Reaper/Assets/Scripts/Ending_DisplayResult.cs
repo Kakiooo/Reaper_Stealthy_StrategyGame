@@ -16,6 +16,10 @@ public class Ending_DisplayResult : MonoBehaviour
     public TextMeshProUGUI TimeResult;
     public GameObject CaptureImageDisplay;
     [SerializeField] RectTransform _end_CanvaUI;
+    [SerializeField] RectTransform _result_Pic_Pos;
+    [SerializeField] RectTransform _result_Pos;
+
+    [SerializeField] Vector3 _resultSize;
     [SerializeField] GameManager _gameManager;
     [SerializeField] Image _gameWin;
     [SerializeField] Image _gameLose;
@@ -83,10 +87,20 @@ public class Ending_DisplayResult : MonoBehaviour
         {
             RectTransform Rect = _photoFrames[ChoosePic].transform.GetComponent<RectTransform>();
             ChooseButton[ChoosePic].gameObject.SetActive(false);
-            if (PicResults[ChoosePic]) _gameWin.enabled = true;
-            else _gameLose.enabled = true;
+            if (PicResults[ChoosePic])
+            {
+                Vector2 winPos = _result_Pos.anchoredPosition;
+               RectTransform winRect= _gameWin.gameObject.GetComponent<RectTransform>();
+                winRect.DOAnchorPos(winPos, 0.5f, false);
+            }
+            else
+            {
+                Vector2 losePos = _result_Pos.anchoredPosition;
+                RectTransform loseRect = _gameLose.gameObject.GetComponent<RectTransform>();
+                loseRect.DOAnchorPos(losePos, 0.5f, false);
+            }
 
-            Vector2 targetPos = new Vector2(0, 45);
+            Vector2 targetPos = _result_Pic_Pos.anchoredPosition;
             TimeResult.text = "Time Cost: " + _gameManager.Timer_Result;
             Rect.DOAnchorPos(targetPos, 0.5f, false);
         }
