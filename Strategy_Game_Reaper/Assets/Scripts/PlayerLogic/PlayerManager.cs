@@ -19,7 +19,8 @@ public class PlayerManager : MonoBehaviour
     public CinemachineBrain MainCM;
     public PostProcessVolume PosProcess;
     public DepthOfField DF;
-    [SerializeField] float _depth;
+    public ChromaticAberration CA;
+    [SerializeField] float _depth,_distort;
     bool _playBlury;
     public enum PlayerState
     {
@@ -32,6 +33,7 @@ public class PlayerManager : MonoBehaviour
     {
         CurrentState = PlayerState.GeneralMoving;
         PosProcess.profile.TryGetSettings(out DF);
+        PosProcess.profile.TryGetSettings(out CA);
     }
     private void Update()
     {
@@ -43,25 +45,40 @@ public class PlayerManager : MonoBehaviour
 
     void SwitchCamera_Blury()
     {
-        if (MainCM.IsBlending)
+        if (MainCM.IsBlending&& _camera_General.enabled==false)
         {
-            PosProcess.enabled = true;
+            //PosProcess.enabled = true;
             _playBlury=true;
+        }
+
+        if (_camera_General.enabled)
+        {
+            _distort = 0;
+            FloatParameter newDistort = new FloatParameter { value = _distort };
+            CA.enabled.value = true;
+            CA.intensity.value = newDistort;
         }
 
         if (_playBlury)
         {
-            _depth += Time.deltaTime*2;
+            _depth += Time.deltaTime*5;
+            _distort += Time.deltaTime;
 
             FloatParameter newFocusDis = new FloatParameter { value = _depth };
             DF.enabled.value = true;
             DF.focusDistance.value = newFocusDis;
 
+            FloatParameter newDistort = new FloatParameter { value = _distort };
+            CA.enabled.value = true;
+            CA.intensity.value = newDistort;
+            if (_distort >= 1) _distort = 1;
             if (_depth >= 5)
             {
                 _depth = 0;
                 _playBlury = false;
             }
+
+
         }
 
 
