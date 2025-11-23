@@ -14,6 +14,7 @@ public class Ending_DisplayResult : MonoBehaviour
     [SerializeField] private bool _resultMove;
     public float CountDown;
     public TextMeshProUGUI TimeResult;
+    public GameObject CaptureImageDisplay;
     [SerializeField] RectTransform _end_CanvaUI;
     [SerializeField] GameManager _gameManager;
     [SerializeField] Image _gameWin;
@@ -44,6 +45,7 @@ public class Ending_DisplayResult : MonoBehaviour
 
     public void SetUpOptions()
     {
+        CaptureImageDisplay.gameObject.SetActive(false);
         _gameManager.CurrentState = GameManager.GameState.EndPhase;
         if (PictureTooken.Count == 0) return;
         for (int i = 0; i <= PictureTooken.Count - 1; i++)

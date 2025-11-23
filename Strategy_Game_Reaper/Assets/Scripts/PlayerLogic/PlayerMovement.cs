@@ -99,10 +99,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (callback.performed)
         {
-            _x_Input = callback.ReadValue<Vector2>().x;
-            _y_Input = callback.ReadValue<Vector2>().y;
-            _p_Animator.SetBool("IsWalking", true);
-            _p_Animator.SetBool("IsIdle", false);
+            _x_Input = callback.ReadValue<Vector2>().x;//left&Right
+            _y_Input = callback.ReadValue<Vector2>().y;//Up & Down
+            AnimationControl();
+
             // _dir = new Vector3(_x_Input, 0, _y_Input).normalized;
         }
         if (callback.canceled)
@@ -111,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
             _x_Input = 0;
             _y_Input = 0;
             _p_Animator.SetBool("IsWalking", false);
+            _p_Animator.SetBool("IsSide", false);
             _p_Animator.SetBool("IsIdle", true);
         }
     }
@@ -154,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Mouse_PosInput(InputAction.CallbackContext callback)
     {
-        if (_p_M.CurrentState == PlayerManager.PlayerState.CameraShot)
+        if (_p_M.CurrentState == PlayerManager.PlayerState.CameraShot&&_p_M.MainCM.IsBlending==false)
         {
   
             Vector2 mousePos = callback.ReadValue<Vector2>();
@@ -171,5 +172,28 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    void AnimationControl()
+    {
+        if (_y_Input != 0)
+        {
+            _p_Animator.SetBool("IsWalking", true);
+            _p_Animator.SetBool("IsIdle", false);
+        }
+        if (_y_Input == 0) _p_Animator.SetBool("IsWalking", false);
+        if (_x_Input != 0)
+        {
+            _p_Animator.SetBool("IsSide", true);
+            _p_Animator.SetBool("IsIdle", false);
+            if (_x_Input >= 0) _p_Animator.transform.GetComponent<SpriteRenderer>().flipX = true;
+            else _p_Animator.transform.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        if (_x_Input == 0)
+        {
+            _p_Animator.SetBool("IsSide", false);
+
+            print("where");
+        }
+        if (_y_Input == 0 && _x_Input == 0) _p_Animator.SetBool("IsIdle", false);
+    }
 
 }

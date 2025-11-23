@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.PostProcessing;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] Transform _anchor_AnotherAngle;
     public bool LoseLevel;
     public GameManager GameManager;
+    public CinemachineBrain MainCM;
+    public PostProcessVolume PosProcess;
+    public DepthOfField DF;
+    [SerializeField] float _depth;
+    bool _playBlury;
     public enum PlayerState
     {
         CameraShot,
@@ -25,13 +31,43 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         CurrentState = PlayerState.GeneralMoving;
+        PosProcess.profile.TryGetSettings(out DF);
     }
     private void Update()
     {
        StateSwitch();
         CameraControl();
         CameraFollow();
+        SwitchCamera_Blury();
     }
+
+    void SwitchCamera_Blury()
+    {
+        if (MainCM.IsBlending)
+        {
+            PosProcess.enabled = true;
+            _playBlury=true;
+        }
+
+        if (_playBlury)
+        {
+            _depth += Time.deltaTime*2;
+
+            FloatParameter newFocusDis = new FloatParameter { value = _depth };
+            DF.enabled.value = true;
+            DF.focusDistance.value = newFocusDis;
+
+            if (_depth >= 5)
+            {
+                _depth = 0;
+                _playBlury = false;
+            }
+        }
+
+
+    }
+
+
     void StateSwitch()
     {
         if (GameManager.CurrentState!=GameManager.GameState.EndPhase)
@@ -49,7 +85,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void StateSwitch_Input(InputAction.CallbackContext content)
     {
-        if (content.performed)
+        if (content.performed&& MainCM.IsBlending==false)
         {
             IsCameraShot = !IsCameraShot;
         }
@@ -71,4 +107,6 @@ public class PlayerManager : MonoBehaviour
         _camera_General.transform.position = _anchor_AnotherAngle.transform.position;
         _camera_TakePhoto.transform.position = _anchor_TakePhoto.transform.position;
     }
+
+
 }
