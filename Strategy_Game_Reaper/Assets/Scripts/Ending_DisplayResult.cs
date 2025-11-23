@@ -19,7 +19,6 @@ public class Ending_DisplayResult : MonoBehaviour
     [SerializeField] RectTransform _result_Pic_Pos;
     [SerializeField] RectTransform _result_Pos;
 
-    [SerializeField] Vector3 _resultSize;
     [SerializeField] GameManager _gameManager;
     [SerializeField] Image _gameWin;
     [SerializeField] Image _gameLose;
@@ -86,6 +85,7 @@ public class Ending_DisplayResult : MonoBehaviour
         if (_resultMove)
         {
             RectTransform Rect = _photoFrames[ChoosePic].transform.GetComponent<RectTransform>();
+            _photoFrames[ChoosePic].enabled = false;
             ChooseButton[ChoosePic].gameObject.SetActive(false);
             if (PicResults[ChoosePic])
             {
@@ -101,7 +101,7 @@ public class Ending_DisplayResult : MonoBehaviour
             }
 
             Vector2 targetPos = _result_Pic_Pos.anchoredPosition;
-            TimeResult.text = "Time Cost: " + _gameManager.Timer_Result;
+            TimeResult.text = "Time Cost: " + _gameManager.Timer_Result.ToString("F1");
             Rect.DOAnchorPos(targetPos, 0.5f, false);
         }
 

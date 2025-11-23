@@ -22,8 +22,12 @@ public class GameManager : MonoBehaviour
     public GameState CurrentState;
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (SceneManager.GetActiveScene().name != "Menu")
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+        }
         DontDestroyOnLoad(this);
     }
 
