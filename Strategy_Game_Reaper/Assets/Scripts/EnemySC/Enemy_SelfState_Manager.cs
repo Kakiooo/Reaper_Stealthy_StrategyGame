@@ -9,6 +9,8 @@ public class Enemy_SelfState_Manager : MonoBehaviour
     [SerializeField] NavMeshAgent _e_Navi;
     [SerializeField] GameManager _gameManager;
     [SerializeField] float _rotateSpeed;
+    [SerializeField] GameObject _eMovementAnimator;
+    [SerializeField] GameObject _eKissingAnimator;
     public enum EnemyState
     {
         Move,
@@ -24,6 +26,11 @@ public class Enemy_SelfState_Manager : MonoBehaviour
     }
     void EnemyStateOnNAVI()
     {
+        if (CurrentState != EnemyState.Kiss)
+        {
+            _eMovementAnimator.gameObject.SetActive(true);
+            if (_eKissingAnimator!=null) _eKissingAnimator.gameObject.SetActive(false);
+        }
         if (CurrentState == EnemyState.SpotIt)
         {
             DancingModeActivate();
@@ -38,6 +45,11 @@ public class Enemy_SelfState_Manager : MonoBehaviour
         else if (CurrentState == EnemyState.Kiss)
         {
             _e_Navi.isStopped = true;
+            _eMovementAnimator.gameObject.SetActive(false);
+            if (_eKissingAnimator != null)
+            {
+                _eKissingAnimator.gameObject.SetActive(true);
+            }
         }
         else if (CurrentState == EnemyState.StopMoving)
         {

@@ -7,6 +7,7 @@ public class Enemy_MeetOtherEnemies : MonoBehaviour
 {
     [SerializeField] Enemy_SelfState_Manager _e_M;
     [SerializeField] NavMeshAgent _n_M;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("OtherCelebrity"))

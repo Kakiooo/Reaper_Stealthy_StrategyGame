@@ -62,14 +62,6 @@ public class Camera_TriggerArea : MonoBehaviour
                 }
                 if (targetState.Count != 0) print(targetState[i]); //only when enemies are not behind the wall the enemy state will be recorded
             }
-            //if (targetPos.Count >= 2)
-            //{
-            //    for (int i = 0; i <= targetPos.Count - 2; i++)
-            //    {
-            //        float currentDis = Vector3.Distance(targetPos[i], targetPos[i + 1]);
-            //        dis.Add(currentDis);  //Collecting all the distance
-            //    }
-            //}
         }
 
         return new infoGather(dis, targetState);//get info about how far two enemies are, and what are the states 
@@ -78,6 +70,7 @@ public class Camera_TriggerArea : MonoBehaviour
     void ScoreCalculation()
     {
         _outcome = GatherEnemyInfo();
+        print("Number of enemy" + _outcome.TargetState.Count);
         if (CheckResult&&_outcome.TargetState.Count>1)
         {       
             if (_outcome.TargetState[0] == Enemy_SelfState_Manager.EnemyState.Kiss && _outcome.TargetState[1] == Enemy_SelfState_Manager.EnemyState.Kiss)

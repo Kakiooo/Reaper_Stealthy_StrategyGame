@@ -31,19 +31,17 @@ public class Enemy_kissing : MonoBehaviour
 
     void OnKissing()
     {
-        if (_kissSign != null)
-        {
-            _kissSign.gameObject.SetActive(true);
-        }
+        //if (_kissSign != null)
+        //{
+        //    _kissSign.gameObject.SetActive(true);
+        //}
         _kissingTime-=Time.deltaTime;
         if (_kissingTime <= 0)
         {
             _e_M.CurrentState = Enemy_SelfState_Manager.EnemyState.Move;
             _kissSign.gameObject.SetActive(false);
             _kissingTime = _maxKissingTime;
-        }
-
-        
+        }      
 
     }
 }
