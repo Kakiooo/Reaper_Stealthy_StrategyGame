@@ -13,6 +13,7 @@ public class Dialogue : MonoBehaviour
     [SerializeField] int _index;
     [SerializeField] List<string> _line=new List<string>();
 
+    public bool IsLoading;
     private void Start()
     {
         StartCoroutine("ShowText", _tomato);
@@ -31,14 +32,16 @@ public class Dialogue : MonoBehaviour
         whoSpeaking.text = "";
         foreach (char character in _line[_index].ToCharArray())
         {
+            IsLoading = true;
             whoSpeaking.text += character;
             yield return new WaitForSeconds(_intervalTime);
         }
+        IsLoading = false;
     }
 
     void SwitchLine()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space)&& IsLoading==false)
         {
             _index++;
             if (_index >= _line.Count) return;
@@ -56,6 +59,9 @@ public class Dialogue : MonoBehaviour
                 StartCoroutine("ShowText", _potato);
             }
 
+        }else if (_index == _line.Count - 1&& Input.GetKeyDown(KeyCode.Space) && IsLoading == false)
+        {
+            //load scene to ingame
         }
     }
 }
