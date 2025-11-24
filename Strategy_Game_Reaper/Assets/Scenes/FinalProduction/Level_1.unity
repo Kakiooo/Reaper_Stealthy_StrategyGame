@@ -1619,7 +1619,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3253,13 +3253,15 @@ MonoBehaviour:
   _cameraFlash: {fileID: 1792316057}
   _capTuredImage: {fileID: 1000632635}
   _isCaptured: 0
-  GetNoticed: 0
   _cm_Detection: {fileID: 1740148303}
   _p_State: {fileID: 1768913490}
   _warningBar: {fileID: 790527882}
   _warningBarSlider: {fileID: 790527884}
   _timer_ShotPic: 1
   _warningCountDown: 10
+  _r_G: {fileID: 0}
+  _endingResult: {fileID: 0}
+  PictureTooken: []
 --- !u!136 &349393246
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3479,7 +3481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _originalSpeed: 0
-  _mouse_Camera_Sensitivity: 5
+  _mouse_Camera_PhotoTaking_Sensitivity: 0
   _rb: {fileID: 19927973}
   PickItem: 0
   IsTop: 0
@@ -3491,6 +3493,7 @@ MonoBehaviour:
   _cam_General: {fileID: 643634012}
   _cam: {fileID: 0}
   _p_M: {fileID: 1768913490}
+  _p_Animator: {fileID: 0}
 --- !u!23 &349393249
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3513,7 +3516,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7478,7 +7481,7 @@ MonoBehaviour:
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
-    GateFit: 2
+    GateFit: 0
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
   m_Transitions:
@@ -7854,6 +7857,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoseLevel: 0
   CountDown: 2
+  Timer_Result: 0
+  PlayerManager: {fileID: 0}
+  DisplayResult: {fileID: 0}
+  IntroPivot: {fileID: 0}
+  Intro_Panel: {fileID: 0}
+  IsOn: 0
+  FirstCM: {fileID: 0}
+  FridgeAnimator: {fileID: 0}
+  CurrentState: 0
 --- !u!1 &651533709
 GameObject:
   m_ObjectHideFlags: 0
@@ -9319,6 +9331,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5942586000616802324, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 6201577738034175779, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -15590,6 +15606,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5942586000616802324, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 6201577738034175779, guid: 8a6ae3f3817a6a24980025658b1b122b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -16919,7 +16939,7 @@ MonoBehaviour:
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
-    GateFit: 2
+    GateFit: 0
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
   m_Transitions:
@@ -16977,9 +16997,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3ac8886e842434380b30017b7a64fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numCameraShot: 0
-  _max_ShotTime: 10
+  _max_ShotNum: 0
   _detectRadius: 8
+  NumCameraShot: 0
   _p_Move: {fileID: 349393248}
   _enemyLayer:
     serializedVersion: 2
@@ -16989,9 +17009,10 @@ MonoBehaviour:
     m_Bits: 128
   _orig_Detect: {fileID: 62848178}
   _p_Manager: {fileID: 1768913490}
+  _endingPart: {fileID: 0}
   ReachLimit_Shots: 0
-  _testing_e_DeletePls: {fileID: 2135921966}
   IsConfirmPic: 0
+  CheckResult: 0
 --- !u!43 &1746131300
 Mesh:
   m_ObjectHideFlags: 0
@@ -17633,6 +17654,17 @@ MonoBehaviour:
   _anchor_TakePhoto: {fileID: 209508606}
   _anchor_AnotherAngle: {fileID: 651533711}
   LoseLevel: 0
+  GameManager: {fileID: 0}
+  MainCM: {fileID: 0}
+  PosProcess: {fileID: 0}
+  DF: {fileID: 0}
+  CA: {fileID: 0}
+  G_ColorGrading: {fileID: 0}
+  L_D: {fileID: 0}
+  _depth: 0
+  _distort: 0
+  _saturation: 0
+  _lens: 0
   CurrentState: 1
 --- !u!4 &1768913491
 Transform:
@@ -18731,7 +18763,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -18862,7 +18895,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19348,7 +19381,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

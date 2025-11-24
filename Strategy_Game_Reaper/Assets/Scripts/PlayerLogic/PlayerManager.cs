@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -18,10 +19,10 @@ public class PlayerManager : MonoBehaviour
     public bool LoseLevel;
     public GameManager GameManager;
     public CinemachineBrain MainCM;
-    public PostProcessVolume PosProcess;
+    public Volume PosProcess;
     public DepthOfField DF;
     public ChromaticAberration CA;
-    public ColorGrading G_ColorGrading;
+    public ColorAdjustments G_ColorGrading;
     public LensDistortion L_D;
     [SerializeField] float _depth,_distort,_saturation,_lens;
 
@@ -36,10 +37,10 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         CurrentState = PlayerState.GeneralMoving;
-        PosProcess.profile.TryGetSettings(out DF);
-        PosProcess.profile.TryGetSettings(out CA);
-        PosProcess.profile.TryGetSettings(out G_ColorGrading);
-        PosProcess.profile.TryGetSettings(out L_D);
+        PosProcess.profile.TryGet(out DF);
+        PosProcess.profile.TryGet(out CA);
+        PosProcess.profile.TryGet(out G_ColorGrading);
+        PosProcess.profile.TryGet(out L_D);
     }
     private void Update()
     {
@@ -71,11 +72,9 @@ public class PlayerManager : MonoBehaviour
 
             _saturation = Mathf.Clamp(_saturation,0, 100);
             _distort = Mathf.Clamp(_distort, 0, 1);
-            _lens = Mathf.Clamp(_lens, -30, 0);
+            _lens = Mathf.Clamp(_lens, -0.4f, 0);
 
-            FloatParameter newFocusDis = new FloatParameter { value = _depth };
-            DF.enabled.value = true;
-            DF.focusDistance.value = newFocusDis;
+            DF.focusDistance.value = _depth;
 
             SetValueForPostProcessint();
 
@@ -97,19 +96,11 @@ public class PlayerManager : MonoBehaviour
 
     void SetValueForPostProcessint()
     {
+        CA.intensity.value = _distort;
 
+        G_ColorGrading.saturation.value = _saturation;
 
-        FloatParameter newDistort = new FloatParameter { value = _distort };
-        CA.enabled.value = true;
-        CA.intensity.value = newDistort;
-
-        FloatParameter newSaturation = new FloatParameter { value = _saturation };
-        G_ColorGrading.enabled.value = true;
-        G_ColorGrading.saturation.value = newSaturation;
-
-        FloatParameter newLens = new FloatParameter { value = _lens };
-        L_D.enabled.value = true;
-        L_D.intensity.value = newLens;
+        L_D.intensity.value = _lens;
     }
 
 

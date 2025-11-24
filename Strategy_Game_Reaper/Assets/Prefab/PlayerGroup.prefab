@@ -73,7 +73,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 5
   _originalSpeed: 0
-  _mouse_Camera_Sensitivity: 5
+  _mouse_Camera_PhotoTaking_Sensitivity: 0
   _rb: {fileID: 6973857626517801862}
   PickItem: 0
   IsTop: 0
@@ -118,7 +118,10 @@ MonoBehaviour:
   _pSight: {fileID: 8450331169024899111}
   _pSight_Anchor: {fileID: 7940704363682124464}
   _cam_TakePhoto: {fileID: 7896905726807347698}
+  _cam_General: {fileID: 0}
+  _cam: {fileID: 0}
   _p_M: {fileID: 0}
+  _p_Animator: {fileID: 0}
 --- !u!114 &4048122484381507493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,14 +328,17 @@ MonoBehaviour:
   _camera_Capture: {fileID: 0}
   _cameraFrame: {fileID: 0}
   _cameraFlash: {fileID: 0}
+  _capTuredImage: {fileID: 0}
   _isCaptured: 0
-  GetNoticed: 0
   _cm_Detection: {fileID: 1139783923295114617}
   _p_State: {fileID: 0}
   _warningBar: {fileID: 0}
   _warningBarSlider: {fileID: 0}
   _timer_ShotPic: 0
   _warningCountDown: 0
+  _r_G: {fileID: 0}
+  _endingResult: {fileID: 0}
+  PictureTooken: []
 --- !u!1 &715682229086861445
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +620,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -763,6 +769,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _p_Object: {fileID: 198232449418489112}
+  _wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
   CMStartFade: 0
   HitObject: 
   CurrentHitObject_Name: 
@@ -1199,6 +1208,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _p_Object: {fileID: 198232449418489112}
+  _wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
   CMStartFade: 0
   HitObject: 
   CurrentHitObject_Name: 
@@ -1214,8 +1226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3ac8886e842434380b30017b7a64fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numCameraShot: 0
-  _max_ShotTime: 2
+  _max_ShotNum: 0
+  _detectRadius: 0
+  NumCameraShot: 0
   _p_Move: {fileID: 7295865342118593604}
   _enemyLayer:
     serializedVersion: 2
@@ -1225,7 +1238,10 @@ MonoBehaviour:
     m_Bits: 128
   _orig_Detect: {fileID: 6073757111897926876}
   _p_Manager: {fileID: 0}
+  _endingPart: {fileID: 0}
   ReachLimit_Shots: 0
+  IsConfirmPic: 0
+  CheckResult: 0
 --- !u!1 &8450331169024899111
 GameObject:
   m_ObjectHideFlags: 0

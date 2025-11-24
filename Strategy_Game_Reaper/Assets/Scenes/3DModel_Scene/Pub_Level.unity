@@ -1117,8 +1117,8 @@ GameObject:
   - component: {fileID: 1657986044}
   - component: {fileID: 1657986043}
   - component: {fileID: 1657986042}
-  - component: {fileID: 1657986047}
   - component: {fileID: 1657986048}
+  - component: {fileID: 1657986049}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1200,18 +1200,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 19, y: -56, z: 0}
---- !u!114 &1657986047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657986041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1657986048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,6 +1234,50 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1657986049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657986041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 1
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!64 &1842785091
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3116,7 +3148,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3421,7 +3453,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -5734736707573505980, guid: 58477acfa2592124ea7ddc8cd4b07b29, type: 3}
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9391,7 +9423,7 @@ MeshRenderer:
   - {fileID: -755181379607283688, guid: 58477acfa2592124ea7ddc8cd4b07b29, type: 3}
   - {fileID: -7892199666372320448, guid: 58477acfa2592124ea7ddc8cd4b07b29, type: 3}
   - {fileID: 6401437599276822880, guid: 58477acfa2592124ea7ddc8cd4b07b29, type: 3}
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   - {fileID: -5734736707573505980, guid: 58477acfa2592124ea7ddc8cd4b07b29, type: 3}
   - {fileID: -2969640846097673212, guid: 58477acfa2592124ea7ddc8cd4b07b29, type: 3}
   - {fileID: 1001083797812756654, guid: 58477acfa2592124ea7ddc8cd4b07b29, type: 3}
@@ -10610,6 +10642,16 @@ MonoBehaviour:
   _anchor_AnotherAngle: {fileID: 3787509539355842601}
   LoseLevel: 0
   GameManager: {fileID: 0}
+  MainCM: {fileID: 0}
+  PosProcess: {fileID: 0}
+  DF: {fileID: 0}
+  CA: {fileID: 0}
+  G_ColorGrading: {fileID: 0}
+  L_D: {fileID: 0}
+  _depth: 0
+  _distort: 0
+  _saturation: 0
+  _lens: 0
   CurrentState: 1
 --- !u!4 &3095425032291242289
 Transform:
@@ -12198,9 +12240,9 @@ MonoBehaviour:
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
-    GateFit: 2
+    GateFit: 0
     FocusDistance: 10
-    m_SensorSize: {x: 36, y: 24}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -12777,7 +12819,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12898,7 +12940,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -5734736707573505980, guid: 58477acfa2592124ea7ddc8cd4b07b29, type: 3}
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15560,7 +15602,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -5734736707573505980, guid: 58477acfa2592124ea7ddc8cd4b07b29, type: 3}
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21791,7 +21833,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -5734736707573505980, guid: 58477acfa2592124ea7ddc8cd4b07b29, type: 3}
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23066,6 +23108,7 @@ MonoBehaviour:
   _cam_General: {fileID: 0}
   _cam: {fileID: 0}
   _p_M: {fileID: 3087640860185947491}
+  _p_Animator: {fileID: 0}
 --- !u!114 &7301313656084387057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24951,9 +24994,9 @@ MonoBehaviour:
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
-    GateFit: 2
+    GateFit: 0
     FocusDistance: 10
-    m_SensorSize: {x: 36, y: 24}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

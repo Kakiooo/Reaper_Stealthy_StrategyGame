@@ -2218,6 +2218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02943624855213f47a220c1a6cd3065a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxWait_time: 1
   _enemyAgent: {fileID: 147831848}
   Step:
   - {fileID: 630163514}
@@ -2225,14 +2226,11 @@ MonoBehaviour:
   - {fileID: 890223085}
   - {fileID: 706488211}
   _stepIndex: 0
-  _timer: 1.5
-  _maxWait_time: 1
-  _pushForce: 2
-  _delayTime: 1
-  _maxTime: 1
-  _getPushed: 0
   _forwardRound_Finish: 0
   _rb: {fileID: 1985413578}
+  _timer_Waiting: 0
+  _e_M: {fileID: 0}
+  _a_E: {fileID: 0}
 --- !u!23 &147831852
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2255,7 +2253,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2325,6 +2323,7 @@ MonoBehaviour:
     m_Bits: 256
   VisibleObjects: []
   _spotImage: {fileID: 252332752}
+  _e_M: {fileID: 0}
   FOW_Filter: {fileID: 1623457660}
 --- !u!43 &188585829
 Mesh:
@@ -2538,6 +2537,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _p_Object: {fileID: 325383506}
+  _wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
   CMStartFade: 0
   HitObject: 
   CurrentHitObject_Name: 
@@ -2569,7 +2571,7 @@ MonoBehaviour:
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
-    GateFit: 2
+    GateFit: 0
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
   m_Transitions:
@@ -3498,12 +3500,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefc97292f015af4893110aa1e210462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 1662308935}
   _speed: 5
   _originalSpeed: 0
+  _mouse_Camera_PhotoTaking_Sensitivity: 0
+  _rb: {fileID: 1662308935}
   PickItem: 0
   IsTop: 0
-  _camera_AnotherAngle: {fileID: 212097699}
+  _isCrouch: 0
+  _p_Mesh: {fileID: 0}
+  _pSight: {fileID: 0}
+  _pSight_Anchor: {fileID: 0}
+  _cam_TakePhoto: {fileID: 0}
+  _cam_General: {fileID: 0}
+  _cam: {fileID: 0}
+  _p_M: {fileID: 0}
+  _p_Animator: {fileID: 0}
 --- !u!23 &325383511
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3526,7 +3537,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11193,7 +11204,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13094,6 +13105,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _p_Object: {fileID: 325383506}
+  _wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
   CMStartFade: 0
   HitObject: 
   CurrentHitObject_Name: 
@@ -13125,7 +13139,7 @@ MonoBehaviour:
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
-    GateFit: 2
+    GateFit: 0
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
   m_Transitions:

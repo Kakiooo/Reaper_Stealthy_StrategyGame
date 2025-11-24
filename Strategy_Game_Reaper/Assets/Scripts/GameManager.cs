@@ -1,7 +1,10 @@
+using Cinemachine;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -10,8 +13,19 @@ public class GameManager : MonoBehaviour
     public bool LoseLevel;
     public float CountDown;
     public float Timer_Result;
+    public float CountDownRolling;
     public PlayerManager PlayerManager;
     public Ending_DisplayResult DisplayResult;
+    public RectTransform IntroPivot;
+    public RectTransform Intro_Panel;
+    public bool IsOn;
+    public bool StartRolling;
+    public CinemachineVirtualCamera FirstCM;
+    public CinemachineVirtualCamera SecondCM;
+    public Animator FridgeAnimator;
+    public GameObject SpotLight_Board;
+    Vector2 _formor_IntroPos;
+
     public enum GameState
     {
         StartPhase,
@@ -26,8 +40,8 @@ public class GameManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-
         }
+        _formor_IntroPos = Intro_Panel.anchoredPosition;
         DontDestroyOnLoad(this);
     }
 
@@ -37,6 +51,7 @@ public class GameManager : MonoBehaviour
         EndGamePhase();
         MissionTimer();
         GameState_Determine();
+        CameraRolling();
     }
 
     void GameState_Determine()
@@ -94,11 +109,40 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("LevelSelect");
+        if (FirstCM.gameObject != null && FridgeAnimator.gameObject != null)
+        {
+            FridgeAnimator.SetBool("IsOpen", true);
+            FirstCM.enabled = false;
+            StartRolling=true;
+        }
+
     }
+    public void CameraRolling()
+    {
+        if (StartRolling)
+        {
+            CountDownRolling += Time.deltaTime;
+            if (CountDownRolling >= 3)
+            {
+                SecondCM.enabled = false;
+                SpotLight_Board.gameObject.SetActive(true);
+                CountDownRolling = 0;
+                StartRolling =false;
+            }
+        }
+    }
+
+
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void ShowInstructionTab()
+    {
+        IsOn = !IsOn;
+        if(IsOn) Intro_Panel.DOAnchorPos(IntroPivot.anchoredPosition, 0.5f);
+        else Intro_Panel.DOAnchorPos(_formor_IntroPos, 0.5f);
     }
 
     public void InstructionEnd_SwitchScene()

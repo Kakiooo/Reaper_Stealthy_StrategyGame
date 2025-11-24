@@ -1343,7 +1343,7 @@ MonoBehaviour:
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
-    GateFit: 2
+    GateFit: 0
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
   m_Transitions:
@@ -1383,6 +1383,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _p_Object: {fileID: 2052090718}
+  _wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
   CMStartFade: 0
   HitObject: 
   CurrentHitObject_Name: 
@@ -10374,7 +10377,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 15302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b51db210fe78df745a372851b3db949e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15273,7 +15276,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15394,7 +15397,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15453,19 +15456,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02943624855213f47a220c1a6cd3065a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxWait_time: 5
   _enemyAgent: {fileID: 1794770233}
   Step:
   - {fileID: 1530803592}
   - {fileID: 1626253205}
   - {fileID: 1905284568}
   _stepIndex: 0
-  _timer: 3
-  _maxWait_time: 5
-  _pushForce: 2
-  _delayTime: 1
-  _maxTime: 1
-  _getPushed: 0
+  _forwardRound_Finish: 0
   _rb: {fileID: 1039257145}
+  _timer_Waiting: 0
+  _e_M: {fileID: 0}
+  _a_E: {fileID: 0}
 --- !u!114 &1794770239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16913,7 +16915,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.13333334
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 5f997f8db1c9e85458eeb604712cf305, type: 2}
   m_BuildHeightMesh: 0
@@ -17840,7 +17842,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18008,10 +18010,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefc97292f015af4893110aa1e210462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 2052090724}
   _speed: 5
   _originalSpeed: 0
+  _mouse_Camera_PhotoTaking_Sensitivity: 0
+  _rb: {fileID: 2052090724}
   PickItem: 0
+  IsTop: 0
+  _isCrouch: 0
+  _p_Mesh: {fileID: 0}
+  _pSight: {fileID: 0}
+  _pSight_Anchor: {fileID: 0}
+  _cam_TakePhoto: {fileID: 0}
+  _cam_General: {fileID: 0}
+  _cam: {fileID: 0}
+  _p_M: {fileID: 0}
+  _p_Animator: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
