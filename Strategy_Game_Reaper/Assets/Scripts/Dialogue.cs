@@ -15,9 +15,9 @@ public class Dialogue : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine("ShowText", _potato);
-       // _potatoDialogueGroup.SetActive(false);
-        _tomatoDialogueGroup.SetActive(false);
+        StartCoroutine("ShowText", _tomato);
+       _potatoDialogueGroup.SetActive(false);
+        //_tomatoDialogueGroup.SetActive(false);
 
     }
     private void Update()
