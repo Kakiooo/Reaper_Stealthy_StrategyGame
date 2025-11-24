@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public float Timer_Result;
     public PlayerManager PlayerManager;
     public Ending_DisplayResult DisplayResult;
+    public int SceneIndex;
 
     public enum GameState
     {
@@ -93,6 +94,9 @@ public class GameManager : MonoBehaviour
             CurrentState = GameState.EndPhase;
         }
     }
-
+    public void SwitchingScene()
+    {
+        SceneManager.LoadScene(SceneIndex + 1);
+    }
     
 }
