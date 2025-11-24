@@ -5550,7 +5550,7 @@ MonoBehaviour:
   _potatoDialogueGroup: {fileID: 1987206838}
   _tomatoDialogueGroup: {fileID: 1584210347}
   _intervalTime: 0.02
-  _index: 13
+  _index: 0
   _line:
   - "\u201CYou vanished right after your speech. The entire fridge thought you left.\u201D"
   - "\u201CI needed air. Do you know how hot those stage lights are? I was about

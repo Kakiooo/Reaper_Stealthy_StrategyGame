@@ -12,9 +12,12 @@ public class Video_CutSceneControl : MonoBehaviour
     public bool VideoIsEnd;
     private void Awake()
     {
-        if(_gameManager!=null)
-        _gameManager=GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         SpaceInstruction.gameObject.SetActive(false);
+
+        Video.Stop();
+        Video.time = 0;
+        Video.Play();
     }
     private void Update()
     {
@@ -36,7 +39,9 @@ public class Video_CutSceneControl : MonoBehaviour
 
     private void Start()
     {
+        Video.Prepare();
         Video.loopPointReached += showSpaceBar;
+
     }
     void showSpaceBar(VideoPlayer vp)
     {
