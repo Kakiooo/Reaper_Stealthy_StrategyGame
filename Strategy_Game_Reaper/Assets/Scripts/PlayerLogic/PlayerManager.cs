@@ -134,10 +134,12 @@ public class PlayerManager : MonoBehaviour
         if (CurrentState == PlayerState.CameraShot)
         {
             _camera_General.enabled = false;
+            PosProcess.enabled = true;
         }
         else if (CurrentState == PlayerState.GeneralMoving)
         {
             _camera_General.enabled = true;
+            PosProcess.enabled = true;
         }
     }
     void CameraFollow()
