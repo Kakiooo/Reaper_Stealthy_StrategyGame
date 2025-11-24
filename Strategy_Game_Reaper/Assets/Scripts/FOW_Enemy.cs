@@ -71,7 +71,6 @@ public class FOW_Enemy : MonoBehaviour
     {
         VisibleObjects.Clear ();
         Collider[] InTheRangeObjects=Physics.OverlapSphere(transform.position,ViewRadius,_target);
-        _e_M.CurrentState = Enemy_SelfState_Manager.EnemyState.Move;
         for (int i = 0; i < InTheRangeObjects.Length; i++)
         {
             Transform target= InTheRangeObjects[i].transform;
