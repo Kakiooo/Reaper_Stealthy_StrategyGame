@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 using System.Threading;
+using TMPro;
 
 public class CameraScreenShot : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class CameraScreenShot : MonoBehaviour
     [SerializeField] Image _cameraFrame;
     [SerializeField] Image _cameraFlash;
     [SerializeField] Image _capTuredImage;
+    [SerializeField] TextMeshProUGUI _photoPaperNum;
     public bool IsCaptured;
     float _flash_A, _tFlash;
     [SerializeField] Camera_TriggerArea _cm_Detection;
@@ -34,6 +36,7 @@ public class CameraScreenShot : MonoBehaviour
     {
         _flash_A = 1;
         _cameraFlash.gameObject.SetActive(false);
+        _photoPaperNum.gameObject.SetActive(false);
         _capTuredImage.enabled = false;
         _timer_ShotPic = _maxLastTime;
         _warningCountDown = _maxObserveTime;
@@ -49,7 +52,9 @@ public class CameraScreenShot : MonoBehaviour
         {
             _warningBar.gameObject.SetActive(true);
             _warningShotTimeLimit();
-
+            _photoPaperNum.gameObject.SetActive(true);
+            int paperLeft=_cm_Detection.Max_ShotNum-_cm_Detection.NumCameraShot;
+            _photoPaperNum.text = "Photo paper Left: " + paperLeft;
             if (Input.GetKeyDown(KeyCode.Mouse0) && !IsCaptured && !_cm_Detection.ReachLimit_Shots)
             {
                // print("Flash");
@@ -73,6 +78,7 @@ public class CameraScreenShot : MonoBehaviour
 
         _cameraFrame.gameObject.SetActive(false);//Hide UI
         _warningBar.gameObject.SetActive(false);
+        _photoPaperNum.gameObject .SetActive(false);
         _capTuredImage.enabled = false;
 
         yield return new WaitForEndOfFrame();
@@ -101,6 +107,7 @@ public class CameraScreenShot : MonoBehaviour
 
         _cameraFlash.gameObject.SetActive(true);//show UI after hide it for screenshot
         _cameraFrame.gameObject.SetActive(true);
+        _photoPaperNum.gameObject.SetActive(true);
         _cm_Detection.NumCameraShot++;
     }
 

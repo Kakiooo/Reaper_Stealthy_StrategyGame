@@ -42,7 +42,7 @@ public class Ending_DisplayResult : MonoBehaviour
     private void Update()
     {
         if (ShownResultEnd_Menu && !HasLoad_Everything) SetUpOptions();
-        if(PicResults.Count>=2) _exitArea.gameObject.SetActive(true);
+        if(PicResults.Count>=1) _exitArea.gameObject.SetActive(true);
         DisplayOptions();
         MovetoCenterResult();
     }
