@@ -12,8 +12,13 @@ public class Dialogue : MonoBehaviour
     [SerializeField] float _intervalTime;
     [SerializeField] int _index;
     [SerializeField] List<string> _line=new List<string>();
+    private GameManager _gameManager;
 
     public bool IsLoading;
+    private void Awake()
+    {
+        _gameManager=GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
     private void Start()
     {
         StartCoroutine("ShowText", _tomato);
@@ -44,8 +49,13 @@ public class Dialogue : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)&& IsLoading==false)
         {
             _index++;
-            if (_index >= _line.Count) return;
-            print("CAlled");
+            if (_index >= _line.Count)
+            {
+                print("CAlled");
+                //load scene to ingame
+                _gameManager.SwitchingScene();
+            }
+
             if (_index % 2 == 0)
             {
                 _potatoDialogueGroup.SetActive(false);
@@ -59,9 +69,8 @@ public class Dialogue : MonoBehaviour
                 StartCoroutine("ShowText", _potato);
             }
 
-        }else if (_index == _line.Count - 1&& Input.GetKeyDown(KeyCode.Space) && IsLoading == false)
-        {
-            //load scene to ingame
+
         }
+
     }
 }

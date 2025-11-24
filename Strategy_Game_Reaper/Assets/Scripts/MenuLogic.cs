@@ -79,10 +79,6 @@ public class MenuLogic : MonoBehaviour
         SceneManager.LoadScene("InGame");
     }
 
-    public void LoadCutScene()
-    {
-        SceneManager.LoadScene("InGame");
-    }
 
 
 }

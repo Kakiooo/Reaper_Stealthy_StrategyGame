@@ -5107,6 +5107,7 @@ MonoBehaviour:
   Timer_Result: 0
   PlayerManager: {fileID: 0}
   DisplayResult: {fileID: 0}
+  SceneIndex: 2
   CurrentState: 1
 --- !u!4 &1472446130
 Transform:
@@ -5549,7 +5550,7 @@ MonoBehaviour:
   _potatoDialogueGroup: {fileID: 1987206838}
   _tomatoDialogueGroup: {fileID: 1584210347}
   _intervalTime: 0.02
-  _index: 0
+  _index: 13
   _line:
   - "\u201CYou vanished right after your speech. The entire fridge thought you left.\u201D"
   - "\u201CI needed air. Do you know how hot those stage lights are? I was about
@@ -5574,6 +5575,7 @@ MonoBehaviour:
     around tonight.\u201D "
   - "\u201CYou planned this, didn\u2019t you?\u201D"
   - "\u201C\u2026Only if you say yes.\u201D"
+  IsLoading: 0
 --- !u!1 &1881622360
 GameObject:
   m_ObjectHideFlags: 0

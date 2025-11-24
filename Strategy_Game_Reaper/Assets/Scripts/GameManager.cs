@@ -96,7 +96,15 @@ public class GameManager : MonoBehaviour
     }
     public void SwitchingScene()
     {
-        SceneManager.LoadScene(SceneIndex + 1);
+        StartCoroutine("TransitionGap");
+    }
+
+
+    IEnumerator TransitionGap()
+    {
+        yield return new WaitForSeconds(1);
+        SceneIndex += 1;
+        SceneManager.LoadScene(SceneIndex);
     }
     
 }
