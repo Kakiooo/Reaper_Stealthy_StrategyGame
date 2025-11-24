@@ -29,5 +29,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FinalProduction/Updated_CameraCapture_WithScene.unity
     guid: 38894d2af756e854c8c4b344dc8113ad
+  - enabled: 1
+    path: Assets/Scenes/FinalProduction/Menu.unity
+    guid: d808fe02c110183499b9671ec08dd4d3
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
