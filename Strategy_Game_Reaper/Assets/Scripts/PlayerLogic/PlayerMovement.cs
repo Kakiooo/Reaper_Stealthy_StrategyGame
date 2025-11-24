@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -25,8 +26,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera _cam_TakePhoto;
     [SerializeField] CinemachineVirtualCamera _cam_General;
     [SerializeField] Transform _cam;
-    [SerializeField] PlayerManager _p_M;
+    public PlayerManager P_M;
     [SerializeField] Animator _p_Animator;
+    public Transform EnemyPos_WhoSpotMe;
 
 
     private void Awake()
@@ -56,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     void PlayerMovementLogic()
     {
         //_rb.velocity = transform.forward* _y_Input * _speed+transform.right*_x_Input* _speed;
-        switch (_p_M.CurrentState)
+        switch (P_M.CurrentState)
         {
             case PlayerManager.PlayerState.GeneralMoving:
                 _p_Animator.SetBool("IsCamera", false);
@@ -65,6 +67,13 @@ public class PlayerMovement : MonoBehaviour
             case PlayerManager.PlayerState.CameraShot:
                 _p_Animator.SetBool("IsCamera", true);
                 _rb.velocity = Vector3.zero;
+                break;
+            case PlayerManager.PlayerState.GetSpoted:
+                if (EnemyPos_WhoSpotMe != null)
+                {
+                    transform.forward = EnemyPos_WhoSpotMe.transform.position - transform.position;
+                }
+                P_M.Spotted = true;
                 break;
 
         }
@@ -88,7 +97,6 @@ public class PlayerMovement : MonoBehaviour
         targetVelocity.y = _rb.velocity.y; // keep gravity
         _rb.velocity = targetVelocity;
     }
-
 
     void CrouchVisual()
     {
@@ -120,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void DraggingItem(InputAction.CallbackContext callback)
     {
-        if (_p_M.CurrentState != PlayerManager.PlayerState.CameraShot)
+        if (P_M.CurrentState != PlayerManager.PlayerState.CameraShot)
         {
             if (callback.performed)
             {
@@ -158,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Mouse_PosInput(InputAction.CallbackContext callback)
     {
-        if (_p_M.CurrentState == PlayerManager.PlayerState.CameraShot&&_p_M.MainCM.IsBlending==false)
+        if (P_M.CurrentState == PlayerManager.PlayerState.CameraShot&&P_M.MainCM.IsBlending==false)
         {
   
             Vector2 mousePos = callback.ReadValue<Vector2>();

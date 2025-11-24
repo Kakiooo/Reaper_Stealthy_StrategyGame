@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
 public class Video_CutSceneControl : MonoBehaviour
@@ -11,14 +12,26 @@ public class Video_CutSceneControl : MonoBehaviour
     public bool VideoIsEnd;
     private void Awake()
     {
-        _gameManager=GameObject.Find("GameManager").GetComponent<GameManager>();    
+        if(_gameManager!=null)
+        _gameManager=GameObject.Find("GameManager").GetComponent<GameManager>();
+        SpaceInstruction.gameObject.SetActive(false);
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)&& VideoIsEnd)
+        if (SceneManager.GetActiveScene().name == "Video_Spotted")
         {
-            _gameManager.SwitchingScene();
+            if(Input.GetKeyDown(KeyCode.Space) && VideoIsEnd)
+            {
+                SceneManager.LoadScene("InGame");
+            }
+        }else
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && VideoIsEnd)
+            {
+                _gameManager.SwitchingScene();
+            }
         }
+       
     }
 
     private void Start()

@@ -30,13 +30,16 @@ EditorBuildSettings:
     path: Assets/Scenes/FinalProduction/Menu.unity
     guid: d808fe02c110183499b9671ec08dd4d3
   - enabled: 1
-    path: Assets/Scenes/Video_CutScene.unity
+    path: Assets/Scenes/FinalProduction/Video_CutScene.unity
     guid: 23c2f876bc2ec1148b1ad169af1425b4
   - enabled: 1
     path: Assets/Scenes/FinalProduction/Dialogue_Story.unity
     guid: d602bbc0b59be0642a7e2165293fb82a
   - enabled: 1
-    path: Assets/Scenes/FinalProduction/Updated_CameraCapture_WithScene.unity
+    path: Assets/Scenes/FinalProduction/InGame.unity
     guid: 38894d2af756e854c8c4b344dc8113ad
+  - enabled: 1
+    path: Assets/Scenes/FinalProduction/Video_Spotted.unity
+    guid: f3f9889f4e7227c4b841bc220b7db638
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

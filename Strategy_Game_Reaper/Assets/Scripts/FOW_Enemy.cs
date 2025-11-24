@@ -71,7 +71,8 @@ public class FOW_Enemy : MonoBehaviour
     {
         VisibleObjects.Clear ();
         Collider[] InTheRangeObjects=Physics.OverlapSphere(transform.position,ViewRadius,_target);
-        for(int i = 0; i < InTheRangeObjects.Length; i++)
+        _e_M.CurrentState = Enemy_SelfState_Manager.EnemyState.Move;
+        for (int i = 0; i < InTheRangeObjects.Length; i++)
         {
             Transform target= InTheRangeObjects[i].transform;
             Vector3 targetDir=(target.transform.position-transform.position).normalized;//GEt direction of that 
@@ -83,6 +84,8 @@ public class FOW_Enemy : MonoBehaviour
                 {
                     VisibleObjects.Add(target); //It means the target has been seen
                     _e_M.CurrentState = Enemy_SelfState_Manager.EnemyState.SpotIt;
+
+                    target.GetComponent<PlayerMovement>().P_M.CurrentState=PlayerManager.PlayerState.GetSpoted;
                 }
             }
         }

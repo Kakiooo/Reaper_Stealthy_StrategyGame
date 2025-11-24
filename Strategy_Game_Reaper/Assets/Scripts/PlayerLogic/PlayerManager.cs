@@ -27,10 +27,12 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] float _depth,_distort,_saturation,_lens;
 
     bool _playBlury;
+    public bool Spotted;
     public enum PlayerState
     {
         CameraShot,
         GeneralMoving,
+        GetSpoted,
         EndGame
     }
     public PlayerState CurrentState;
@@ -106,7 +108,7 @@ public class PlayerManager : MonoBehaviour
 
     void StateSwitch()
     {
-        if (GameManager.CurrentState!=GameManager.GameState.EndPhase)
+        if (GameManager.CurrentState!=GameManager.GameState.EndPhase&&!Spotted)
         {
             if (IsCameraShot)
             {

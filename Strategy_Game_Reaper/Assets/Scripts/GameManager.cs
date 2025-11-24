@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
             CountDown-=Time.deltaTime;
             if(CountDown <= 0)
             {
-                SceneManager.LoadScene("LoseScene");
+                SceneManager.LoadScene("Video_Spotted");
             }
         }
     }

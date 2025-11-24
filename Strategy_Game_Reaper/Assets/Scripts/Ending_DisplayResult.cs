@@ -37,6 +37,7 @@ public class Ending_DisplayResult : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        _exitArea.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -104,6 +105,10 @@ public class Ending_DisplayResult : MonoBehaviour
             Vector2 targetPos = _result_Pic_Pos.anchoredPosition;
             TimeResult.text = "Time Cost: " + _gameManager.Timer_Result.ToString("F1");
             Rect.DOAnchorPos(targetPos, 0.5f, false);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene(0);
+            }
         }
 
     }
