@@ -23,6 +23,7 @@ public class Ending_DisplayResult : MonoBehaviour
     [SerializeField] Image _gameWin;
     [SerializeField] Image _gameLose;
     [SerializeField] List<Image> _photoFrames = new List<Image>();
+    [SerializeField] GameObject _exitArea;
 
     public List<bool> PicResults = new List<bool>();
 
@@ -41,7 +42,7 @@ public class Ending_DisplayResult : MonoBehaviour
     private void Update()
     {
         if (ShownResultEnd_Menu && !HasLoad_Everything) SetUpOptions();
-
+        if(PicResults.Count>=2) _exitArea.gameObject.SetActive(true);
         DisplayOptions();
         MovetoCenterResult();
     }

@@ -20,6 +20,7 @@ public class Camera_TriggerArea : MonoBehaviour
     [SerializeField] Transform _orig_Detect;
     [SerializeField] PlayerManager _p_Manager;
     [SerializeField] Ending_DisplayResult _endingPart;
+    [SerializeField] CameraScreenShot _cameraScreenShot;    
     public bool ReachLimit_Shots;
     public bool IsConfirmPic;
     public bool CheckResult;
@@ -31,7 +32,7 @@ public class Camera_TriggerArea : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && _p_Manager.CurrentState == PlayerManager.PlayerState.CameraShot && !ReachLimit_Shots)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && _p_Manager.CurrentState == PlayerManager.PlayerState.CameraShot && !ReachLimit_Shots&& !_cameraScreenShot.IsCaptured)
         {
             CheckResult = true;
             ScoreCalculation();

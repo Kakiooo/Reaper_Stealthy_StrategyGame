@@ -16,7 +16,7 @@ public class CameraScreenShot : MonoBehaviour
     [SerializeField] Image _cameraFrame;
     [SerializeField] Image _cameraFlash;
     [SerializeField] Image _capTuredImage;
-    [SerializeField] bool _isCaptured;
+    public bool IsCaptured;
     float _flash_A, _tFlash;
     [SerializeField] Camera_TriggerArea _cm_Detection;
    
@@ -50,11 +50,11 @@ public class CameraScreenShot : MonoBehaviour
             _warningBar.gameObject.SetActive(true);
             _warningShotTimeLimit();
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !_isCaptured && !_cm_Detection.ReachLimit_Shots)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !IsCaptured && !_cm_Detection.ReachLimit_Shots)
             {
                // print("Flash");
                 StartCoroutine("CaptureThePhoto");
-                _isCaptured = true;
+                IsCaptured = true;
             }
 
         }
@@ -131,7 +131,7 @@ public class CameraScreenShot : MonoBehaviour
     {
         if (_warningBar.gameObject.activeSelf)
         {
-            if (!_isCaptured)
+            if (!IsCaptured)
             {
                 _warningCountDown -= Time.deltaTime;
                 _warningBarSlider.value = _warningCountDown;
@@ -156,11 +156,11 @@ public class CameraScreenShot : MonoBehaviour
 
     void ImageLasting()
     {
-        Timer counting = CountDown(_isCaptured, _timer_ShotPic, _maxLastTime);
-        _isCaptured = counting.IsActive;
+        Timer counting = CountDown(IsCaptured, _timer_ShotPic, _maxLastTime);
+        IsCaptured = counting.IsActive;
         _timer_ShotPic = counting.Time;
 
-        if (!_isCaptured && _camera_Capture.sprite != null && _camera_Capture.isActiveAndEnabled)
+        if (!IsCaptured && _camera_Capture.sprite != null && _camera_Capture.isActiveAndEnabled)
         {
             _camera_Capture.enabled = false;
             _camera_Capture.sprite = null;
