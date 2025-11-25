@@ -98,8 +98,8 @@ public class CameraScreenShot : MonoBehaviour
         _camera_Capture.enabled = true;
         _camera_Capture.sprite = newImage;//assign the image
 
-        float buffer_X = newScreenShot.width / 10;//make the screenshot smaller so that it can be identified.
-        float buffer_Y = newScreenShot.height / 10;
+        float buffer_X = newScreenShot.width / 5;//make the screenshot smaller so that it can be identified.
+        float buffer_Y = newScreenShot.height / 5;
         _camera_Capture.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(newScreenShot.width - buffer_X, newScreenShot.height - buffer_Y);//make the picuture be shown with the smaller size but same ratio as the resolution of screen
 
         _capTuredImage.enabled = true;

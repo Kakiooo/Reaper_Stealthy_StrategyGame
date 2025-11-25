@@ -59,6 +59,6 @@ Material:
     - _QueueOffset: 0
     - _Smoothness: 0
     m_Colors:
-    - _Color: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 0}
+    - _Color: {r: 0.5377358, g: 0.30744925, b: 0.11921501, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

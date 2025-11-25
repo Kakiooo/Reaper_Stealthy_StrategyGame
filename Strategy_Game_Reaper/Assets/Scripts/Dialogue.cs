@@ -49,25 +49,28 @@ public class Dialogue : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)&& IsLoading==false)
         {
             _index++;
-            if (_index >= _line.Count)
+            if (_index > _line.Count-1)
             {
                 print("CAlled");
                 //load scene to ingame
                 _gameManager.SwitchingScene();
             }
-
-            if (_index % 2 == 0)
+            if (_index <= _line.Count - 1)
             {
-                _potatoDialogueGroup.SetActive(false);
-                _tomatoDialogueGroup.SetActive(true);
-                StartCoroutine("ShowText", _tomato);
+                if (_index % 2 == 0)
+                {
+                    _potatoDialogueGroup.SetActive(false);
+                    _tomatoDialogueGroup.SetActive(true);
+                    StartCoroutine("ShowText", _tomato);
+                }
+                else if (_index % 2 != 0)
+                {
+                    _potatoDialogueGroup.SetActive(true);
+                    _tomatoDialogueGroup.SetActive(false);
+                    StartCoroutine("ShowText", _potato);
+                }
             }
-            else if (_index % 2 !=0)
-            {
-                _potatoDialogueGroup.SetActive(true);
-                _tomatoDialogueGroup.SetActive(false);
-                StartCoroutine("ShowText", _potato);
-            }
+        
 
 
         }

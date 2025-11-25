@@ -166,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Mouse_PosInput(InputAction.CallbackContext callback)
     {
-        if (P_M.CurrentState == PlayerManager.PlayerState.CameraShot&&P_M.MainCM.IsBlending==false)
+        if (P_M.CurrentState == PlayerManager.PlayerState.CameraShot)
         {
   
             Vector2 mousePos = callback.ReadValue<Vector2>();
