@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public PlayerManager P_M;
     [SerializeField] Animator _p_Animator;
     public Transform EnemyPos_WhoSpotMe;
+    public AudioSource PlayerWalk;
 
 
     private void Awake()
@@ -113,12 +114,14 @@ public class PlayerMovement : MonoBehaviour
             _x_Input = callback.ReadValue<Vector2>().x;//left&Right
             _y_Input = callback.ReadValue<Vector2>().y;//Up & Down
             AnimationControl();
+            PlayerWalk.Play();
 
             // _dir = new Vector3(_x_Input, 0, _y_Input).normalized;
         }
         if (callback.canceled)
         {
             //_dir = new Vector3(_x_Input, 0, _y_Input).normalized;
+            PlayerWalk.Stop();
             _x_Input = 0;
             _y_Input = 0;
             _p_Animator.SetBool("IsWalking", false);

@@ -13,7 +13,7 @@ public class BrushTransitionManager : MonoBehaviour
 
     public void PlayOutTro()
     {
-        TransitionOutFX.Play();
+        TransitionOutFX.Play(); 
     }
 
 }
