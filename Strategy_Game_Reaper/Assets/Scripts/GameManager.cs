@@ -31,7 +31,15 @@ public class GameManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            if (SceneManager.GetActiveScene().name == "Brief_TutorialBeforeGame")
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+
+            }
+
         }
+       
     }
 
     private void Update()
@@ -96,6 +104,7 @@ public class GameManager : MonoBehaviour
     public void SwitchingScene()
     {
         StartCoroutine("TransitionGap");
+
     }
 
 

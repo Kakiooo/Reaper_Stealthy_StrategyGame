@@ -67,7 +67,7 @@ public class PlayerManager : MonoBehaviour
 
         if (_playBlury)
         {
-            _depth += Time.deltaTime*2;
+            _depth += Time.deltaTime*5;
             _distort += Time.deltaTime*5;
             _saturation += Time.deltaTime * 40;
             _lens -= Time.deltaTime * 20;
@@ -82,13 +82,14 @@ public class PlayerManager : MonoBehaviour
 
             //if (_lens >= 50) _lens = 50;
             //if (_distort >= 1) _distort = 1;
-            if (_depth >= 5)
+            if (_depth >= 15&& MainCM.IsBlending==false)
             {
+                _playBlury = false;
                 _distort = 0;
                 _saturation = 0;
                 _depth = 0;
                 _lens = 0;
-                _playBlury = false;
+
             }
         }
      

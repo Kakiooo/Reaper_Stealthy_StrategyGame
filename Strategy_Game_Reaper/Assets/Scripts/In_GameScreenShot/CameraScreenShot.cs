@@ -29,7 +29,8 @@ public class CameraScreenShot : MonoBehaviour
     [SerializeField] float _warningCountDown;
     [SerializeField] GameManager _r_G;
     [SerializeField] Ending_DisplayResult _endingResult;
-    public List<Texture2D> PictureTooken=new List<Texture2D>(); 
+    public List<Texture2D> PictureTooken=new List<Texture2D>();
+    public AudioSource CameraClick;
 
 
     private void Awake()
@@ -59,6 +60,7 @@ public class CameraScreenShot : MonoBehaviour
             {
                // print("Flash");
                 StartCoroutine("CaptureThePhoto");
+                CameraClick.Play();
                 IsCaptured = true;
             }
 

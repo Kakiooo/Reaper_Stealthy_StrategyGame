@@ -3,6 +3,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class MenuLogic : MonoBehaviour
@@ -21,6 +22,7 @@ public class MenuLogic : MonoBehaviour
     public RectTransform HidePos;
     Vector2 _formor_IntroPos;
     Vector2 _menuTab_Pos;
+    [SerializeField] AudioSource _selectAudio;
 
     private void Awake()
     {
@@ -41,6 +43,7 @@ public class MenuLogic : MonoBehaviour
             FirstCM.enabled = false;
             StartRolling = true;
             MenuGroup.DOAnchorPos(HidePos.anchoredPosition, 0.5f);
+            _selectAudio.Play();
         }
 
     }
@@ -65,6 +68,7 @@ public class MenuLogic : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+
     }
 
     public void ShowInstructionTab()
@@ -77,6 +81,11 @@ public class MenuLogic : MonoBehaviour
     public void InstructionEnd_SwitchScene()
     {
         SceneManager.LoadScene("InGame");
+    }
+
+    public void PlayAudio()
+    {
+        _selectAudio.Play();
     }
 
 
