@@ -78,6 +78,12 @@ public class MenuLogic : MonoBehaviour
         else Intro_Panel.DOAnchorPos(_formor_IntroPos, 0.5f);
     }
 
+    public void HideIntro()
+    {
+        IsOn = false;
+        Intro_Panel.DOAnchorPos(_formor_IntroPos, 0.5f);
+    }
+
     public void InstructionEnd_SwitchScene()
     {
         SceneManager.LoadScene("InGame");

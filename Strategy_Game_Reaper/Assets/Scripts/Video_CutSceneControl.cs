@@ -15,9 +15,9 @@ public class Video_CutSceneControl : MonoBehaviour
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         SpaceInstruction.gameObject.SetActive(false);
 
-        Video.Stop();
-        Video.time = 0;
-        Video.Play();
+        //Video.Stop();
+        //Video.time = 0;
+        //Video.Play();
     }
     private void Update()
     {
