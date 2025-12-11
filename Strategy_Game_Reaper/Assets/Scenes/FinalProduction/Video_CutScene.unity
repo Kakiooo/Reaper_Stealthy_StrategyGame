@@ -422,7 +422,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869822547}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 9bcf3114119632841a0c91880cfbef29, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 89507dc7d5680274dbd17a62960ca8a7, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -480,6 +480,7 @@ MonoBehaviour:
   SpaceInstruction: {fileID: 564666664}
   Video: {fileID: 869822548}
   VideoIsEnd: 0
+  CountDown: 7
 --- !u!1 &1046469075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1076,10 +1077,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

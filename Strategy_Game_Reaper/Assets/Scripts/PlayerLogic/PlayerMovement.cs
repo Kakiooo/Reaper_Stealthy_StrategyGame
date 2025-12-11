@@ -30,12 +30,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator _p_Animator;
     public Transform EnemyPos_WhoSpotMe;
     public AudioSource PlayerWalk;
+    public bool IsReload;
 
 
     private void Awake()
     {
         _cam = _cam_General.transform;
-        Cursor.lockState= CursorLockMode.Locked;    
+        Cursor.lockState = CursorLockMode.Locked;
         _originalSpeed = _speed;
         _crouchSize = new Vector3(_p_Mesh.transform.localScale.x, _p_Mesh.transform.localScale.y / 2, _p_Mesh.transform.localScale.z);
         _originalSize = _p_Mesh.transform.localScale;
@@ -64,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
             case PlayerManager.PlayerState.GeneralMoving:
                 _p_Animator.SetBool("IsCamera", false);
                 HorizontalMovement();
+                IsReload = false;
                 break;
             case PlayerManager.PlayerState.CameraShot:
                 _p_Animator.SetBool("IsCamera", true);
@@ -101,8 +103,8 @@ public class PlayerMovement : MonoBehaviour
 
     void CrouchVisual()
     {
-       Vector3 _originalPos_Sight = _pSight_Anchor.transform.position;
-        _p_Mesh.transform.localScale= _isCrouch ? _crouchSize : _originalSize; //if iscrouch is true then first result, if courch is false then second result
+        Vector3 _originalPos_Sight = _pSight_Anchor.transform.position;
+        _p_Mesh.transform.localScale = _isCrouch ? _crouchSize : _originalSize; //if iscrouch is true then first result, if courch is false then second result
         _pSight.transform.position = _isCrouch ? transform.position : _originalPos_Sight;
     }
 
@@ -171,7 +173,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (P_M.CurrentState == PlayerManager.PlayerState.CameraShot)
         {
-  
+            if (!IsReload)
+            {
+                SyncRotationFromCurrent();
+                IsReload = true;    
+            }
             Vector2 mousePos = callback.ReadValue<Vector2>();
 
             _mouseX += mousePos.x * _mouse_Camera_PhotoTaking_Sensitivity * Time.deltaTime;
@@ -184,6 +190,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
+    }
+
+    public void SyncRotationFromCurrent()
+    {
+        _mouseX = transform.rotation.eulerAngles.y;
+
+        float pitch = _cam_TakePhoto.transform.localRotation.eulerAngles.x;
+        if (pitch > 180f) pitch -= 360f;
+
+        _mouseY = pitch;
     }
 
     void AnimationControl()

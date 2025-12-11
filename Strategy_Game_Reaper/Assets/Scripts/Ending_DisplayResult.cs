@@ -111,6 +111,10 @@ public class Ending_DisplayResult : MonoBehaviour
             {
                 SceneManager.LoadScene(0);
             }
+            if (Input.GetKeyDown(KeyCode.F7))
+            {
+                SceneManager.LoadScene(4);
+            }
         }
 
     }

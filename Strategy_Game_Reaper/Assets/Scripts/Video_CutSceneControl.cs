@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
@@ -10,6 +12,7 @@ public class Video_CutSceneControl : MonoBehaviour
     GameManager _gameManager;
     public VideoPlayer Video;
     public bool VideoIsEnd;
+    public float CountDown;
     private void Awake()
     {
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -18,9 +21,11 @@ public class Video_CutSceneControl : MonoBehaviour
         //Video.Stop();
         //Video.time = 0;
         //Video.Play();
+
     }
     private void Update()
     {
+        VideoWait();
         if (SceneManager.GetActiveScene().name == "Video_Spotted")
         {
             if(Input.GetKeyDown(KeyCode.Space) && VideoIsEnd)
@@ -43,10 +48,23 @@ public class Video_CutSceneControl : MonoBehaviour
         Video.loopPointReached += showSpaceBar;
 
     }
+
+
     void showSpaceBar(VideoPlayer vp)
     {
         SpaceInstruction.SetActive(true);
         VideoIsEnd=true;
         print("isthere");
+    }
+
+    void VideoWait()
+    {
+        CountDown -= Time.deltaTime;
+        if (CountDown <= 0)
+        {
+            VideoIsEnd = true;
+            SpaceInstruction.SetActive(true);
+            CountDown = 8;
+        }
     }
 }

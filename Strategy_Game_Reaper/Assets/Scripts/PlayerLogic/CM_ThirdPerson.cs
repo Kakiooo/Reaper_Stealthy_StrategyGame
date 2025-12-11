@@ -17,6 +17,7 @@ public class CM_ThirdPerson : MonoBehaviour
     private float _mouseX;
     private Vector2 _smoothInput;
     private Vector2 _currentVelocity;
+    public float RotationDegree;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class CM_ThirdPerson : MonoBehaviour
 
             if (Cam) Cam.rotation = transform.rotation;
             if (Player) Player.rotation = Quaternion.Euler(0, _x_input, 0);
+
         }
     }
 
